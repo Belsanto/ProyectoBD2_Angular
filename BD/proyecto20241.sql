@@ -1,5 +1,5 @@
 --------------------------------------------------------
--- Archivo creado por BELSANTO - domingo-mayo-05-2024   
+-- Archivo creado por BELSANTO - lunes-mayo-06-2024   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Table CONTENIDO_DE_UNIDAD
@@ -140,8 +140,9 @@
 
   CREATE TABLE "HORARIO" 
    (	"ID_HORARIO" NUMBER, 
-	"DÍA" VARCHAR2(15 BYTE), 
-	"HORA" VARCHAR2(15 BYTE)
+	"DIA" VARCHAR2(15 BYTE), 
+	"HORA" VARCHAR2(15 BYTE), 
+	"SEMANA" NUMBER DEFAULT 1
    ) SEGMENT CREATION IMMEDIATE 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
@@ -192,6 +193,8 @@
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "TABLES_RESPUESTA" ;
+
+   COMMENT ON COLUMN "PRESENTACION_EXAMEN"."RESPUESTAS" IS 'CAMPO PARA PONER LAS PREGUNTAS QUE RESPONDIÓ BIEN';
 --------------------------------------------------------
 --  DDL for Table PROFESOR
 --------------------------------------------------------
@@ -387,6 +390,9 @@ Insert into EXAMEN_HORARIO (ID_EXAMEN,ID_HORARIO) values ('25','25');
 REM INSERTING into EXAMEN_PREGUNTA
 SET DEFINE OFF;
 Insert into EXAMEN_PREGUNTA (ID_EXAMEN,ID_PREGUNTA) values ('1','1');
+Insert into EXAMEN_PREGUNTA (ID_EXAMEN,ID_PREGUNTA) values ('1','2');
+Insert into EXAMEN_PREGUNTA (ID_EXAMEN,ID_PREGUNTA) values ('1','15');
+Insert into EXAMEN_PREGUNTA (ID_EXAMEN,ID_PREGUNTA) values ('1','20');
 Insert into EXAMEN_PREGUNTA (ID_EXAMEN,ID_PREGUNTA) values ('2','2');
 Insert into EXAMEN_PREGUNTA (ID_EXAMEN,ID_PREGUNTA) values ('3','3');
 Insert into EXAMEN_PREGUNTA (ID_EXAMEN,ID_PREGUNTA) values ('4','4');
@@ -467,34 +473,34 @@ Insert into GRUPO_HORARIO (ID_GRUPO,ID_HORARIO) values ('24','24');
 Insert into GRUPO_HORARIO (ID_GRUPO,ID_HORARIO) values ('25','25');
 REM INSERTING into HORARIO
 SET DEFINE OFF;
-Insert into HORARIO (ID_HORARIO,"DÍA",HORA) values ('1','Lunes','08:00');
-Insert into HORARIO (ID_HORARIO,"DÍA",HORA) values ('2','Martes','08:00');
-Insert into HORARIO (ID_HORARIO,"DÍA",HORA) values ('3','Miércoles','08:00');
-Insert into HORARIO (ID_HORARIO,"DÍA",HORA) values ('4','Jueves','08:00');
-Insert into HORARIO (ID_HORARIO,"DÍA",HORA) values ('5','Viernes','08:00');
-Insert into HORARIO (ID_HORARIO,"DÍA",HORA) values ('6','Lunes','10:00');
-Insert into HORARIO (ID_HORARIO,"DÍA",HORA) values ('7','Martes','10:00');
-Insert into HORARIO (ID_HORARIO,"DÍA",HORA) values ('8','Miércoles','10:00');
-Insert into HORARIO (ID_HORARIO,"DÍA",HORA) values ('9','Jueves','10:00');
-Insert into HORARIO (ID_HORARIO,"DÍA",HORA) values ('10','Viernes','10:00');
-Insert into HORARIO (ID_HORARIO,"DÍA",HORA) values ('11','Lunes','12:00');
-Insert into HORARIO (ID_HORARIO,"DÍA",HORA) values ('12','Martes','12:00');
-Insert into HORARIO (ID_HORARIO,"DÍA",HORA) values ('13','Miércoles','12:00');
-Insert into HORARIO (ID_HORARIO,"DÍA",HORA) values ('14','Jueves','12:00');
-Insert into HORARIO (ID_HORARIO,"DÍA",HORA) values ('15','Viernes','12:00');
-Insert into HORARIO (ID_HORARIO,"DÍA",HORA) values ('16','Lunes','14:00');
-Insert into HORARIO (ID_HORARIO,"DÍA",HORA) values ('17','Martes','14:00');
-Insert into HORARIO (ID_HORARIO,"DÍA",HORA) values ('18','Miércoles','14:00');
-Insert into HORARIO (ID_HORARIO,"DÍA",HORA) values ('19','Jueves','14:00');
-Insert into HORARIO (ID_HORARIO,"DÍA",HORA) values ('20','Viernes','14:00');
-Insert into HORARIO (ID_HORARIO,"DÍA",HORA) values ('21','Lunes','16:00');
-Insert into HORARIO (ID_HORARIO,"DÍA",HORA) values ('22','Martes','16:00');
-Insert into HORARIO (ID_HORARIO,"DÍA",HORA) values ('23','Miércoles','16:00');
-Insert into HORARIO (ID_HORARIO,"DÍA",HORA) values ('24','Jueves','16:00');
-Insert into HORARIO (ID_HORARIO,"DÍA",HORA) values ('25','Viernes','16:00');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('1','Lunes','08:00','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('2','Martes','08:00','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('3','Miércoles','08:00','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('4','Jueves','08:00','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('5','Viernes','08:00','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('6','Lunes','10:00','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('7','Martes','10:00','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('8','Miércoles','10:00','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('9','Jueves','10:00','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('10','Viernes','10:00','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('11','Lunes','12:00','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('12','Martes','12:00','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('13','Miércoles','12:00','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('14','Jueves','12:00','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('15','Viernes','12:00','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('16','Lunes','14:00','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('17','Martes','14:00','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('18','Miércoles','14:00','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('19','Jueves','14:00','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('20','Viernes','14:00','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('21','Lunes','16:00','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('22','Martes','16:00','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('23','Miércoles','16:00','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('24','Jueves','16:00','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('25','Viernes','16:00','1');
 REM INSERTING into PREGUNTA
 SET DEFINE OFF;
-Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('1','¿Cuál es el resultado de 2 + 2?','3,4,5','4','1','Historia','0');
+Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('1','¿Cuál es el resultado de 2 + 2?','3,4,5','4','1','Historia','1');
 Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('2','¿Cuál es el límite de x cuando x tiende a infinito en la función f(x) = 1/x?','0,1,2','0','1','No definido','0');
 Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('3','¿Quién fue el primer emperador de Roma?','Julio César,Augusto,Nerón','Augusto','1','No definido','0');
 Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('4','¿Qué año comenzó la Revolución Francesa?','1789,1799,1776','1789','1','No definido','0');
@@ -509,16 +515,16 @@ Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TE
 Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('13','¿Qué es la inteligencia artificial?','Uso de máquinas inteligentes,Redes neuronales,Ambas','Ambas','3','No definido','0');
 Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('14','¿Cuál es el lenguaje de consulta más utilizado en bases de datos?','SQL,Python,Java','SQL','1','No definido','0');
 Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('15','¿Cuál es el sistema operativo más utilizado en computadoras personales?','MacOS,Linux,Windows','Windows','1','No definido','0');
-Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('16','¿Qué es una dirección IP?','Identificador único en la red,Una computadora personal,Protocolo de red','Identificador único en la red','1','No definido','0');
-Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('17','¿Cuál es la base de la lógica matemática?','Los conjuntos,La probabilidad,Los números','Los conjuntos','1','No definido','0');
-Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('18','¿Qué es la relatividad especial?','Estudio de la velocidad de la luz,Estudio de las estrellas,Estudio de la gravedad','Estudio de la velocidad de la luz','1','No definido','0');
-Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('19','¿Qué es la ética?','Estudio de la moral,Estudio de la mente,Estudio de la justicia','Estudio de la moral','1','No definido','0');
-Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('20','¿Qué es el PIB?','Producto Interno Bruto,Producto Interno Bonificado,Producto Intermedio Bruto','Producto Interno Bruto','1','No definido','0');
-Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('21','¿Cuál es la especialidad de la psicología?','Estudio del comportamiento humano,Estudio de las leyes,Estudio de las matemáticas','Estudio del comportamiento humano','1','No definido','0');
-Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('22','¿Qué es la biología?','Estudio de los seres vivos,Estudio de las plantas,Estudio del cuerpo humano','Estudio de los seres vivos','1','No definido','0');
-Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('23','¿Qué es la química orgánica?','Estudio de los compuestos del carbono,Estudio de los átomos,Estudio de las moléculas','Estudio de los compuestos del carbono','1','No definido','0');
-Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('24','¿Qué es el derecho?','Estudio de las leyes,Estudio de la moral,Estudio de las emociones','Estudio de las leyes','1','No definido','0');
-Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('25','¿Qué es la ciencia política?','Estudio del gobierno,Estudio de la psicología,Estudio de la economía','Estudio del gobierno','1','No definido','0');
+Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('16','¿Qué es una dirección IP?','Identificador único en la red,Una computadora personal,Protocolo de red','Identificador único en la red','1','No definido','1');
+Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('17','¿Cuál es la base de la lógica matemática?','Los conjuntos,La probabilidad,Los números','Los conjuntos','1','No definido','1');
+Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('18','¿Qué es la relatividad especial?','Estudio de la velocidad de la luz,Estudio de las estrellas,Estudio de la gravedad','Estudio de la velocidad de la luz','1','No definido','1');
+Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('19','¿Qué es la ética?','Estudio de la moral,Estudio de la mente,Estudio de la justicia','Estudio de la moral','1','No definido','1');
+Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('20','¿Qué es el PIB?','Producto Interno Bruto,Producto Interno Bonificado,Producto Intermedio Bruto','Producto Interno Bruto','1','No definido','1');
+Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('21','¿Cuál es la especialidad de la psicología?','Estudio del comportamiento humano,Estudio de las leyes,Estudio de las matemáticas','Estudio del comportamiento humano','1','No definido','1');
+Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('22','¿Qué es la biología?','Estudio de los seres vivos,Estudio de las plantas,Estudio del cuerpo humano','Estudio de los seres vivos','1','No definido','1');
+Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('23','¿Qué es la química orgánica?','Estudio de los compuestos del carbono,Estudio de los átomos,Estudio de las moléculas','Estudio de los compuestos del carbono','1','No definido','1');
+Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('24','¿Qué es el derecho?','Estudio de las leyes,Estudio de la moral,Estudio de las emociones','Estudio de las leyes','1','No definido','1');
+Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('25','¿Qué es la ciencia política?','Estudio del gobierno,Estudio de la psicología,Estudio de la economía','Estudio del gobierno','1','No definido','1');
 REM INSERTING into PRESENTACION_EXAMEN
 SET DEFINE OFF;
 Insert into PRESENTACION_EXAMEN (ID_PRESENTACION_EXAMEN,ID_ESTUDIANTE,ID_EXAMEN,FECHA_PRESENTACION,PUNTAJE,TIEMPO_TOMADO,DIRECCION_IP,RESPUESTAS) values ('1','1','1',to_date('18/04/24','DD/MM/RR'),'80','+00 00:30:00.000000','192.168.1.1','1,2,3,4,5');
@@ -601,6 +607,149 @@ Insert into UNIDAD_DE_CURSO (ID_UNIDAD,NOMBRE,ID_CURSO) values ('23','Electróni
 Insert into UNIDAD_DE_CURSO (ID_UNIDAD,NOMBRE,ID_CURSO) values ('24','Fisiología','23');
 Insert into UNIDAD_DE_CURSO (ID_UNIDAD,NOMBRE,ID_CURSO) values ('25','Odontopediatría','24');
 --------------------------------------------------------
+--  DDL for Index EXAMEN_PREGUNTA_PK
+--------------------------------------------------------
+
+  CREATE INDEX "EXAMEN_PREGUNTA_PK" ON "EXAMEN_PREGUNTA" ("ID_EXAMEN", "ID_PREGUNTA") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index SYS_C008458
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C008458" ON "PROFESOR" ("ID_PROFESOR") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE( INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+  ALTER INDEX "SYS_C008458"  UNUSABLE;
+--------------------------------------------------------
+--  DDL for Index SYS_C008460
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C008460" ON "ESTUDIANTE" ("ID_ESTUDIANTE") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE( INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+  ALTER INDEX "SYS_C008460"  UNUSABLE;
+--------------------------------------------------------
+--  DDL for Index SYS_C008462
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C008462" ON "CURSO" ("ID_CURSO") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index SYS_C008464
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C008464" ON "UNIDAD_DE_CURSO" ("ID_UNIDAD") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index SYS_C008466
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C008466" ON "CONTENIDO_DE_UNIDAD" ("ID_CONTENIDO") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index SYS_C008474
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C008474" ON "PREGUNTA" ("ID_PREGUNTA") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index SYS_C008479
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C008479" ON "EXAMEN" ("ID_EXAMEN") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index SYS_C008484
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C008484" ON "HORARIO" ("ID_HORARIO") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index SYS_C008486
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C008486" ON "GRUPO" ("ID_GRUPO") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index SYS_C008490
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C008490" ON "GRUPO_HORARIO" ("ID_GRUPO", "ID_HORARIO") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index SYS_C008493
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C008493" ON "ESTUDIANTE_GRUPO" ("ID_ESTUDIANTE", "ID_GRUPO") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index SYS_C008496
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C008496" ON "EXAMEN_HORARIO" ("ID_EXAMEN", "ID_HORARIO") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index SYS_C008504
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C008504" ON "PRESENTACION_EXAMEN" ("ID_PRESENTACION_EXAMEN") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE( INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+  ALTER INDEX "SYS_C008504"  UNUSABLE;
+--------------------------------------------------------
 --  DDL for Index SYS_C008466
 --------------------------------------------------------
 
@@ -646,12 +795,11 @@ Insert into UNIDAD_DE_CURSO (ID_UNIDAD,NOMBRE,ID_CURSO) values ('25','Odontopedi
 --------------------------------------------------------
 
   CREATE UNIQUE INDEX "SYS_C008479" ON "EXAMEN" ("ID_EXAMEN") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 
-  STORAGE( INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
-  ALTER INDEX "SYS_C008479"  UNUSABLE;
 --------------------------------------------------------
 --  DDL for Index SYS_C008496
 --------------------------------------------------------
@@ -663,10 +811,10 @@ Insert into UNIDAD_DE_CURSO (ID_UNIDAD,NOMBRE,ID_CURSO) values ('25','Odontopedi
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
 --------------------------------------------------------
---  DDL for Index SYS_C008487
+--  DDL for Index EXAMEN_PREGUNTA_PK
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "SYS_C008487" ON "EXAMEN_PREGUNTA" ("ID_EXAMEN", "ID_PREGUNTA") 
+  CREATE INDEX "EXAMEN_PREGUNTA_PK" ON "EXAMEN_PREGUNTA" ("ID_EXAMEN", "ID_PREGUNTA") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
@@ -707,12 +855,11 @@ Insert into UNIDAD_DE_CURSO (ID_UNIDAD,NOMBRE,ID_CURSO) values ('25','Odontopedi
 --------------------------------------------------------
 
   CREATE UNIQUE INDEX "SYS_C008474" ON "PREGUNTA" ("ID_PREGUNTA") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 
-  STORAGE( INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
-  ALTER INDEX "SYS_C008474"  UNUSABLE;
 --------------------------------------------------------
 --  DDL for Index SYS_C008504
 --------------------------------------------------------
@@ -745,6 +892,301 @@ Insert into UNIDAD_DE_CURSO (ID_UNIDAD,NOMBRE,ID_CURSO) values ('25','Odontopedi
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Function ACTUALIZAR_EXAMEN
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE FUNCTION "ACTUALIZAR_EXAMEN" (
+    p_id_examen IN NUMBER,
+    p_nombre IN VARCHAR2,
+    p_descripcion IN VARCHAR2,
+    p_cantidad_preguntas IN NUMBER,
+    p_tiempo_limite IN NUMBER,
+    p_id_curso IN NUMBER,
+    p_id_profesor IN NUMBER
+) RETURN NUMBER
+IS
+BEGIN
+    UPDATE "EXAMEN"
+    SET
+        "NOMBRE" = p_nombre,
+        "DESCRIPCIÓN" = p_descripcion,
+        "CANTIDAD_DE_PREGUNTAS" = p_cantidad_preguntas,
+        "TIEMPO_LÍMITE" = p_tiempo_limite,
+        "ID_CURSO" = p_id_curso,
+        "ID_PROFESOR" = p_id_profesor
+    WHERE
+        "ID_EXAMEN" = p_id_examen;
+
+    RETURN SQL%ROWCOUNT; -- Devuelve el número de filas afectadas por la actualización
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Function ACTUALIZAR_PREGUNTA
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE FUNCTION "ACTUALIZAR_PREGUNTA" (
+    p_id_pregunta IN NUMBER,
+    p_texto IN VARCHAR2,
+    p_opciones IN VARCHAR2,
+    p_respuestas_correctas IN VARCHAR2,
+    p_id_tipo IN NUMBER,
+    p_tema IN VARCHAR2 DEFAULT 'No definido',
+    p_privacidad IN NUMBER DEFAULT 0
+) RETURN NUMBER
+IS
+BEGIN
+    UPDATE "PREGUNTA"
+    SET
+        "TEXTO" = p_texto,
+        "OPCIONES" = p_opciones,
+        "RESPUESTAS_CORRECTAS" = p_respuestas_correctas,
+        "ID_TIPO" = p_id_tipo,
+        "TEMA" = p_tema,
+        "PRIVACIDAD" = p_privacidad
+    WHERE
+        "ID_PREGUNTA" = p_id_pregunta;
+
+    RETURN SQL%ROWCOUNT; -- Devuelve el número de filas afectadas por la actualización
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Function ACTUALIZAR_PRIVACIDAD_PREGUNTA
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE FUNCTION "ACTUALIZAR_PRIVACIDAD_PREGUNTA" (
+    p_id_pregunta IN NUMBER,
+    p_id_profesor IN NUMBER,
+    p_privacidad IN NUMBER
+) RETURN NUMBER
+IS
+    v_privacidad_actual NUMBER;
+    v_id_profesor_examen NUMBER;
+BEGIN
+    -- Obtener la privacidad actual de la pregunta
+    SELECT PRIVACIDAD
+    INTO v_privacidad_actual
+    FROM "PREGUNTA"
+    WHERE "ID_PREGUNTA" = p_id_pregunta;
+
+    IF v_privacidad_actual = p_privacidad THEN
+        -- La privacidad actual es igual a la nueva privacidad, no es necesario actualizar
+        RETURN 1;
+    ELSIF v_privacidad_actual = 0 AND p_privacidad = 1 THEN
+        -- Intento de cambiar de pública a privada, verificar si la pregunta está siendo usada por otro profesor en un examen
+        SELECT COUNT(*)
+        INTO v_id_profesor_examen
+        FROM "EXAMEN" EX
+        INNER JOIN "EXAMEN_PREGUNTA" EP ON EX."ID_EXAMEN" = EP."ID_EXAMEN"
+        WHERE EP."ID_PREGUNTA" = p_id_pregunta AND EX."ID_PROFESOR" <> p_id_profesor;
+
+        IF v_id_profesor_examen > 0 THEN
+            -- La pregunta está siendo usada por otro profesor en un examen, no se puede cambiar la privacidad
+            RETURN 0;
+        END IF;
+    END IF;
+
+    -- Actualizar la privacidad de la pregunta
+    UPDATE "PREGUNTA"
+    SET "PRIVACIDAD" = p_privacidad
+    WHERE "ID_PREGUNTA" = p_id_pregunta;
+
+    RETURN 1; -- Indicar que la privacidad fue actualizada correctamente
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Function AGREGAR_EXAMEN
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE FUNCTION "AGREGAR_EXAMEN" (
+    p_nombre IN VARCHAR2,
+    p_descripcion IN VARCHAR2,
+    p_cantidad_preguntas IN NUMBER,
+    p_tiempo_limite IN NUMBER,
+    p_id_curso IN NUMBER,
+    p_id_profesor IN NUMBER
+) RETURN NUMBER
+IS
+    v_id_examen NUMBER;
+BEGIN
+    INSERT INTO "EXAMEN" (
+        "NOMBRE",
+        "DESCRIPCIÓN",
+        "CANTIDAD_DE_PREGUNTAS",
+        "TIEMPO_LÍMITE",
+        "ID_CURSO",
+        "ID_PROFESOR"
+    ) VALUES (
+        p_nombre,
+        p_descripcion,
+        p_cantidad_preguntas,
+        p_tiempo_limite,
+        p_id_curso,
+        p_id_profesor
+    )
+    RETURNING "ID_EXAMEN" INTO v_id_examen;
+
+    RETURN v_id_examen; -- Devolver el ID del examen creado
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Function AGREGAR_HORARIO
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE FUNCTION "AGREGAR_HORARIO" (
+    p_dia IN VARCHAR2,
+    p_hora IN VARCHAR2
+) RETURN NUMBER
+IS
+    v_id_horario NUMBER;
+BEGIN
+    INSERT INTO "HORARIO" (
+        "DÍA",
+        "HORA"
+    ) VALUES (
+        p_dia,
+        p_hora
+    )
+    RETURNING "ID_HORARIO" INTO v_id_horario;
+
+    RETURN v_id_horario; -- Devolver el ID del horario creado
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Function ELIMINAR_EXAMEN
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE FUNCTION "ELIMINAR_EXAMEN" (
+    p_id_examen IN NUMBER
+) RETURN NUMBER
+IS
+    v_num_horarios NUMBER;
+BEGIN
+    -- Verificar si el examen está asignado a algún horario
+    SELECT COUNT(*)
+    INTO v_num_horarios
+    FROM "EXAMEN_HORARIO"
+    WHERE "ID_EXAMEN" = p_id_examen;
+
+    IF v_num_horarios > 0 THEN
+        -- El examen está asignado a al menos un horario, no se puede eliminar
+        RETURN 0;
+    ELSE
+        -- El examen no está asignado a ningún horario, se puede eliminar
+        DELETE FROM "EXAMEN"
+        WHERE "ID_EXAMEN" = p_id_examen;
+
+        RETURN 1; -- Indicar que el examen fue eliminado
+    END IF;
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Function ELIMINAR_HORARIO
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE FUNCTION "ELIMINAR_HORARIO" (
+    p_id_horario IN NUMBER
+) RETURN NUMBER
+IS
+    v_num_examenes NUMBER;
+    v_num_grupos NUMBER;
+BEGIN
+    -- Verificar si el horario está asignado a algún examen
+    SELECT COUNT(*)
+    INTO v_num_examenes
+    FROM "EXAMEN_HORARIO"
+    WHERE "ID_HORARIO" = p_id_horario;
+
+    -- Verificar si el horario está asignado a algún grupo
+    SELECT COUNT(*)
+    INTO v_num_grupos
+    FROM "GRUPO_HORARIO"
+    WHERE "ID_HORARIO" = p_id_horario;
+
+    IF v_num_examenes > 0 OR v_num_grupos > 0 THEN
+        -- El horario está asignado a algún examen o grupo, no se puede eliminar
+        RETURN 0;
+    ELSE
+        -- El horario no está asignado a ningún examen ni grupo, se puede eliminar
+        DELETE FROM "HORARIO"
+        WHERE "ID_HORARIO" = p_id_horario;
+
+        RETURN 1; -- Indicar que el horario fue eliminado
+    END IF;
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Function ELIMINAR_PREGUNTA
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE FUNCTION "ELIMINAR_PREGUNTA" (
+    p_id_pregunta IN NUMBER
+) RETURN NUMBER
+IS
+    v_num_examenes NUMBER;
+BEGIN
+    -- Verificar si la pregunta está siendo usada en algún examen
+    SELECT COUNT(*)
+    INTO v_num_examenes
+    FROM "EXAMEN_PREGUNTA"
+    WHERE "ID_PREGUNTA" = p_id_pregunta;
+
+    IF v_num_examenes = 0 THEN
+        -- No está siendo usada en ningún examen, se puede eliminar
+        DELETE FROM "PREGUNTA"
+        WHERE "ID_PREGUNTA" = p_id_pregunta;
+
+        RETURN 1; -- Indicar que la pregunta fue eliminada
+    ELSE
+        -- La pregunta está siendo usada en al menos un examen, no se puede eliminar
+        RETURN 0; -- Indicar que la pregunta no fue eliminada
+    END IF;
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Function INSERTAR_PREGUNTA
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE FUNCTION "INSERTAR_PREGUNTA" (
+    p_texto IN VARCHAR2,
+    p_opciones IN VARCHAR2,
+    p_respuestas_correctas IN VARCHAR2,
+    p_id_tipo IN NUMBER,
+    p_tema IN VARCHAR2 DEFAULT 'No definido',
+    p_privacidad IN NUMBER DEFAULT 0
+) RETURN NUMBER
+IS
+    v_id_pregunta NUMBER;
+BEGIN
+    INSERT INTO "PREGUNTA" (
+        "TEXTO",
+        "OPCIONES",
+        "RESPUESTAS_CORRECTAS",
+        "ID_TIPO",
+        "TEMA",
+        "PRIVACIDAD"
+    ) VALUES (
+        p_texto,
+        p_opciones,
+        p_respuestas_correctas,
+        p_id_tipo,
+        p_tema,
+        p_privacidad
+    )
+    RETURNING "ID_PREGUNTA" INTO v_id_pregunta;
+
+    RETURN v_id_pregunta;
+END;
+
+/
 --------------------------------------------------------
 --  Constraints for Table CONTENIDO_DE_UNIDAD
 --------------------------------------------------------
@@ -795,9 +1237,9 @@ Insert into UNIDAD_DE_CURSO (ID_UNIDAD,NOMBRE,ID_CURSO) values ('25','Odontopedi
   ALTER TABLE "EXAMEN" MODIFY ("NOMBRE" NOT NULL ENABLE);
   ALTER TABLE "EXAMEN" MODIFY ("CANTIDAD_DE_PREGUNTAS" NOT NULL ENABLE);
   ALTER TABLE "EXAMEN" ADD PRIMARY KEY ("ID_EXAMEN")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
-  STORAGE( INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS"  ENABLE;
 --------------------------------------------------------
@@ -814,12 +1256,10 @@ Insert into UNIDAD_DE_CURSO (ID_UNIDAD,NOMBRE,ID_CURSO) values ('25','Odontopedi
 --  Constraints for Table EXAMEN_PREGUNTA
 --------------------------------------------------------
 
-  ALTER TABLE "EXAMEN_PREGUNTA" ADD PRIMARY KEY ("ID_EXAMEN", "ID_PREGUNTA")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS"  ENABLE;
+  ALTER TABLE "EXAMEN_PREGUNTA" MODIFY ("ID_EXAMEN" NOT NULL ENABLE);
+  ALTER TABLE "EXAMEN_PREGUNTA" MODIFY ("ID_PREGUNTA" NOT NULL ENABLE);
+  ALTER TABLE "EXAMEN_PREGUNTA" ADD CONSTRAINT "EXAMEN_PREGUNTA_PK" PRIMARY KEY ("ID_EXAMEN", "ID_PREGUNTA")
+  USING INDEX "EXAMEN_PREGUNTA_PK"  ENABLE;
 --------------------------------------------------------
 --  Constraints for Table GRUPO
 --------------------------------------------------------
@@ -845,7 +1285,7 @@ Insert into UNIDAD_DE_CURSO (ID_UNIDAD,NOMBRE,ID_CURSO) values ('25','Odontopedi
 --  Constraints for Table HORARIO
 --------------------------------------------------------
 
-  ALTER TABLE "HORARIO" MODIFY ("DÍA" NOT NULL ENABLE);
+  ALTER TABLE "HORARIO" MODIFY ("DIA" NOT NULL ENABLE);
   ALTER TABLE "HORARIO" MODIFY ("HORA" NOT NULL ENABLE);
   ALTER TABLE "HORARIO" ADD PRIMARY KEY ("ID_HORARIO")
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
@@ -853,6 +1293,7 @@ Insert into UNIDAD_DE_CURSO (ID_UNIDAD,NOMBRE,ID_CURSO) values ('25','Odontopedi
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS"  ENABLE;
+  ALTER TABLE "HORARIO" MODIFY ("SEMANA" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table PREGUNTA
 --------------------------------------------------------
@@ -861,13 +1302,14 @@ Insert into UNIDAD_DE_CURSO (ID_UNIDAD,NOMBRE,ID_CURSO) values ('25','Odontopedi
   ALTER TABLE "PREGUNTA" MODIFY ("OPCIONES" NOT NULL ENABLE);
   ALTER TABLE "PREGUNTA" MODIFY ("TEXTO" NOT NULL ENABLE);
   ALTER TABLE "PREGUNTA" ADD PRIMARY KEY ("ID_PREGUNTA")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
-  STORAGE( INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS"  ENABLE;
   ALTER TABLE "PREGUNTA" MODIFY ("RESPUESTAS_CORRECTAS" NOT NULL ENABLE);
   ALTER TABLE "PREGUNTA" MODIFY ("ID_TIPO" NOT NULL ENABLE);
+  ALTER TABLE "PREGUNTA" MODIFY ("TEMA" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table PRESENTACION_EXAMEN
 --------------------------------------------------------
@@ -940,9 +1382,9 @@ Insert into UNIDAD_DE_CURSO (ID_UNIDAD,NOMBRE,ID_CURSO) values ('25','Odontopedi
 --  Ref Constraints for Table EXAMEN_PREGUNTA
 --------------------------------------------------------
 
-  ALTER TABLE "EXAMEN_PREGUNTA" ADD FOREIGN KEY ("ID_EXAMEN")
-	  REFERENCES "EXAMEN" ("ID_EXAMEN") ENABLE;
-  ALTER TABLE "EXAMEN_PREGUNTA" ADD FOREIGN KEY ("ID_PREGUNTA")
+  ALTER TABLE "EXAMEN_PREGUNTA" ADD CONSTRAINT "EXAMEN_FK" FOREIGN KEY ("ID_EXAMEN")
+	  REFERENCES "EXAMEN" ("ID_EXAMEN") ON DELETE CASCADE ENABLE;
+  ALTER TABLE "EXAMEN_PREGUNTA" ADD CONSTRAINT "PREGUNTA_FK" FOREIGN KEY ("ID_PREGUNTA")
 	  REFERENCES "PREGUNTA" ("ID_PREGUNTA") ENABLE;
 --------------------------------------------------------
 --  Ref Constraints for Table GRUPO_HORARIO
