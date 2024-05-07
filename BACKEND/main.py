@@ -52,7 +52,7 @@ def verificar_token(token: str = Depends(security)):
         raise HTTPException(status_code=401, detail="Token inválido")
 
 # Login endpoint
-@app.post("/login")
+@app.post("/login", tags=['Sesion'])
 def login(id: int = Body(...), password: str = Body(...), is_professor: int = Body(...)):
     if is_professor not in [0, 1]:
         raise HTTPException(status_code=400, detail="is_professor must be 0 for student or 1 for professor")
@@ -73,7 +73,7 @@ def login(id: int = Body(...), password: str = Body(...), is_professor: int = Bo
         cursor.close()
 
 # Logout endpoint
-@app.post("/logout")
+@app.post("/logout", tags=['Sesion'])
 def logout(token: str = Depends(security)):
     tokens_invalidos.append(token.credentials)
     return {"message": "Logged out successfully"}
@@ -191,7 +191,7 @@ def get_banco_preguntas(id_profe: int, tema: str = None, user_id: int = Depends(
 
 
 #Preguntas privadas de un profesor por tema
-@app.get("/banco_preguntas/{id_profe}", tags=['Banco Preguntas'])
+@app.get("/preguntas_privadas/{id_profe}", tags=['Banco Preguntas'])
 def get_banco_preguntas(id_profe: int, tema: str = None, user_id: int = Depends(verificar_token)):
     if tema is None:
         tema = "No definido"  # Valor predeterminado si no se proporciona un tema en la URL
@@ -214,7 +214,7 @@ def get_banco_preguntas(id_profe: int, tema: str = None, user_id: int = Depends(
         return result
 
 #Todas las preguntas privadas de un profesor
-@app.get("/banco_preguntas/{id_profe}", tags=['Banco Preguntas'])
+@app.get("/mis_preguntas/{id_profe}", tags=['Banco Preguntas'])
 def get_banco_preguntas(id_profe: int, tema: str = None, user_id: int = Depends(verificar_token)):
     if tema is None:
         tema = "No definido"  # Valor predeterminado si no se proporciona un tema en la URL

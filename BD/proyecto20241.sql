@@ -194,7 +194,9 @@
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "TABLES_RESPUESTA" ;
 
-   COMMENT ON COLUMN "PRESENTACION_EXAMEN"."RESPUESTAS" IS 'CAMPO PARA PONER LAS PREGUNTAS QUE RESPONDIÓ BIEN';
+   COMMENT ON COLUMN "PRESENTACION_EXAMEN"."FECHA_PRESENTACION" IS 'Formato YYYY-MM-DD HH24:MI:SS';
+   COMMENT ON COLUMN "PRESENTACION_EXAMEN"."RESPUESTAS" IS 'CAMPO PARA PONER LOS ID DE LAS PREGUNTAS QUE RESPONDIÓ BIEN SEPARADOS POR '',''
+';
 --------------------------------------------------------
 --  DDL for Table PROFESOR
 --------------------------------------------------------
@@ -1137,6 +1139,74 @@ END;
 
 /
 --------------------------------------------------------
+--  DDL for Function ALMACENAR_PRESENTACION_EXAMEN
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE FUNCTION "ALMACENAR_PRESENTACION_EXAMEN" (
+    p_id_estudiante IN NUMBER,
+    p_id_examen IN NUMBER,
+    p_fecha_presentacion IN VARCHAR2,
+    p_tiempo_tomado IN VARCHAR2,
+    p_direccion_ip IN VARCHAR2 DEFAULT NULL,
+    p_respuestas IN VARCHAR2
+) RETURN NUMBER
+IS
+    v_id_presentacion_examen NUMBER;
+    v_total_preguntas NUMBER;
+    v_preguntas_correctas NUMBER;
+    v_puntaje NUMBER;
+    v_fecha_presentacion DATE;
+    v_tiempo_tomado INTERVAL DAY TO SECOND;
+BEGIN
+    -- Convertir la fecha de presentación a tipo DATE
+    v_fecha_presentacion := TO_DATE(p_fecha_presentacion, 'YYYY-MM-DD HH24:MI:SS');
+
+    -- Convertir el tiempo tomado a INTERVAL DAY TO SECOND
+    v_tiempo_tomado := TO_DSINTERVAL(p_tiempo_tomado);
+
+    -- Contar cuántas preguntas respondió correctamente el estudiante
+    SELECT COUNT(*)
+    INTO v_preguntas_correctas
+    FROM PREGUNTA
+    WHERE ID_PREGUNTA IN (
+        SELECT TO_NUMBER(column_value)
+        FROM XMLTABLE(p_respuestas)
+    );
+
+    -- Obtener la cantidad total de preguntas del examen
+    SELECT CANTIDAD_DE_PREGUNTAS
+    INTO v_total_preguntas
+    FROM EXAMEN
+    WHERE ID_EXAMEN = p_id_examen;
+
+    -- Calcular el puntaje promedio
+    v_puntaje := v_preguntas_correctas / v_total_preguntas * 50;
+
+    -- Insertar la presentación del examen en la tabla
+    INSERT INTO PRESENTACION_EXAMEN (
+        ID_ESTUDIANTE,
+        ID_EXAMEN,
+        FECHA_PRESENTACION,
+        PUNTAJE,
+        TIEMPO_TOMADO,
+        DIRECCION_IP,
+        RESPUESTAS
+    ) VALUES (
+        p_id_estudiante,
+        p_id_examen,
+        v_fecha_presentacion,
+        v_puntaje,
+        v_tiempo_tomado,
+        p_direccion_ip,
+        p_respuestas
+    )
+    RETURNING ID_PRESENTACION_EXAMEN INTO v_id_presentacion_examen;
+
+    RETURN v_id_presentacion_examen;
+END;
+
+/
+--------------------------------------------------------
 --  DDL for Function AÑADIR_ESTUDIANTES_GRUPO
 --------------------------------------------------------
 
@@ -1648,6 +1718,7 @@ END;
   PCTINCREASE 0
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS"  ENABLE;
+  ALTER TABLE "PRESENTACION_EXAMEN" MODIFY ("RESPUESTAS" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table PROFESOR
 --------------------------------------------------------
