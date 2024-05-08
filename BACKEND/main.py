@@ -1,11 +1,10 @@
-@ -0,0 +1,587 @@
 from fastapi import FastAPI, HTTPException, Depends, Body
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jwt import encode as jwt_encode, decode, InvalidTokenError, ExpiredSignatureError
 from datetime import datetime, timedelta
 from typing import List
 import secrets
-import cx_Oracle 
+import cx_Oracle
 
 # Initialize FastAPI app
 app = FastAPI()
