@@ -1,10 +1,11 @@
+@ -0,0 +1,587 @@
 from fastapi import FastAPI, HTTPException, Depends, Body
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jwt import encode as jwt_encode, decode, InvalidTokenError, ExpiredSignatureError
 from datetime import datetime, timedelta
 from typing import List
 import secrets
-import cx_Oracle
+import cx_Oracle 
 
 # Initialize FastAPI app
 app = FastAPI()
@@ -66,8 +67,10 @@ def login(id: int = Body(...), password: str = Body(...), is_professor: int = Bo
 
         if result == 1:
             token = create_jwt_token(user_id=id, is_professor=bool(is_professor))
+            userType = is_professor
             return {"token": token}
         else:
+            userType = -1
             raise HTTPException(status_code=401, detail="Invalid credentials")
     finally:
         cursor.close()
@@ -75,6 +78,7 @@ def login(id: int = Body(...), password: str = Body(...), is_professor: int = Bo
 # Logout endpoint
 @app.post("/logout", tags=['Sesion'])
 def logout(token: str = Depends(security)):
+    userType = -1
     tokens_invalidos.append(token.credentials)
     return {"message": "Logged out successfully"}
 
@@ -215,9 +219,7 @@ def get_banco_preguntas(id_profe: int, tema: str = None, user_id: int = Depends(
 
 #Todas las preguntas privadas de un profesor
 @app.get("/mis_preguntas/{id_profe}", tags=['Banco Preguntas'])
-def get_banco_preguntas(id_profe: int, tema: str = None, user_id: int = Depends(verificar_token)):
-    if tema is None:
-        tema = "No definido"  # Valor predeterminado si no se proporciona un tema en la URL
+def get_banco_preguntas(id_profe: int, user_id: int = Depends(verificar_token)):
 
     with get_cursor() as cursor:
         cursor.execute("""
@@ -232,7 +234,7 @@ def get_banco_preguntas(id_profe: int, tema: str = None, user_id: int = Depends(
             INNER JOIN EXAMEN E ON EP.ID_EXAMEN = E.ID_EXAMEN
             WHERE E.ID_PROFESOR = :id_profe
             ORDER BY P.TEXTO
-        """, tema=tema, id_profe=id_profe)
+        """, id_profe=id_profe)
         result = cursor.fetchall()
         return result
 
