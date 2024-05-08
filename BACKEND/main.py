@@ -215,9 +215,7 @@ def get_banco_preguntas(id_profe: int, tema: str = None, user_id: int = Depends(
 
 #Todas las preguntas privadas de un profesor
 @app.get("/mis_preguntas/{id_profe}", tags=['Banco Preguntas'])
-def get_banco_preguntas(id_profe: int, tema: str = None, user_id: int = Depends(verificar_token)):
-    if tema is None:
-        tema = "No definido"  # Valor predeterminado si no se proporciona un tema en la URL
+def get_banco_preguntas(id_profe: int, user_id: int = Depends(verificar_token)):
 
     with get_cursor() as cursor:
         cursor.execute("""
@@ -232,7 +230,7 @@ def get_banco_preguntas(id_profe: int, tema: str = None, user_id: int = Depends(
             INNER JOIN EXAMEN E ON EP.ID_EXAMEN = E.ID_EXAMEN
             WHERE E.ID_PROFESOR = :id_profe
             ORDER BY P.TEXTO
-        """, tema=tema, id_profe=id_profe)
+        """, id_profe=id_profe)
         result = cursor.fetchall()
         return result
 
