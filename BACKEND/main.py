@@ -13,7 +13,6 @@ app.version = "0.0.1"
 
 # Security
 security = HTTPBearer()
-userType = -1
 # Database connection
 dsn = cx_Oracle.makedsn("localhost", "1521", service_name="ORCL")
 connection = cx_Oracle.connect(user="BELSANTO", password="12345")
@@ -66,10 +65,8 @@ def login(id: int = Body(...), password: str = Body(...), is_professor: int = Bo
 
         if result == 1:
             token = create_jwt_token(user_id=id, is_professor=bool(is_professor))
-            userType = is_professor
             return {"token": token}
         else:
-            userType = -1
             raise HTTPException(status_code=401, detail="Invalid credentials")
     finally:
         cursor.close()
@@ -77,7 +74,6 @@ def login(id: int = Body(...), password: str = Body(...), is_professor: int = Bo
 # Logout endpoint
 @app.post("/logout", tags=['Sesion'])
 def logout(token: str = Depends(security)):
-    userType = -1
     tokens_invalidos.append(token.credentials)
     return {"message": "Logged out successfully"}
 

@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HorariosComponent } from './components/horarios/horarios.component';
-import { LoginComponent } from './components/login/login.component';
-import { HomeComponent } from './components/home/home.component';
-import { AuthGuard } from './services/auth.guard';
+import { QuicklinkStrategy } from 'ngx-quicklink';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'horarios', component: HorariosComponent, canActivate: [AuthGuard] },
-  // Agregar más rutas según sea necesario
+  {
+    path: '',
+    loadChildren: () => import('./modules/modules.module').then(m => m.ModulesModule),
+  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    preloadingStrategy: QuicklinkStrategy
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
