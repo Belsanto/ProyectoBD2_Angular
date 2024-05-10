@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException, Depends, Body
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jwt import encode as jwt_encode, decode, InvalidTokenError, ExpiredSignatureError
 from datetime import datetime, timedelta
@@ -11,9 +12,22 @@ app = FastAPI()
 app.title = "Examenes (Universidad del Qundío)"
 app.version = "0.0.1"
 
+# Configuración de CORS
+origins = [
+    "http://localhost",
+    "http://localhost:4200",  # URL de tu aplicación Angular
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_headers=["Authorization", "Content-Type"],
+)
+
 # Security
 security = HTTPBearer()
-userType = -1
 # Database connection
 dsn = cx_Oracle.makedsn("localhost", "1521", service_name="ORCL")
 connection = cx_Oracle.connect(user="BELSANTO", password="12345")
