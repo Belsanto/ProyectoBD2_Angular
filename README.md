@@ -1,4 +1,4 @@
-# Para ejecutar el proyecto:  ng serve -o
+# Para ejecutar el proyecto front end:  ng serve -o
 ### npm install -g @angular/cli
 
 ### ng new nombre-del-proyecto
