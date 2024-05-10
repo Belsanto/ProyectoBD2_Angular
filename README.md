@@ -1,4 +1,4 @@
-# Para ejecutar el proyecto front end:  ng serve -o
+# Para ejecutar el proyecto front end ->  ng serve -o
 ### npm install -g @angular/cli
 
 ### ng new nombre-del-proyecto
@@ -19,3 +19,10 @@
 
 ### npm config set legacy-peer-deps true
 ### npm install ngx-quicklink
+
+# Para ejecutar el proyecto backend -> uvicorn main:app --reload
+### npm install -g @angular/cli
+### pip install fastapi
+### pip install pyjwt
+### pip install cx_Oracle
+
