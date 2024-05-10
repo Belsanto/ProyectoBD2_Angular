@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException, Depends, Body
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jwt import encode as jwt_encode, decode, InvalidTokenError, ExpiredSignatureError
 from datetime import datetime, timedelta
@@ -11,9 +12,22 @@ app = FastAPI()
 app.title = "Examenes (Universidad del Qundío)"
 app.version = "0.0.1"
 
+# Configuración de CORS
+origins = [
+    "http://localhost",
+    "http://localhost:4200",  # URL de tu aplicación Angular
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_headers=["Authorization", "Content-Type"],
+)
+
 # Security
 security = HTTPBearer()
-userType = -1
 # Database connection
 dsn = cx_Oracle.makedsn("localhost", "1521", service_name="ORCL")
 connection = cx_Oracle.connect(user="BELSANTO", password="12345")
@@ -215,9 +229,7 @@ def get_banco_preguntas(id_profe: int, tema: str = None, user_id: int = Depends(
 
 #Todas las preguntas privadas de un profesor
 @app.get("/mis_preguntas/{id_profe}", tags=['Banco Preguntas'])
-def get_banco_preguntas(id_profe: int, tema: str = None, user_id: int = Depends(verificar_token)):
-    if tema is None:
-        tema = "No definido"  # Valor predeterminado si no se proporciona un tema en la URL
+def get_banco_preguntas(id_profe: int, user_id: int = Depends(verificar_token)):
 
     with get_cursor() as cursor:
         cursor.execute("""
@@ -232,7 +244,7 @@ def get_banco_preguntas(id_profe: int, tema: str = None, user_id: int = Depends(
             INNER JOIN EXAMEN E ON EP.ID_EXAMEN = E.ID_EXAMEN
             WHERE E.ID_PROFESOR = :id_profe
             ORDER BY P.TEXTO
-        """, tema=tema, id_profe=id_profe)
+        """, id_profe=id_profe)
         result = cursor.fetchall()
         return result
 
