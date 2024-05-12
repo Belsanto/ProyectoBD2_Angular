@@ -38,3 +38,9 @@ button {
 button:hover {
   background-color: #0056b3;
 }
+
+@media screen and (min-width: 40em) and (max-width: 63.9375em) {
+  #navbar1 {
+    display: none;
+  }
+}

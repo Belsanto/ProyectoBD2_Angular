@@ -97,7 +97,7 @@ body {
 
 .gallery img:nth-child(1):hover ~ .im1 {
   top: 50%;
-  left: 50%;
+  left: 45%;
   color: var(--color-negro);
 }
 
@@ -109,7 +109,7 @@ body {
 
 .gallery img:nth-child(3):hover ~ .im3 {
   top: 50%;
-  left: 50%;
+  left: 45%;
   transform: translate(-50%, -50%);
   transition: top 0.3s, left 0.3s, color 0.3s, background-color 0.3s, border-radius 0.3s; /* Agrega background-color y border-radius a la transición */
   color: var(--color-negro);
@@ -117,7 +117,7 @@ body {
 
 .gallery img:nth-child(4):hover ~ .im4 {
   top: 50%;
-  left: 50%;
+  left: 45%;
   color: var(--color-negro);
 }
 

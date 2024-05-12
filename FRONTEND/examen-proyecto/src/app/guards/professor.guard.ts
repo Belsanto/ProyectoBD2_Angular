@@ -1,28 +1,34 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { AuthService } from './auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class ProfessorGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(): boolean {
     const token = localStorage.getItem('token');
 
     if (token) {
-      // Verificar si el token expiró
+      // Verificar el tipo de usuario
       const tokenPayload = JSON.parse(atob(token.split('.')[1]));
+      const isProfessor = tokenPayload.is_professor;
       const expirationDate = new Date(tokenPayload.exp * 1000);
       if (expirationDate < new Date()) {
         // Token expirado, redirigir al usuario al componente de login
         this.router.navigate(['/login']);
         return false;
       }
-
-      // Token válido, permitir acceso
-      return true;
+      // Si el usuario es un profesor, permitir acceso
+      if (isProfessor) {
+        return true;
+      } else {
+        // Si el usuario no es un profesor, redirigir al usuario al componente de login
+        this.router.navigate(['/login']);
+        return false;
+      }
     }
 
     // No hay token, redirigir al usuario al componente de login
