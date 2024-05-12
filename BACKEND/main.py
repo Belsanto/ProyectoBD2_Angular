@@ -2,8 +2,8 @@ from fastapi import FastAPI, HTTPException, Depends, Body
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jwt import encode as jwt_encode, decode, InvalidTokenError, ExpiredSignatureError
-from datetime import datetime, timedelta
-from typing import List
+from datetime import datetime, timedelta, timezone
+from typing import List, Tuple
 import secrets
 import cx_Oracle
 
@@ -54,10 +54,12 @@ def create_jwt_token(user_id: int, is_professor: bool):
 def verificar_token(token: str = Depends(security)):
     try:
         payload = decode(token.credentials, clave_secreta, algorithms=["HS256"])
-        usuario = payload["user_id"]
-        expiracion = datetime.utcfromtimestamp(payload["exp"])
-        if expiracion > datetime.utcnow() and token.credentials not in tokens_invalidos:
-            return usuario
+        usuario_id = payload["user_id"]
+        is_professor = payload["is_professor"]
+        expiracion_timestamp = payload["exp"]
+        expiracion = datetime.fromtimestamp(expiracion_timestamp, tz=timezone.utc)
+        if expiracion > datetime.now(timezone.utc) and token.credentials not in tokens_invalidos:
+            return usuario_id, is_professor
         else:
             raise HTTPException(status_code=401, detail="Token expirado o inválido")
     except ExpiredSignatureError:
@@ -93,10 +95,13 @@ def logout(token: str = Depends(security)):
     return {"message": "Logged out successfully"}
 
 # Endpoint de prueba
-@app.get("/", tags=['home'])
-def get_status():
-    return {"status": "API is running"}
-
+@app.get("/protected", tags=['home'])
+def protected_route(user_info: Tuple[int, bool] = Depends(verificar_token)):
+    user_id, is_professor = user_info
+    if is_professor:
+        return {"message": f"Bienvenido, profesor {user_id}!"}
+    else:
+        return {"message": f"Bienvenido, estudiante {user_id}!"}
 
 @app.get("/protected", tags=['home'])
 def protected_route(user_id: int = Depends(verificar_token)):

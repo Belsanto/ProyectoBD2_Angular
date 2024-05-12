@@ -10,6 +10,7 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { SharedModule } from '../shared/shared.module';
 import { QuicklinkModule } from 'ngx-quicklink';
 import { FormsModule } from '@angular/forms';
+import { EstudianteComponent } from './pages/estudiante/estudiante.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { FormsModule } from '@angular/forms';
     NavComponent,
     LoginComponent,
     HorariosComponent,
-    HomeComponent
+    HomeComponent,
+    EstudianteComponent
   ],
   imports: [
     CommonModule,

@@ -35,4 +35,14 @@ export class AuthService {
     // Verificar si el usuario está autenticado comprobando si existe el token en el almacenamiento local
     return !!localStorage.getItem('token');
   }
+
+  getUserType(): number | null {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const tokenPayload = JSON.parse(atob(token.split('.')[1]));
+      return tokenPayload.is_professor; // Devuelve 0 si es estudiante, 1 si es profesor
+    }
+    return null; // Devuelve null si no hay token
+  }
+
 }

@@ -3,13 +3,16 @@
 :root {
 	--color-negro: #323235; /* Color negro */
 	--color-verde: #4CAF50; /* Verde brillante */
-	--color-turquesa: #3cb686; /* Turquesa */
+	--color-morado: #7f3cb6; /* Turquesa */
 	--color-blanco: #f6f6f6; /* Blanco */
 	--color-azul: #007bff; /* Azul intenso */
 	--color-gris: #ddd; /* Gris claro */
 	--color-gris-oscuro: #666; /* Gris oscuro */
-	--color-nav: #aaa; /* Gris oscuro */
-
+	--color-nav: #aaa;
+	--sombra-oscuro: rgba(22, 19, 19, 0.7);
+	--sombra-clara: rgba(255, 255, 255, 0.7);
+	--aguacate: #BFCB45;
+  --filtro: 0;
 
   --numDays: 5;
   --numHours: 10;
@@ -64,5 +67,8 @@ code {
       --color-gris: #666;
       --color-gris-oscuro: #aaa;
       --color-nav: #666;
+      --sombra-clara: rgba(22, 19, 19, 0.7);
+      --sombra-oscuro: rgba(255, 255, 255, 0.7);
+      --filtro: 100%;
   }
 }
