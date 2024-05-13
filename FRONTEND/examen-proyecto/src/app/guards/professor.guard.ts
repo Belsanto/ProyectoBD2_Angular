@@ -9,7 +9,7 @@ export class ProfessorGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(): boolean {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authToken');
 
     if (token) {
       // Verificar el tipo de usuario

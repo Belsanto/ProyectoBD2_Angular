@@ -122,7 +122,7 @@ def get_preguntas(id_examen: int, user_id: int = Depends(verificar_token)):
 
 # Endpoint to fetch schedules
 @app.get("/horarios", tags=['Horarios disponibles'],)
-def get_horarios(user_id: int = Depends(verificar_token)):
+def get_horarios(user_id: int = Depends(verificar_token), semana: int = None, semestre: str = None):
     with get_cursor() as cursor:
         cursor.execute("""
             SELECT
@@ -141,6 +141,25 @@ def get_horarios(user_id: int = Depends(verificar_token)):
                 "GRUPO_HORARIO" GH ON H."ID_HORARIO" = GH."ID_HORARIO"
             LEFT JOIN
                 "EXAMEN_HORARIO" EH ON H."ID_HORARIO" = EH."ID_HORARIO"
+            WHERE
+                SEMANA = :semana 
+            AND
+                SEMESTRE = :semestre
+            ORDER BY
+                INDICE_DIA, HORA, SEMESTRE  ASC
+        """, {"semana": semana, "semestre": semestre})
+        result = cursor.fetchall()
+        return result
+
+
+@app.get("/semestres", tags=['Semestres disponibles'],)
+def get_horarios(user_id: int = Depends(verificar_token)):
+    with get_cursor() as cursor:
+        cursor.execute("""
+            SELECT SEMESTRE, count(DISTINCT SEMANA)
+            FROM "HORARIO"
+            GROUP BY SEMESTRE
+            ORDER BY SEMESTRE  ASC
         """)
         result = cursor.fetchall()
         return result

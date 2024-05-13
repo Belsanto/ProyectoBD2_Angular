@@ -16,7 +16,7 @@ export class AuthService {
       .pipe(
         map(response => {
           // Almacenar el token de autenticación en el almacenamiento local
-          localStorage.setItem('token', response.token);
+          localStorage.setItem('authToken', response.token);
           return true;
         }),
         catchError(error => {
@@ -28,16 +28,16 @@ export class AuthService {
 
   logout(): void {
     // Eliminar el token de autenticación del almacenamiento local
-    localStorage.removeItem('token');
+    localStorage.removeItem('authToken');
   }
 
   isAuthenticated(): boolean {
     // Verificar si el usuario está autenticado comprobando si existe el token en el almacenamiento local
-    return !!localStorage.getItem('token');
+    return !!localStorage.getItem('authToken');
   }
 
   getUserType(): number | null {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authToken');
     if (token) {
       const tokenPayload = JSON.parse(atob(token.split('.')[1]));
       return tokenPayload.is_professor; // Devuelve 0 si es estudiante, 1 si es profesor
