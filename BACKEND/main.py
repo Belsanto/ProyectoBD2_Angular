@@ -10,7 +10,7 @@ import cx_Oracle
 # Initialize FastAPI app
 app = FastAPI()
 app.title = "Examenes (Universidad del Qundío)"
-app.version = "0.0.1"
+app.version = "1.0.1"
 
 # Configuración de CORS
 origins = [
