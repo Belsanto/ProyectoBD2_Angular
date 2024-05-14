@@ -4,7 +4,11 @@ import { HomeComponent } from './pages/home/home.component';
 import { HorariosComponent } from './pages/horarios/horarios.component';
 import { LoginComponent } from './pages/login/login.component';
 import { LayoutComponent } from './components/layout/layout.component';
-import { AuthGuard } from 'src/app/services/auth.guard';
+import { AuthGuard } from 'src/app/guards/auth.guard';
+import { ProfessorGuard } from 'src/app/guards/professor.guard'; // Importa el nuevo guardia
+import { EstudianteComponent } from './pages/estudiante/estudiante.component';
+import { StudentGuard } from 'src/app/guards/student.guard';
+import { LoginGuard } from 'src/app/guards/login-guard.guard';
 
 const routes: Routes = [
   {
@@ -19,16 +23,23 @@ const routes: Routes = [
       {
         path: 'home',
         component: HomeComponent,
-        canActivate: [AuthGuard]
+        canActivate: [ProfessorGuard]
       },
       {
         path: 'login',
-        component: LoginComponent
+        component: LoginComponent,
+        canActivate: [LoginGuard]
       },
       {
         path: 'horarios',
         component: HorariosComponent,
-        canActivate: [AuthGuard] },
+        canActivate: [ProfessorGuard]
+      },
+      {
+        path: 'estudiante',
+        component: EstudianteComponent,
+        canActivate: [StudentGuard]
+      },
       // Agregar más rutas según sea necesario
     ]
   }

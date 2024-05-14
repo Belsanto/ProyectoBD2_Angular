@@ -17,6 +17,11 @@
 
 ### ng generate pipe nombre-del-pipe
 
+#### node v16.15.1
+#### angular v14.1.3
+#### rxjs v7.5.6
+#### typescript v4.7.4
+
 ### npm config set legacy-peer-deps true
 ### npm install ngx-quicklink
 
