@@ -142,7 +142,7 @@ def get_horarios(user_id: int = Depends(verificar_token), semana: int = None, se
             LEFT JOIN
                 "EXAMEN_HORARIO" EH ON H."ID_HORARIO" = EH."ID_HORARIO"
             WHERE
-                SEMANA = :semana 
+                SEMANA = :semana
             AND
                 SEMESTRE = :semestre
             ORDER BY

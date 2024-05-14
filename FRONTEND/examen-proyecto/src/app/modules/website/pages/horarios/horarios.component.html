@@ -1,20 +1,54 @@
 <!-- Combo box para listar semestres -->
+<div class="paginationBar">
 <select #selectSemestre (change)="onSemestreSelect(selectSemestre.value)">
-  <option *ngFor="let semestre of semestres" [value]="semestre[0]">{{ semestre[0] }}</option>
+  <option *ngFor="let semestre of semestres" [value]="semestre">{{ semestre }}</option>
 </select>
-<div class="calendar">
 
+  <div class="pagination-container">
+    <!-- Botón para la semana anterior -->
+    <div class="pagination-number arrow" (click)="previousWeek()">
+      <svg width="18" height="18">
+        <use xlink:href="#left" />
+      </svg>
+      <span class="arrow-text">Previous</span>
+    </div>
+
+    <!-- Mostrar las semanas disponibles en orden ascendente -->
+    <div class="pagination-number" *ngFor="let semana of getArray(semanas)" (click)="fetchHorariosSemana(semana)">
+      {{ semana }}
+    </div>
+
+    <!-- Botón para la semana siguiente -->
+    <div class="pagination-number arrow" (click)="nextWeek()">
+      <svg width="18" height="18">
+        <use xlink:href="#right" />
+      </svg>
+    </div>
+  </div>
+
+  <!-- SVG para flechas -->
+  <svg class="hide">
+    <symbol id="left" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></symbol>
+    <symbol id="right" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></symbol>
+  </svg>
+</div>
+
+
+
+
+<div class="calendar">
   <!-- Timeline -->
   <div class="timeline">
     <div class="spacer"></div>
-    <div class="time-marker">HORAS</div>
     <div class="time-marker">8 AM</div>
-    <div class="time-marker">10 AM</div>
-    <div class="time-marker">12 M</div>
-    <div class="time-marker">14 PM</div>
-    <div class="time-marker">16 PM</div>
-    <div class="time-marker">18 PM</div>
-    <div class="time-marker">20 PM</div>
+    <div class="time-marker">9 AM</div>
+    <div class="time-marker">10 PM</div>
+    <div class="time-marker">11 PM</div>
+    <div class="time-marker">12 PM</div>
+    <div class="time-marker">1 PM</div>
+    <div class="time-marker">2 PM</div>
+    <div class="time-marker">3 PM</div>
+    <div class="time-marker">4 PM</div>
   </div>
 
   <!-- Días y horarios -->
@@ -22,149 +56,66 @@
     <!-- Lunes -->
     <div class="day mon">
       <div class="date">
-        <p class="date-day">Lunes</p>
+        <p class="date-num">Mon</p>
       </div>
       <div class="events">
-        <div *ngFor="let horario of lunes" class="event">
-          <p class="title">{{ horario[6] }}</p>
-          <p class="time">{{ horario[2] }} - {{ horario[3] }} PM</p>
+        <div *ngFor="let horario of lunes" class="event start-{{ getStartClass(horario[2]) }} end-{{ getEndClass(horario[2]) }} {{ getNextColor() }}">
+          <p *ngIf="horario[6]!='SI'" class="title">Sin grupos asignados</p>
+          <p *ngIf="horario[6]!='SI'" class="title">Sin examenes asignados </p>
+          <p class="time">{{ horario[2] }} - {{ getEndClass(horario[2]) }} PM</p>
         </div>
       </div>
     </div>
     <!-- Martes -->
     <div class="day tues">
       <div class="date">
-        <p class="date-day">Martes</p>
+        <p class="date-num">Tues</p>
       </div>
       <div class="events">
-        <div *ngFor="let horario of martes" class="event">
-          <p class="title">{{ horario[6] }}</p>
-          <p class="time">{{ horario[2] }} - {{ horario[3] }} PM</p>
+        <div *ngFor="let horario of martes" class="event start-{{ getStartClass(horario[2]) }} end-{{ getEndClass(horario[2]) }} {{ getNextColor() }}">
+          <p *ngIf="horario[6]!='SI'" class="title">Sin grupos asignados</p>
+          <p *ngIf="horario[6]!='SI'" class="title">Sin examenes asignados </p>
+          <p class="time">{{ horario[2] }} - {{ getEndClass(horario[2]) }} PM</p>
         </div>
       </div>
     </div>
     <!-- Miércoles -->
     <div class="day wed">
       <div class="date">
-        <p class="date-day">Miércoles</p>
+        <p class="date-num">Wed</p>
       </div>
       <div class="events">
-        <div *ngFor="let horario of miercoles" class="event">
-          <p class="title">{{ horario[6] }}</p>
-          <p class="time">{{ horario[2] }} - {{ horario[3] }} PM</p>
+        <div *ngFor="let horario of miercoles" class="event start-{{ getStartClass(horario[2]) }} end-{{ getEndClass(horario[2]) }} {{ getNextColor() }}">
+          <p *ngIf="horario[6]!='SI'" class="title">Sin grupos asignados</p>
+          <p *ngIf="horario[6]!='SI'" class="title">Sin examenes asignados </p>
+          <p class="time">{{ horario[2] }} - {{ getEndClass(horario[2]) }} PM</p>
         </div>
       </div>
     </div>
     <!-- Jueves -->
     <div class="day thurs">
       <div class="date">
-        <p class="date-day">Jueves</p>
+        <p class="date-num">Thurs</p>
       </div>
       <div class="events">
-        <div *ngFor="let horario of jueves" class="event">
-          <p class="title">{{ horario[6] }}</p>
-          <p class="time">{{ horario[2] }} - {{ horario[3] }} PM</p>
+        <div *ngFor="let horario of jueves" class="event start-{{ getStartClass(horario[2]) }} end-{{ getEndClass(horario[2]) }} {{ getNextColor() }}">
+          <p *ngIf="horario[6]!='SI'" class="title">Sin grupos asignados</p>
+          <p *ngIf="horario[6]!='SI'" class="title">Sin examenes asignados </p>
+          <p class="time">{{ horario[2] }} - {{ getEndClass(horario[2]) }} PM</p>
         </div>
       </div>
     </div>
     <!-- Viernes -->
     <div class="day fri">
       <div class="date">
-        <p class="date-day">Viernes</p>
+        <p class="date-num">Fri</p>
       </div>
       <div class="events">
-        <div *ngFor="let horario of viernes" class="event">
-          <p class="title">{{ horario[6] }}</p>
-          <p class="time">{{ horario[2] }} - {{ horario[3] }} PM</p>
+        <div *ngFor="let horario of viernes" class="event start-{{ getStartClass(horario[2]) }} end-{{ getEndClass(horario[2]) }} {{ getNextColor() }}">
+          <p *ngIf="horario[6]!='SI'" class="title">Sin grupos asignados</p>
+          <p *ngIf="horario[6]!='SI'" class="title">Sin examenes asignados </p>
+          <p class="time">{{ horario[2] }} - {{ getEndClass(horario[2]) }} PM</p>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-  <!-- ----------- ----------- - TEMPLATE ----------- ----------- - -->
-
-<div class="calendar">
-  <div class="timeline">
-    <div class="spacer"></div>
-    <div class="time-marker">9 AM</div>
-    <div class="time-marker">10 AM</div>
-    <div class="time-marker">11 AM</div>
-    <div class="time-marker">12 PM</div>
-    <div class="time-marker">1 PM</div>
-    <div class="time-marker">2 PM</div>
-    <div class="time-marker">3 PM</div>
-    <div class="time-marker">4 PM</div>
-    <div class="time-marker">5 PM</div>
-    <div class="time-marker">6 PM</div>
-  </div>
-  <div class="days">
-    <div class="day mon">
-      <div class="date">
-        <p class="date-num">9</p>
-        <p class="date-day">Mon</p>
-      </div>
-      <div class="events">
-        <div class="event start-10 end-5 securities">
-          <p class="title">Securities Regulation</p>
-          <p class="time">2 PM - 5 PM</p>
-        </div>
-      </div>
-    </div>
-    <div class="day tues">
-      <div class="date">
-        <p class="date-num">12</p>
-        <p class="date-day">Tues</p>
-      </div>
-      <div class="events">
-        <div class="event start-10 end-12 corp-fi">
-          <p class="title">Corporate Finance</p>
-          <p class="time">10 AM - 12 PM</p>
-        </div>
-        <div class="event start-1 end-4 ent-law">
-          <p class="title">Entertainment Law</p>
-          <p class="time">1PM - 4PM</p>
-        </div>
-      </div>
-    </div>
-    <div class="day wed">
-      <div class="date">
-        <p class="date-num">11</p>
-        <p class="date-day">Wed</p>
-      </div>
-      <div class="events">
-        <div class="event start-12 end-1 writing">
-          <p class="title">Writing Seminar</p>
-          <p class="time">11 AM - 12 PM</p>
-        </div>
-        <div class="event start-2 end-5 securities">
-          <p class="title">Securities Regulation</p>
-          <p class="time">2 PM - 5 PM</p>
-        </div>
-      </div>
-    </div>
-    <div class="day thurs">
-      <div class="date">
-        <p class="date-num">12</p>
-        <p class="date-day">Thurs</p>
-      </div>
-      <div class="events">
-        <div class="event start-10 end-12 corp-fi">
-          <p class="title">Corporate Finance</p>
-          <p class="time">10 AM - 12 PM</p>
-        </div>
-        <div class="event start-1 end-5 ent-law">
-          <p class="title">Entertainment Law</p>
-          <p class="time">1PM - 4PM</p>
-        </div>
-      </div>
-    </div>
-    <div class="day fri">
-      <div class="date">
-        <p class="date-num">13</p>
-        <p class="date-day">Fri</p>
-      </div>
-      <div class="events">
       </div>
     </div>
   </div>

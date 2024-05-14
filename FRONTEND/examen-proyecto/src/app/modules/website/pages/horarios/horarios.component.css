@@ -21,56 +21,110 @@
   display: grid;
   grid-template-rows: repeat(var(--numHours), var(--timeHeight));
   border-radius: 5px;
-  background: var(--calBgColor);
+  background: var(--morado-2);
 }
 
-.start-10 {
+.start-8 {
+  grid-row-start: 1;
+}
+
+.start-9 {
   grid-row-start: 2;
 }
 
-.start-12 {
+.start-10 {
+  grid-row-start: 3;
+}
+
+.start-11 {
   grid-row-start: 4;
 }
 
-.start-1 {
+.start-12 {
   grid-row-start: 5;
 }
 
-.start-2 {
+.start-13 {
   grid-row-start: 6;
 }
 
-.end-12 {
+.start-14 {
+  grid-row-start: 7;
+}
+
+.start-15 {
+  grid-row-start: 8;
+}
+
+.start-16 {
+  grid-row-start: 9;
+}
+
+.start-17 {
+  grid-row-start: 10;
+}
+
+.end-9 {
+  grid-row-end: 2;
+}
+
+.end-10 {
+  grid-row-end: 3;
+}
+
+.end-11 {
   grid-row-end: 4;
 }
 
-.end-1 {
+.end-12 {
   grid-row-end: 5;
 }
 
-.end-3 {
+.end-13 {
+  grid-row-end: 6;
+}
+
+.end-14 {
   grid-row-end: 7;
 }
 
-.end-4 {
+.end-15 {
   grid-row-end: 8;
 }
 
-.end-5 {
+.end-16 {
   grid-row-end: 9;
 }
 
+.end-17 {
+  grid-row-end: 10;
+}
+
+.end-18 {
+  grid-row-end: 11;
+}
 
 .title {
+  font-size: small;
   font-weight: 600;
   margin-bottom: 0.25rem;
+  font-style: oblique;
+}
+.time{
+  font-weight: 400;
+  font-style: oblique;
+}
+.titulo {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  font-style: oblique;
 }
 
 .event {
   border: 1px solid var(--eventBorderColor);
   border-radius: 5px;
   padding: 0.5rem;
-  margin: 0 0.5rem;
+  margin: 0.5rem 0.5rem;
   background: white;
 }
 
@@ -108,10 +162,71 @@ body {
   font-size: 3rem;
   font-weight: 600;
   display: inline;
+  color: var(--color-negro);
 }
 
 .date-day {
   display: inline;
   font-size: 3rem;
   font-weight: 100;
+}
+
+
+.hide {
+  display: none;
+  visibility: hidden;
+  height: 0;
+}
+
+.pagination-container {
+display: flex;
+align-items: center;
+}
+
+.arrow-text {
+display: block;
+font-size: 13px;
+}
+
+.pagination-number {
+--size: 32px;
+--margin: 6px;
+margin: 0 var(--margin);
+border-radius: 6px;
+background: #202020;
+max-width: auto;
+min-width: var(--size);
+height: var(--size);
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+padding: 0 6px;
+@media (hover: hover) {
+  &:hover {
+    background: #3a3a3a;
+  }
+}
+&:active {
+    background: #3a3a3a;
+}
+}
+
+.pagination-active {
+background: #3a3a3a;
+position: relative;
+}
+
+.paginationBar{
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: var(--bg-page);
+  color: var(--text-color);
+}
+
+.time-marker{
+  color: var(--color-negro);
 }

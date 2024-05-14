@@ -18,6 +18,7 @@ export class ProfessorGuard implements CanActivate {
       const expirationDate = new Date(tokenPayload.exp * 1000);
       if (expirationDate < new Date()) {
         // Token expirado, redirigir al usuario al componente de login
+        localStorage.removeItem('authToken');
         this.router.navigate(['/login']);
         return false;
       }
