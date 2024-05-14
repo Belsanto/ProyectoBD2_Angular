@@ -13,7 +13,7 @@ export class NavComponent implements OnInit {
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authToken');
     if (token) {
       this.userType = this.authService.getUserType();
     }
@@ -22,7 +22,10 @@ export class NavComponent implements OnInit {
   activeMenu = false;
 
   isLoginRoute(): boolean {
-    this.userType = this.authService.getUserType();
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      this.userType = this.authService.getUserType();
+    }
     return this.router.url === '/login';
   }
 
@@ -39,7 +42,7 @@ export class NavComponent implements OnInit {
   }
 
   borrarToken() {
-    localStorage.removeItem('token');
+    localStorage.removeItem('authToken');
     this.userType =-1;
   }
 }

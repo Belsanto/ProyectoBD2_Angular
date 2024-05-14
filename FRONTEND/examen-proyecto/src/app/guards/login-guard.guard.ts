@@ -10,12 +10,10 @@ export class LoginGuard implements CanActivate {
 
   canActivate(): boolean {
     if (this.authService.isAuthenticated()) {
-      const token = localStorage.getItem('token');
-
+      const token = localStorage.getItem('authToken');
       if (token) {
         const tokenPayload = JSON.parse(atob(token.split('.')[1]));
         const isProfessor = tokenPayload.is_professor;
-
         if (isProfessor) {
           this.router.navigate(['/home']); // Redirigir a home si es profesor
         } else {
