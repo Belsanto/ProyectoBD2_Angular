@@ -12,6 +12,16 @@ CREATE TABLESPACE TABLES_RESPUESTA DATAFILE
 'C:\app\Usuario\product\21c\oradata\XE\TABLES_RESPUESTA.dbf' SIZE
 700M;
 
+-- Creación Tablespace de profesor
+CREATE TABLESPACE TABLES_PROFESOR DATAFILE
+'C:\app\Usuario\product\21c\oradata\XE\TABLES_PROFESOR.dbf' SIZE
+700M;
+
+-- Creación Tablespace de estudiante
+CREATE TABLESPACE TABLES_ESTUDIANTE DATAFILE
+'C:\app\Usuario\product\21c\oradata\XE\TABLES_ESTUDIANTE.dbf' SIZE
+700M;
+
 --Asignación de tablespace a la tabla estudiante
 ALTER TABLE ESTUDIANTE MOVE TABLESPACE TABLES_ESTUDIANTE;
 
