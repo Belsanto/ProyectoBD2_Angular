@@ -37,10 +37,10 @@
   --timeHeight: 60px;
   --calBgColor: #50a1cf;
   --eventBorderColor: #ffffff8c;
-  --eventColor1: rgb(221, 229, 145);
-  --eventColor2: #96f7f2;
-  --eventColor3: #eca982;
-  --eventColor4: #5ef3a1;
+  --eventColor1: rgba(173, 173, 173, 0.692);
+  --eventColor2: #96f7f283;
+  --eventColor3: #eca98275;
+  --eventColor4: #5ef3a17a;
 }
 
 body {
@@ -77,6 +77,16 @@ body {
 
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+a{
+  color: #BFCB45;
+}
+
+select {
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
 @media (prefers-color-scheme: dark) {

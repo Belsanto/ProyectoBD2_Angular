@@ -21,7 +21,3 @@
 .dark-theme .error-message {
   color: #fff; /* Color del texto en tema oscuro */
 }
-
-.error-message a{
-  color: #BFCB45;
-}

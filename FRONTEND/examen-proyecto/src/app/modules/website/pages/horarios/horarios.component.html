@@ -56,65 +56,75 @@
     <!-- Lunes -->
     <div class="day mon">
       <div class="date">
-        <p class="date-num">Mon</p>
+        <p class="date-num">Lunes</p>
       </div>
       <div class="events">
         <div *ngFor="let horario of lunes" class="event start-{{ getStartClass(horario[2]) }} end-{{ getEndClass(horario[2]) }} {{ getNextColor() }}">
           <p *ngIf="horario[6]!='SI'" class="title">Sin grupos asignados</p>
           <p *ngIf="horario[6]!='SI'" class="title">Sin examenes asignados </p>
-          <p class="time">{{ horario[2] }} - {{ getEndClass(horario[2]) }} PM</p>
+          <p class="titulo"><a routerLink="/new-exam">Crear examen</a></p>
+
+          <p class="time">{{ horario[2] }} - {{ getEndClass(horario[2]) }}:00 </p>
         </div>
       </div>
     </div>
     <!-- Martes -->
     <div class="day tues">
       <div class="date">
-        <p class="date-num">Tues</p>
+        <p class="date-num">Martes</p>
       </div>
       <div class="events">
         <div *ngFor="let horario of martes" class="event start-{{ getStartClass(horario[2]) }} end-{{ getEndClass(horario[2]) }} {{ getNextColor() }}">
           <p *ngIf="horario[6]!='SI'" class="title">Sin grupos asignados</p>
           <p *ngIf="horario[6]!='SI'" class="title">Sin examenes asignados </p>
-          <p class="time">{{ horario[2] }} - {{ getEndClass(horario[2]) }} PM</p>
+<p class="titulo"><a routerLink="/new-exam">Crear examen</a></p>
+
+          <p class="time">{{ horario[2] }} - {{ getEndClass(horario[2]) }}:00 </p>
         </div>
       </div>
     </div>
     <!-- Miércoles -->
     <div class="day wed">
       <div class="date">
-        <p class="date-num">Wed</p>
+        <p class="date-num">Miercoles</p>
       </div>
       <div class="events">
         <div *ngFor="let horario of miercoles" class="event start-{{ getStartClass(horario[2]) }} end-{{ getEndClass(horario[2]) }} {{ getNextColor() }}">
           <p *ngIf="horario[6]!='SI'" class="title">Sin grupos asignados</p>
           <p *ngIf="horario[6]!='SI'" class="title">Sin examenes asignados </p>
-          <p class="time">{{ horario[2] }} - {{ getEndClass(horario[2]) }} PM</p>
+<p class="titulo"><a routerLink="/new-exam">Crear examen</a></p>
+
+          <p class="time">{{ horario[2] }} - {{ getEndClass(horario[2]) }}:00 </p>
         </div>
       </div>
     </div>
     <!-- Jueves -->
     <div class="day thurs">
       <div class="date">
-        <p class="date-num">Thurs</p>
+        <p class="date-num">Jueves</p>
       </div>
       <div class="events">
         <div *ngFor="let horario of jueves" class="event start-{{ getStartClass(horario[2]) }} end-{{ getEndClass(horario[2]) }} {{ getNextColor() }}">
           <p *ngIf="horario[6]!='SI'" class="title">Sin grupos asignados</p>
           <p *ngIf="horario[6]!='SI'" class="title">Sin examenes asignados </p>
-          <p class="time">{{ horario[2] }} - {{ getEndClass(horario[2]) }} PM</p>
+<p class="titulo"><a routerLink="/new-exam">Crear examen</a></p>
+
+          <p class="time">{{ horario[2] }} - {{ getEndClass(horario[2]) }}:00 </p>
         </div>
       </div>
     </div>
     <!-- Viernes -->
     <div class="day fri">
       <div class="date">
-        <p class="date-num">Fri</p>
+        <p class="date-num">Viernes</p>
       </div>
       <div class="events">
         <div *ngFor="let horario of viernes" class="event start-{{ getStartClass(horario[2]) }} end-{{ getEndClass(horario[2]) }} {{ getNextColor() }}">
           <p *ngIf="horario[6]!='SI'" class="title">Sin grupos asignados</p>
           <p *ngIf="horario[6]!='SI'" class="title">Sin examenes asignados </p>
-          <p class="time">{{ horario[2] }} - {{ getEndClass(horario[2]) }} PM</p>
+<p class="titulo"><a routerLink="/new-exam">Crear examen</a></p>
+
+          <p class="time">{{ horario[2] }} - {{ getEndClass(horario[2]) }}:00 </p>
         </div>
       </div>
     </div>

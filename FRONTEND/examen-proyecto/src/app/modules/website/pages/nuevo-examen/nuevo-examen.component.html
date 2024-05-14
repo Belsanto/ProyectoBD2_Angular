@@ -1,0 +1,136 @@
+<div class="container">
+    <div class="form-group">
+        <label for="quizTitle">Título del Cuestionario</label>
+        <input type="text" id="quizTitle" placeholder="Título del Cuestionario">
+    </div>
+
+    <div class="form-group">
+        <label for="quizDescription">Descripción del Cuestionario</label>
+        <textarea id="quizDescription" placeholder="Describe tu cuestionario en unas pocas frases" maxlength="120"></textarea>
+        <div class="char-counter">120 caracteres restantes</div>
+    </div>
+
+    <div class="form-group">
+        <label for="quizCategory">Elegir Categoría</label>
+        <select id="quizCategory">
+            <option>Negocios</option>
+            <option>Informática y Tecnología</option>
+            <option>Educación y Exámenes</option>
+            <option>Idioma Extranjero</option>
+            <option>Certificación IT</option>
+            <option>Educación K-12</option>
+            <option>Cuestionarios de Personalidad</option>
+            <option>Trivia</option>
+        </select>
+    </div>
+    <div class="questions-section">
+        <div class="form-group">
+            <label for="questionTypes">Tipos de Pregunta</label>
+                <div class="question-types">
+                  <label class="option"><input type="checkbox"> Completar</label>
+                    <label class="option"><input type="checkbox"> Opción Múltiple/Unica</label>
+                    <label class="option"><input type="checkbox"> Emparejar</label>
+                    <label class="option"><input type="checkbox"> Verdadero/Falso</label>
+                    <label class="option"><input type="checkbox"> Ordenar Conceptos</label>
+                </div>
+        </div>
+        <button type="button" class="add-question">Añadir Pregunta</button>
+    </div>
+    <hr/>
+    <br/>
+
+
+    <!-- Opción Múltiple/Unica -->
+    <div class="form-group">
+        <label for="questionText">Texto de la Pregunta</label>
+        <textarea id="questionText" placeholder="Escribe la pregunta aquí"></textarea>
+    </div>
+    <div class="options-container">
+        <div class="option" data-correct="false">
+            <span class="handle">☞</span>
+            <input type="text" placeholder="Opción 1">
+            <span class="mark-correct">✓</span>
+        </div>
+        <!-- Repetir la estructura de arriba para más opciones -->
+        <div class="option" data-correct="true">
+            <span class="handle">☞</span>
+            <input type="text" placeholder="Opción 2">
+            <span class="mark-correct correct">✓</span>
+        </div>
+        <button type="button" class="add-option">Añadir Otra Opción</button>
+    </div>
+    <hr/>
+
+    <!-- Opción Completar -->
+    <div class="form-group">
+        <label for="explanation">Completar</label>
+        <textarea id="explanation" placeholder="Escribe la respuesta correcta aquí"></textarea>
+    </div>
+    <hr/>
+
+        <!-- Emparejamiento -->
+    <div class="form-group matching-group">
+        <label for="matching">Emparejamiento</label>
+        <div class="matching-container">
+            <!-- Añadir elementos emparejados aquí -->
+            <div class="pair">
+                <input type="text" placeholder="Elemento 1">
+                <input type="text" placeholder="Emparejar con">
+            </div>
+            <!-- Repetir para más pares -->
+        </div>
+        <button type="button" class="add-pair">Añadir Par</button>
+    </div>
+    <hr/>
+
+    <!-- Verdadero/Falso -->
+    <div class="form-group true-false-group">
+        <label>Verdadero/Falso</label>
+        <textarea id="explanation" placeholder="Escribe la pregunta aquí"></textarea>
+        <div>
+            <label><input type="radio" name="trueFalse" value="true"> Verdadero</label>
+            <label><input type="radio" name="trueFalse" value="false"> Falso</label>
+        </div>
+    </div>
+    <hr/>
+
+    <!-- Ordenar Conceptos -->
+    <div class="form-group sorting-group">
+        <label for="sorting">Ordenar Conceptos</label>
+        <div class="sorting-container">
+            <!-- Añadir conceptos aquí -->
+            <div class="sort-item">
+                <span class="concept-label">Concepto 1</span>
+                <input type="text" class="sort-order" placeholder="texto aqui">
+            </div>
+            <!-- Repetir para más conceptos -->
+            <div class="sort-item">
+                <span class="concept-label">Concepto 2</span>
+                <input type="text" class="sort-order" placeholder="texto aqui">
+            </div>
+            <!-- Puedes añadir más 'sort-item' según sea necesario -->
+        </div>
+        <button type="button" class="add-sort-item">Añadir Concepto</button>
+    </div>
+    <hr/>
+    <br/>
+
+    <div class="endForm">
+      <label for="save">Preguntas Creadas</label>
+      <select>
+          <option >En orden</option>
+          <option >Aleatorio</option>
+          <!-- Otras opciones -->
+      </select>
+      <label for="save">Horario: </label>
+    </div>
+    <div class="actions">
+        <button type="button" class="save">Guardar Examen</button>
+        <label><input type="checkbox"> ¿Como se dec...</label>
+
+        <span class="erase">✖</span>
+
+
+    </div>
+
+</div>

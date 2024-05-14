@@ -9,6 +9,7 @@ import { ProfessorGuard } from 'src/app/guards/professor.guard'; // Importa el n
 import { EstudianteComponent } from './pages/estudiante/estudiante.component';
 import { StudentGuard } from 'src/app/guards/student.guard';
 import { LoginGuard } from 'src/app/guards/login-guard.guard';
+import { NuevoExamenComponent } from './pages/nuevo-examen/nuevo-examen.component';
 
 const routes: Routes = [
   {
@@ -21,14 +22,19 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
+        path: 'login',
+        component: LoginComponent,
+        canActivate: [LoginGuard]
+      },
+      {
         path: 'home',
         component: HomeComponent,
         canActivate: [ProfessorGuard]
       },
       {
-        path: 'login',
-        component: LoginComponent,
-        canActivate: [LoginGuard]
+        path: 'new-exam',
+        component: NuevoExamenComponent,
+        canActivate: [ProfessorGuard]
       },
       {
         path: 'horarios',

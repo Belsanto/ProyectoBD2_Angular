@@ -5,20 +5,20 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ExamService {
-  private apiUrl = 'http://127.0.0.1:8000/examen'; // Reemplaza con la URL de tu API
+export class ExamenService {
+  private apiUrl = 'http://localhost:8000'; // Reemplaza con la URL de tu API
 
   constructor(private http: HttpClient) {}
 
-  createExam(examData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/crear`, examData);
+  crearExamen(examenData: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/examen/crear`, examenData);
   }
 
-  updateExam(examData: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/actualizar`, examData);
+  actualizarExamen(examenData: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/examen/actualizar`, examenData);
   }
 
-  deleteExam(examId: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/eliminar`, { body: { id: examId } });
+  eliminarExamen(idExamen: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/examen/eliminar`, { body: { id: idExamen } });
   }
 }
