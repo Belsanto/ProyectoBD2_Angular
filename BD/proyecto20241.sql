@@ -1,5 +1,5 @@
 --------------------------------------------------------
--- Archivo creado  - martes-mayo-07-2024   
+-- Archivo creado  - lunes-mayo-13-2024   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Table CONTENIDO_DE_UNIDAD
@@ -142,7 +142,9 @@
    (	"ID_HORARIO" NUMBER, 
 	"DIA" VARCHAR2(15 BYTE), 
 	"HORA" VARCHAR2(15 BYTE), 
-	"SEMANA" NUMBER DEFAULT 1
+	"SEMANA" NUMBER DEFAULT 1, 
+	"SEMESTRE" VARCHAR2(20 BYTE) DEFAULT '2024-1', 
+	"INDICE_DIA" NUMBER DEFAULT 1
    ) SEGMENT CREATION IMMEDIATE 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
@@ -675,31 +677,31 @@ Insert into GRUPO_HORARIO (ID_GRUPO,ID_HORARIO) values ('24','24');
 Insert into GRUPO_HORARIO (ID_GRUPO,ID_HORARIO) values ('25','25');
 REM INSERTING into HORARIO
 SET DEFINE OFF;
-Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('1','Lunes','08:00','1');
-Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('2','Martes','08:00','1');
-Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('3','Miércoles','08:00','1');
-Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('4','Jueves','08:00','1');
-Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('5','Viernes','08:00','1');
-Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('6','Lunes','10:00','1');
-Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('7','Martes','10:00','1');
-Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('8','Miércoles','10:00','1');
-Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('9','Jueves','10:00','1');
-Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('10','Viernes','10:00','1');
-Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('11','Lunes','12:00','1');
-Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('12','Martes','12:00','1');
-Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('13','Miércoles','12:00','1');
-Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('14','Jueves','12:00','1');
-Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('15','Viernes','12:00','1');
-Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('16','Lunes','14:00','1');
-Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('17','Martes','14:00','1');
-Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('18','Miércoles','14:00','1');
-Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('19','Jueves','14:00','1');
-Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('20','Viernes','14:00','1');
-Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('21','Lunes','16:00','1');
-Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('22','Martes','16:00','1');
-Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('23','Miércoles','16:00','1');
-Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('24','Jueves','16:00','1');
-Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA) values ('25','Viernes','16:00','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA,SEMESTRE,INDICE_DIA) values ('1','Lunes','08:00','2','2023-1','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA,SEMESTRE,INDICE_DIA) values ('2','Martes','08:00','1','2024-1','2');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA,SEMESTRE,INDICE_DIA) values ('3','Miércoles','08:00','1','2023-1','3');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA,SEMESTRE,INDICE_DIA) values ('4','Jueves','08:00','1','2023-1','4');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA,SEMESTRE,INDICE_DIA) values ('5','Viernes','08:00','1','2023-1','5');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA,SEMESTRE,INDICE_DIA) values ('6','Lunes','10:00','1','2023-1','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA,SEMESTRE,INDICE_DIA) values ('7','Martes','10:00','1','2023-1','2');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA,SEMESTRE,INDICE_DIA) values ('8','Miércoles','10:00','1','2023-1','3');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA,SEMESTRE,INDICE_DIA) values ('9','Jueves','10:00','1','2023-1','4');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA,SEMESTRE,INDICE_DIA) values ('10','Viernes','10:00','1','2023-1','5');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA,SEMESTRE,INDICE_DIA) values ('11','Lunes','12:00','1','2023-1','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA,SEMESTRE,INDICE_DIA) values ('12','Martes','12:00','1','2023-1','2');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA,SEMESTRE,INDICE_DIA) values ('13','Miércoles','12:00','1','2023-1','3');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA,SEMESTRE,INDICE_DIA) values ('14','Jueves','12:00','1','2023-1','4');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA,SEMESTRE,INDICE_DIA) values ('15','Viernes','12:00','1','2023-1','5');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA,SEMESTRE,INDICE_DIA) values ('16','Lunes','14:00','1','2023-1','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA,SEMESTRE,INDICE_DIA) values ('17','Martes','14:00','1','2023-1','2');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA,SEMESTRE,INDICE_DIA) values ('18','Miércoles','14:00','1','2023-1','3');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA,SEMESTRE,INDICE_DIA) values ('19','Jueves','14:00','1','2023-1','4');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA,SEMESTRE,INDICE_DIA) values ('20','Viernes','14:00','1','2023-1','5');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA,SEMESTRE,INDICE_DIA) values ('21','Lunes','16:00','1','2023-1','1');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA,SEMESTRE,INDICE_DIA) values ('22','Martes','16:00','1','2023-1','2');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA,SEMESTRE,INDICE_DIA) values ('23','Miércoles','16:00','1','2023-1','3');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA,SEMESTRE,INDICE_DIA) values ('24','Jueves','16:00','1','2023-1','4');
+Insert into HORARIO (ID_HORARIO,DIA,HORA,SEMANA,SEMESTRE,INDICE_DIA) values ('25','Viernes','16:00','1','2023-1','5');
 REM INSERTING into PREGUNTA
 SET DEFINE OFF;
 Insert into PREGUNTA (ID_PREGUNTA,TEXTO,OPCIONES,RESPUESTAS_CORRECTAS,ID_TIPO,TEMA,PRIVACIDAD) values ('1','¿Cuál es el resultado de 2 + 2?','3,4,5','4','1','Historia','1');
@@ -1887,6 +1889,8 @@ END;
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS"  ENABLE;
   ALTER TABLE "HORARIO" MODIFY ("SEMANA" NOT NULL ENABLE);
+  ALTER TABLE "HORARIO" MODIFY ("SEMESTRE" NOT NULL ENABLE);
+  ALTER TABLE "HORARIO" MODIFY ("INDICE_DIA" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table PREGUNTA
 --------------------------------------------------------

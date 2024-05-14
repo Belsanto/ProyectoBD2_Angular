@@ -25,6 +25,7 @@
       </a>
       <ul *ngIf="!isLoginRoute() && userType==1">
         <li><a routerLinkActive="active" routerLink="/home">HOME</a></li>
+        <li><a *ngIf="!isHomeRoute()" routerLinkActive="active" routerLink="/examenes">EXAMENES</a></li>
         <li><a *ngIf="!isHomeRoute()" routerLinkActive="active" routerLink="/reportes">REPORTES</a></li>
         <li><a *ngIf="!isHomeRoute()" routerLinkActive="active" routerLink="/horarios">HORARIO</a></li>
         <li><a *ngIf="!isHomeRoute()" routerLinkActive="active" routerLink="/banco">BANCO PREGUNTAS</a></li>

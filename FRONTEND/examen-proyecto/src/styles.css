@@ -1,9 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 /* Variables CSS */
 :root {
-	--color-negro: #323235; /* Color negro */
+	--color-negro: #1a1a1a; /* Color negro */
 	--color-verde: #4CAF50; /* Verde brillante */
-	--color-morado: #7f3cb6; /* Turquesa */
+	--color-morado: #7f3cb6; /* morado */
+	--morado-2: #7f3cb652; /* morado oscuro */
 	--color-blanco: #f6f6f6; /* Blanco */
 	--color-azul: #007bff; /* Azul intenso */
 	--color-gris: #ddd; /* Gris claro */
@@ -14,15 +15,32 @@
 	--aguacate: #BFCB45;
   --filtro: 0;
 
+
+  --bg-page: #1a1a1a;
+  --text-color: #f3f3f3;
+  --card-bg: #202020;
+  --icon-bg: #45423C;
+  --blue: #0870f8;
+  --blue-rgb: 8, 112, 248;
+  --orange: #FF9232;
+  --g-purple: linear-gradient(30deg, #85f, #9966ff);
+  --g-yellow: linear-gradient(30deg, #fc0, #fc0);
+  --g-red: linear-gradient(30deg, #f36, #f24);
+  --g-blue: linear-gradient(30deg, #0cf, #0af);
+  --range: 0%;
+  --shadow: rgba(0, 6, 39, .1);
+  --light-shadow: rgba(255, 255, 255, .8);
+  --light-shadow-2: rgba(255, 255, 255, .1);
+
   --numDays: 5;
   --numHours: 10;
   --timeHeight: 60px;
   --calBgColor: #50a1cf;
-  --eventBorderColor: #f2d3d8;
-  --eventColor1: #ffd6d1;
-  --eventColor2: #fafaa3;
-  --eventColor3: #e2f8ff;
-  --eventColor4: #d1ffe6;
+  --eventBorderColor: #ffffff8c;
+  --eventColor1: rgb(221, 229, 145);
+  --eventColor2: #96f7f2;
+  --eventColor3: #eca982;
+  --eventColor4: #5ef3a1;
 }
 
 body {
@@ -54,6 +72,7 @@ body {
 		"Noto Color Emoji";
 	font-feature-settings: normal;
 	font-variation-settings: normal;
+  outline: none;
 }
 
 code {
@@ -63,7 +82,7 @@ code {
 @media (prefers-color-scheme: dark) {
   :root {
       --color-negro: #ddd;
-      --color-blanco: #323235;
+      --color-blanco: #1a1a1a;
       --color-gris: #666;
       --color-gris-oscuro: #aaa;
       --color-nav: #666;
