@@ -26,7 +26,6 @@ export class EmparejamientoComponent {
 
     for (let i = 0; i < this.pairs.length; i++) {
       options.push(this.pairs[i].element1);
-      options.push(this.pairs[i].element2);
       correctAnswers.push(this.pairs[i].element2); // La segunda parte del par se considera la respuesta correcta
     }
 

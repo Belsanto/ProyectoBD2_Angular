@@ -1,0 +1,6 @@
+<!-- privacidad-switch.component.html -->
+<label class="switch">
+  <p class="privacy-text">Pregunta {{privacy ? "Privada" : "Pública"}}</p>
+  <input type="checkbox" [(ngModel)]="privacy" (change)="togglePrivacy()">
+  <span class="slider round"></span>
+</label>

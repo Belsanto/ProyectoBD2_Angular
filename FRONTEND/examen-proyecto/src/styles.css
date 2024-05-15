@@ -100,8 +100,6 @@ select {
   border-radius: 15px;
 }
 
-
-
 .form-group {
   margin-bottom: 20px;
 }
@@ -123,6 +121,7 @@ select {
 
 .form-group textarea {
   resize: none;
+  font-size: 1em;
 }
 
 .char-counter {
@@ -356,7 +355,6 @@ hr{
 }
 
 .form-group label p{
-  font-size: smaller;
   font-weight: normal;
 }
 
@@ -371,13 +369,19 @@ border-radius: 50%;
 
 .privacy-text{
   position: absolute;
-  left: 4em;
+  left: 6em;
   bottom: 0vh;
+  font-size: .6em;
 }
 .subtitle{
   font-style: italic;
   margin-bottom: .5em;
   opacity: .2;
+}
+.form-group .questionText{
+  font-size: 1em;
+  font-weight: 500;
+  margin: .5rem .5em .2em 1em;
 }
 @media (prefers-color-scheme: dark) {
   :root {

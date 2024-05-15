@@ -1,1 +1,15 @@
-<p>verdadero-falso works!</p>
+<!-- Verdadero/Falso -->
+<div class="form-group true-false-group">
+  <label>Verdadero/Falso</label>
+
+  <app-privacidad [(privacy)]="privacy"></app-privacidad>
+
+  <label class="questionText" for="questionText">Texto de la Pregunta</label>
+  <textarea id="explanation" [(ngModel)]="questionText" placeholder="Escribe la pregunta aquí"></textarea>
+  <div>
+    <label><input type="radio" name="trueFalse" [(ngModel)]="isTrue" [value]="true"> Verdadero</label>
+    <label><input type="radio" name="trueFalse" [(ngModel)]="isTrue" [value]="false"> Falso</label>
+  </div>
+</div>
+<button type="button" class="add-question" (click)="addQuestion()">Añadir Pregunta</button>
+<hr/>

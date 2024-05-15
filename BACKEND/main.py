@@ -318,7 +318,7 @@ def crear_examen(
 ):
     cursor = get_cursor()
     try:
-        result = cursor.callfunc("crear_examen", int, [nombre, descripcion, cantidad_preguntas, tiempo_limite, id_curso, id_profesor])
+        result = cursor.callfunc("agregar_examen", int, [nombre, descripcion, cantidad_preguntas, tiempo_limite, id_curso, id_profesor])
         return {"id_examen": result}
     finally:
         cursor.close()

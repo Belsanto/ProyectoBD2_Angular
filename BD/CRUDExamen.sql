@@ -55,6 +55,7 @@ BEGIN
     RETURN SQL%ROWCOUNT; -- Devuelve el número de filas afectadas por la actualización
 END;
 /
+
 CREATE OR REPLACE FUNCTION eliminar_examen (
     p_id_examen IN NUMBER
 ) RETURN NUMBER

@@ -6,32 +6,42 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./ordenar-conceptos.component.css']
 })
 export class OrdenarConceptosComponent {
-  concepts: string[] = ['']; // Arreglo para almacenar los conceptos ingresados
+  questionText: string = '';
+  pairs: { element: string }[] = [{ element: '' }];
   privacy: boolean = false;
 
   @Output() questionAdded = new EventEmitter<any>();
 
-  addConcept() {
-    this.concepts.push('');
+  addPair() {
+    this.pairs.push({ element: '' });
   }
 
-  removeConcept(index: number) {
-    this.concepts.splice(index, 1);
+  removePair(index: number) {
+    this.pairs.splice(index, 1);
   }
 
   addQuestion() {
+    const options: string[] = [];
+    const correctAnswers: string[] = [];
+
+    for (let i = 0; i < this.pairs.length; i++) {
+      options.push(""+(i+1));
+      correctAnswers.push(this.pairs[i].element); // La segunda parte del par se considera la respuesta correcta
+    }
+
     const questionData = {
-      texto: 'Ordenar Conceptos', // Texto de la pregunta (podría ser personalizable)
-      opciones: this.concepts, // Los conceptos ingresados serán las opciones
-      respuestas_correctas: this.concepts.slice(), // Las respuestas correctas serán los conceptos ordenados
-      id_tipo: 1, // ID del tipo de pregunta
-      tema: '', // Tema de la pregunta
-      privacidad: this.privacy ? 1 : 0 // Nivel de privacidad
+      texto: this.questionText,
+      opciones: options,
+      respuestas_correctas: correctAnswers,
+      id_tipo: 2, // ID correspondiente al tipo de pregunta de emparejamiento
+      tema: '', // Añade el tema correspondiente
+      privacidad: this.privacy ? 1 : 0 // Convertir la privacidad booleana a un número
     };
 
     this.questionAdded.emit(questionData);
 
     // Limpiar los campos después de agregar la pregunta
-    this.concepts = [''];
+    this.questionText = '';
+    this.pairs = [{ element: ''}];
   }
 }

@@ -1,1 +1,11 @@
-<p>completar works!</p>
+<div class="form-group">
+  <label for="explanation">Completar</label>
+  <!-- Rounded switch -->
+  <app-privacidad [(privacy)]="privacy"></app-privacidad>
+  <label class="questionText" for="questionText">Texto de la Pregunta</label>
+  <textarea id="questionText" [(ngModel)]="questionText" placeholder="Ejemplo del _________ de la pregunta"></textarea>
+  <label class="questionText" for="explanation">Texto de la Respuesta</label>
+  <textarea id="explanation" [(ngModel)]="answerText" placeholder="Escribe la respuesta correcta aquí, ejemplo: texto"></textarea>
+</div>
+<button type="button" class="add-question" (click)="addQuestion()">Añadir Pregunta</button>
+<hr/>

@@ -9,7 +9,7 @@ export class OpcionMultipleComponent {
   questionText: string = '';
   options: string[] = [''];
   correctAnswers: boolean[] = [false];
-  correctAnswersString: string[] = []; // Nuevo arreglo para almacenar las respuestas correctas como cadenas de texto
+  correctAnswersString: string[] = []; // Nuevo arreglo para almacenar las respuestas correctas
   privacy: boolean = false;
 
   @Output() questionAdded = new EventEmitter<any>();

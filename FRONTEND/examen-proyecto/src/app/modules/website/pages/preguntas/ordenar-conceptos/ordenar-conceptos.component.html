@@ -1,21 +1,26 @@
-<!-- Ordenar Conceptos -->
+<!-- Emparejamiento -->
 <div class="form-group">
-  <label ><p class="subtitle">Ordenar Conceptos</p></label>
+  <label ><p class="subtitle">Emparejamiento</p></label>
   <!-- Rounded switch -->
-  <label class="switch">
-    <p class="privacy-text">Pregunta {{privacy ? "Privada" : "Pública"}}</p>
-    <input type="checkbox" [(ngModel)]="privacy">
-    <span class="slider round"></span>
-  </label>
-  <label for="sorting">Ordenar Conceptos</label>
+
+  <app-privacidad [(privacy)]="privacy"></app-privacidad>
+
+
+  <label class="questionText" for="questionText">Texto de la Pregunta</label>
+  <textarea id="questionText" [(ngModel)]="questionText" placeholder="Escribe la pregunta aquí"></textarea>
+</div>
+
+<div class="matching-group">
+  <label for="sorting">Opciones: </label>
   <div class="sorting-container">
-    <div *ngFor="let concept of concepts; let i = index" class="sort-item">
-      <span class="concept-label">Concepto {{ i + 1 }}</span>
-      <input type="text" [(ngModel)]="concepts[i]" class="sort-order" placeholder="texto aqui">
-      <span class="remove-concept" *ngIf="i > 1" (click)="removeConcept(i)">✖</span> <!-- Añade la opción de eliminar conceptos -->
+    <div *ngFor="let pair of pairs; let i = index" class="sort-item">
+      <span class="concept-label"><p class="concepto">Concepto {{ i + 1 }}</p></span>
+      <input type="text" [(ngModel)]="pairs[i].element" placeholder="Emparejar con">
+      <span class="remove-pair" *ngIf="i > 1" (click)="removePair(i)">✖</span> <!-- Mostrar la X a partir del segundo par -->
     </div>
   </div>
-  <button type="button" class="add-sort-item" (click)="addConcept()">Añadir Concepto</button>
+  <button type="button" class="add-pair" (click)="addPair()">Añadir Par</button>
 </div>
+
 <button type="button" class="add-question" (click)="addQuestion()">Añadir Pregunta</button>
 <hr/>

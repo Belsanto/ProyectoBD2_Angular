@@ -23,21 +23,6 @@
             <option>Trivia</option>
         </select>
     </div>
-    <!--
-    <div class="questions-section">
-        <div class="form-group">
-            <label for="questionTypes">Tipos de Pregunta</label>
-                <div class="question-types">
-                  <label class="option"><input type="checkbox"> Completar</label>
-                    <label class="option"><input type="checkbox"> Opción Múltiple/Unica</label>
-                    <label class="option"><input type="checkbox"> Emparejar</label>
-                    <label class="option"><input type="checkbox"> Verdadero/Falso</label>
-                    <label class="option"><input type="checkbox"> Ordenar Conceptos</label>
-                </div>
-        </div>
-        <button type="button" class="add-question">Añadir Pregunta</button>
-    </div>
-    -->
     <hr/>
     <br/>
 
@@ -48,47 +33,28 @@
     <app-emparejamiento (questionAdded)="addQuestion($event)"></app-emparejamiento>
     <!-- Ordenar Conceptos -->
     <app-ordenar-conceptos (questionAdded)="addQuestion($event)"></app-ordenar-conceptos>
-    <!-- Opción Completar -->
-    <div class="form-group">
-      <label for="explanation">Completar</label>
-      <label for="questionText">Texto de la Pregunta</label>
-      <textarea id="questionText" placeholder="Escribe la pregunta aquí"></textarea>
-      <label for="questionText">Texto de la Respuesta</label>
-      <textarea id="explanation" placeholder="Escribe la respuesta correcta aquí"></textarea>
-  </div>
-  <hr/>
-  <!-- Verdadero/Falso -->
-  <div class="form-group true-false-group">
-    <label>Verdadero/Falso</label>
-    <textarea id="explanation" placeholder="Escribe la pregunta aquí"></textarea>
-    <div>
-        <label><input type="radio" name="trueFalse" value="true"> Verdadero</label>
-        <label><input type="radio" name="trueFalse" value="false"> Falso</label>
-    </div>
-</div>
-<hr/>
+    <!-- Agregar Componente Completar -->
+    <app-completar (questionAdded)="addQuestion($event)"></app-completar>
+    <!-- Agregar Componente Verdadero/Falso -->
+    <app-verdadero-falso (questionAdded)="addQuestion($event)"></app-verdadero-falso>
+
 
     <div class="endForm">
       <label for="save">Preguntas Creadas</label>
       <select>
-          <option >En orden</option>
-          <option >Aleatorio</option>
+          <option>En orden</option>
+          <option>Aleatorio</option>
           <!-- Otras opciones -->
       </select>
       <label for="save">Horario: </label>
     </div>
-    <div class="actions">
-        <button type="button" class="save">Guardar Examen</button>
-        <label> <!-- Mostrar las preguntas agregadas -->
-          <div *ngFor="let question of questions">
-            <div>{{ question.texto }}</div>
-            <!-- Mostrar opciones, respuestas correctas, etc. -->
-          </div>
-        </label>
-
-        <span class="erase">✖</span>
-
-
+     <!-- Mostrar las preguntas agregadas -->
+  <div class="actions">
+    <button type="button" class="save" (click)="guardarExamen()">Guardar Examen</button>
+    <div *ngFor="let question of questions">
+      <div>{{ question.texto }}</div>
+      <!-- Botón para eliminar la pregunta -->
+      <button type="button" class="erase" (click)="eliminarPregunta((''+question.id_pregunta))">✖</button>
     </div>
-
+  </div>
 </div>
