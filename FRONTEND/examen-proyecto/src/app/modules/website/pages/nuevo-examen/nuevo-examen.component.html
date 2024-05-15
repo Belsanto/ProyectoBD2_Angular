@@ -23,6 +23,7 @@
             <option>Trivia</option>
         </select>
     </div>
+    <!--
     <div class="questions-section">
         <div class="form-group">
             <label for="questionTypes">Tipos de Pregunta</label>
@@ -36,84 +37,36 @@
         </div>
         <button type="button" class="add-question">Añadir Pregunta</button>
     </div>
+    -->
     <hr/>
     <br/>
 
 
     <!-- Opción Múltiple/Unica -->
-    <div class="form-group">
-        <label for="questionText">Texto de la Pregunta</label>
-        <textarea id="questionText" placeholder="Escribe la pregunta aquí"></textarea>
-    </div>
-    <div class="options-container">
-        <div class="option" data-correct="false">
-            <span class="handle">☞</span>
-            <input type="text" placeholder="Opción 1">
-            <span class="mark-correct">✓</span>
-        </div>
-        <!-- Repetir la estructura de arriba para más opciones -->
-        <div class="option" data-correct="true">
-            <span class="handle">☞</span>
-            <input type="text" placeholder="Opción 2">
-            <span class="mark-correct correct">✓</span>
-        </div>
-        <button type="button" class="add-option">Añadir Otra Opción</button>
-    </div>
-    <hr/>
-
+    <app-opcion-multiple (questionAdded)="addQuestion($event)"></app-opcion-multiple>
+    <!-- Emparejamiento -->
+    <app-emparejamiento (questionAdded)="addQuestion($event)"></app-emparejamiento>
+    <!-- Ordenar Conceptos -->
+    <app-ordenar-conceptos (questionAdded)="addQuestion($event)"></app-ordenar-conceptos>
     <!-- Opción Completar -->
     <div class="form-group">
-        <label for="explanation">Completar</label>
-        <textarea id="explanation" placeholder="Escribe la respuesta correcta aquí"></textarea>
+      <label for="explanation">Completar</label>
+      <label for="questionText">Texto de la Pregunta</label>
+      <textarea id="questionText" placeholder="Escribe la pregunta aquí"></textarea>
+      <label for="questionText">Texto de la Respuesta</label>
+      <textarea id="explanation" placeholder="Escribe la respuesta correcta aquí"></textarea>
+  </div>
+  <hr/>
+  <!-- Verdadero/Falso -->
+  <div class="form-group true-false-group">
+    <label>Verdadero/Falso</label>
+    <textarea id="explanation" placeholder="Escribe la pregunta aquí"></textarea>
+    <div>
+        <label><input type="radio" name="trueFalse" value="true"> Verdadero</label>
+        <label><input type="radio" name="trueFalse" value="false"> Falso</label>
     </div>
-    <hr/>
-
-        <!-- Emparejamiento -->
-    <div class="form-group matching-group">
-        <label for="matching">Emparejamiento</label>
-        <div class="matching-container">
-            <!-- Añadir elementos emparejados aquí -->
-            <div class="pair">
-                <input type="text" placeholder="Elemento 1">
-                <input type="text" placeholder="Emparejar con">
-            </div>
-            <!-- Repetir para más pares -->
-        </div>
-        <button type="button" class="add-pair">Añadir Par</button>
-    </div>
-    <hr/>
-
-    <!-- Verdadero/Falso -->
-    <div class="form-group true-false-group">
-        <label>Verdadero/Falso</label>
-        <textarea id="explanation" placeholder="Escribe la pregunta aquí"></textarea>
-        <div>
-            <label><input type="radio" name="trueFalse" value="true"> Verdadero</label>
-            <label><input type="radio" name="trueFalse" value="false"> Falso</label>
-        </div>
-    </div>
-    <hr/>
-
-    <!-- Ordenar Conceptos -->
-    <div class="form-group sorting-group">
-        <label for="sorting">Ordenar Conceptos</label>
-        <div class="sorting-container">
-            <!-- Añadir conceptos aquí -->
-            <div class="sort-item">
-                <span class="concept-label">Concepto 1</span>
-                <input type="text" class="sort-order" placeholder="texto aqui">
-            </div>
-            <!-- Repetir para más conceptos -->
-            <div class="sort-item">
-                <span class="concept-label">Concepto 2</span>
-                <input type="text" class="sort-order" placeholder="texto aqui">
-            </div>
-            <!-- Puedes añadir más 'sort-item' según sea necesario -->
-        </div>
-        <button type="button" class="add-sort-item">Añadir Concepto</button>
-    </div>
-    <hr/>
-    <br/>
+</div>
+<hr/>
 
     <div class="endForm">
       <label for="save">Preguntas Creadas</label>
@@ -126,7 +79,12 @@
     </div>
     <div class="actions">
         <button type="button" class="save">Guardar Examen</button>
-        <label><input type="checkbox"> ¿Como se dec...</label>
+        <label> <!-- Mostrar las preguntas agregadas -->
+          <div *ngFor="let question of questions">
+            <div>{{ question.texto }}</div>
+            <!-- Mostrar opciones, respuestas correctas, etc. -->
+          </div>
+        </label>
 
         <span class="erase">✖</span>
 

@@ -12,6 +12,11 @@ import { QuicklinkModule } from 'ngx-quicklink';
 import { FormsModule } from '@angular/forms';
 import { EstudianteComponent } from './pages/estudiante/estudiante.component';
 import { NuevoExamenComponent } from './pages/nuevo-examen/nuevo-examen.component';
+import { CompletarComponent } from './pages/preguntas/completar/completar.component';
+import { OpcionMultipleComponent } from './pages/preguntas/opcion-multiple/opcion-multiple.component';
+import { EmparejamientoComponent } from './pages/preguntas/emparejamiento/emparejamiento.component';
+import { VerdaderoFalsoComponent } from './pages/preguntas/verdadero-falso/verdadero-falso.component';
+import { OrdenarConceptosComponent } from './pages/preguntas/ordenar-conceptos/ordenar-conceptos.component';
 
 
 @NgModule({
@@ -22,7 +27,12 @@ import { NuevoExamenComponent } from './pages/nuevo-examen/nuevo-examen.componen
     HorariosComponent,
     HomeComponent,
     EstudianteComponent,
-    NuevoExamenComponent
+    NuevoExamenComponent,
+    CompletarComponent,
+    OpcionMultipleComponent,
+    EmparejamientoComponent,
+    VerdaderoFalsoComponent,
+    OrdenarConceptosComponent
   ],
   imports: [
     CommonModule,

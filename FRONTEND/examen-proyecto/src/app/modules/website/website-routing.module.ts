@@ -34,7 +34,7 @@ const routes: Routes = [
       {
         path: 'new-exam',
         component: NuevoExamenComponent,
-        canActivate: [ProfessorGuard]
+        //canActivate: [ProfessorGuard]
       },
       {
         path: 'horarios',
