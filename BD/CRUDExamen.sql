@@ -4,7 +4,8 @@ CREATE OR REPLACE FUNCTION agregar_examen (
     p_cantidad_preguntas IN NUMBER,
     p_tiempo_limite IN NUMBER,
     p_id_curso IN NUMBER,
-    p_id_profesor IN NUMBER
+    p_id_profesor IN NUMBER,
+    p_orden IN VARCHAR2
 ) RETURN NUMBER
 IS
     v_id_examen NUMBER;
@@ -15,14 +16,16 @@ BEGIN
         "CANTIDAD_DE_PREGUNTAS",
         "TIEMPO_LÍMITE",
         "ID_CURSO",
-        "ID_PROFESOR"
+        "ID_PROFESOR",
+        "ORDEN"
     ) VALUES (
         p_nombre,
         p_descripcion,
         p_cantidad_preguntas,
         p_tiempo_limite,
         p_id_curso,
-        p_id_profesor
+        p_id_profesor,
+        p_orden
     )
     RETURNING "ID_EXAMEN" INTO v_id_examen;
 
@@ -37,7 +40,8 @@ CREATE OR REPLACE FUNCTION actualizar_examen (
     p_cantidad_preguntas IN NUMBER,
     p_tiempo_limite IN NUMBER,
     p_id_curso IN NUMBER,
-    p_id_profesor IN NUMBER
+    p_id_profesor IN NUMBER,
+    p_orden IN VARCHAR2
 ) RETURN NUMBER
 IS
 BEGIN
@@ -48,7 +52,8 @@ BEGIN
         "CANTIDAD_DE_PREGUNTAS" = p_cantidad_preguntas,
         "TIEMPO_LÍMITE" = p_tiempo_limite,
         "ID_CURSO" = p_id_curso,
-        "ID_PROFESOR" = p_id_profesor
+        "ID_PROFESOR" = p_id_profesor,
+        "ORDEN" = p_orden
     WHERE
         "ID_EXAMEN" = p_id_examen;
 

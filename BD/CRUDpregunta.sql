@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION insertar_pregunta (
+create or replace FUNCTION insertar_pregunta (
     p_texto IN VARCHAR2,
     p_opciones IN VARCHAR2,
     p_respuestas_correctas IN VARCHAR2,
@@ -9,7 +9,11 @@ CREATE OR REPLACE FUNCTION insertar_pregunta (
 IS
     v_id_pregunta NUMBER;
 BEGIN
-    INSERT INTO "PREGUNTA" (
+    -- Obtener el próximo valor de la secuencia para el ID_EXAMEN
+    SELECT secuencia_examen.NEXTVAL INTO v_id_pregunta FROM DUAL;
+    
+    INSERT INTO "BELSANTO"."PREGUNTA" (
+        "ID_PREGUNTA",
         "TEXTO",
         "OPCIONES",
         "RESPUESTAS_CORRECTAS",
@@ -17,6 +21,7 @@ BEGIN
         "TEMA",
         "PRIVACIDAD"
     ) VALUES (
+        v_id_pregunta,
         p_texto,
         p_opciones,
         p_respuestas_correctas,
@@ -28,6 +33,7 @@ BEGIN
 
     RETURN v_id_pregunta;
 END;
+
 /
 
 CREATE OR REPLACE FUNCTION actualizar_pregunta (

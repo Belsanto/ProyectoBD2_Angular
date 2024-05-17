@@ -120,6 +120,19 @@ def get_preguntas(id_examen: int, user_id: int = Depends(verificar_token)):
         result = cursor.fetchall()
         return result
 
+# Cursos:
+@app.get("/horarios", tags=['Cursos disponibles'],)
+def get_horarios(user_id: int = Depends(verificar_token)):
+    with get_cursor() as cursor:
+        cursor.execute("""
+            SELECT
+                C.*
+            FROM
+                "CURSO" C
+        """)
+        result = cursor.fetchall()
+        return result
+
 # Endpoint to fetch schedules
 @app.get("/horarios", tags=['Horarios disponibles'],)
 def get_horarios(user_id: int = Depends(verificar_token), semana: int = None, semestre: str = None):
@@ -313,13 +326,20 @@ def crear_examen(
     cantidad_preguntas: int = Body(...),
     tiempo_limite: int = Body(...),
     id_curso: int = Body(...),
-    id_profesor: int = Body(...),
-    user_id: int = Depends(verificar_token)
+    orden: str = Body(...),
+    horario: str = Body(...),
+    user_info: Tuple[int, bool] = Depends(verificar_token)
 ):
+    user_id, is_professor = user_info
     cursor = get_cursor()
     try:
-        result = cursor.callfunc("agregar_examen", int, [nombre, descripcion, cantidad_preguntas, tiempo_limite, id_curso, id_profesor])
-        return {"id_examen": result}
+        if is_professor:
+            result = cursor.callfunc("agregar_examen", int, [nombre, descripcion, cantidad_preguntas, tiempo_limite, id_curso, user_id, orden])
+            cursor.execute("INSERT INTO EXAMEN_HORARIO (ID_EXAMEN, ID_HORARIO) VALUES (:id_examen, :id_horario)", id_examen=result, id_horario=horario)
+            connection.commit()
+            return {"id_examen": result}
+        else :
+            return {"ERROR": "Debes ser un profesor"}
     finally:
         cursor.close()
 
@@ -333,11 +353,12 @@ def actualizar_examen(
     tiempo_limite: int = Body(...),
     id_curso: int = Body(...),
     id_profesor: int = Body(...),
+    orden: str = Body(...),
     user_id: int = Depends(verificar_token)
 ):
     cursor = get_cursor()
     try:
-        result = cursor.callfunc("actualizar_examen", int, [id_examen, nombre, descripcion, cantidad_preguntas, tiempo_limite, id_curso, id_profesor])
+        result = cursor.callfunc("actualizar_examen", int, [id_examen, nombre, descripcion, cantidad_preguntas, tiempo_limite, id_curso, id_profesor, orden])
         return {"filas_afectadas": result}
     finally:
         cursor.close()

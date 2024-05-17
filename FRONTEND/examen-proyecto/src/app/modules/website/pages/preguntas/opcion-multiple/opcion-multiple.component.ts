@@ -7,7 +7,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class OpcionMultipleComponent {
   questionText: string = '';
-  options: string[] = [''];
+  options: { element: string}[] = [{ element: ''}];
   correctAnswers: boolean[] = [false];
   correctAnswersString: string[] = []; // Nuevo arreglo para almacenar las respuestas correctas
   privacy: boolean = false;
@@ -15,9 +15,9 @@ export class OpcionMultipleComponent {
   @Output() questionAdded = new EventEmitter<any>();
 
   addOption() {
-    this.options.push('');
-    this.correctAnswers.push(false);
+    this.options.push({ element: ''});
   }
+
 
   removeOption(index: number) {
     this.options.splice(index, 1);
@@ -28,8 +28,8 @@ export class OpcionMultipleComponent {
     const selectedOptions: string[] = [];
     for (let i = 0; i < this.options.length; i++) {
       if (this.correctAnswers[i]) {
-        selectedOptions.push(this.options[i]);
-        this.correctAnswersString.push(this.options[i]); // Agregar la respuesta correcta al nuevo arreglo
+        selectedOptions.push(this.options[i].element);
+        this.correctAnswersString.push(this.options[i].element); // Agregar la respuesta correcta al nuevo arreglo
       }
     }
 
@@ -46,7 +46,7 @@ export class OpcionMultipleComponent {
 
     // Limpiar los campos después de agregar la pregunta
     this.questionText = '';
-    this.options = [''];
+    this.options = [{ element: ''}];
     this.correctAnswers = [false];
     this.correctAnswersString = []; // Limpiar el nuevo arreglo de respuestas correctas
   }

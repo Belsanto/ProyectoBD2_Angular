@@ -10,6 +10,7 @@ import { EstudianteComponent } from './pages/estudiante/estudiante.component';
 import { StudentGuard } from 'src/app/guards/student.guard';
 import { LoginGuard } from 'src/app/guards/login-guard.guard';
 import { NuevoExamenComponent } from './pages/nuevo-examen/nuevo-examen.component';
+import { ActivatedRoute } from '@angular/router';
 
 const routes: Routes = [
   {
@@ -32,9 +33,9 @@ const routes: Routes = [
         canActivate: [ProfessorGuard]
       },
       {
-        path: 'new-exam',
+        path: 'new-exam/:id',
         component: NuevoExamenComponent,
-        //canActivate: [ProfessorGuard]
+        canActivate: [ProfessorGuard]
       },
       {
         path: 'horarios',
@@ -50,6 +51,7 @@ const routes: Routes = [
     ]
   }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
