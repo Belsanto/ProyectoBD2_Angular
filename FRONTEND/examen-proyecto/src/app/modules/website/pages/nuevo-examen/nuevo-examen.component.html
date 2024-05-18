@@ -7,25 +7,26 @@
   <div class="form-group">
     <label for="quizDescription">Descripción del Cuestionario</label>
     <textarea id="quizDescription" placeholder="Describe tu cuestionario en unas pocas frases" maxlength="120" [(ngModel)]="descripcionCuestionario"></textarea>
-    <div class="char-counter">Texto previo a presentar la prueba</div>
+    <div class="char-counter">*Texto previo a presentar la prueba*</div>
   </div>
 
   <div class="form-group">
     <label for="quizCategory">Elegir Categoría</label>
     <select id="quizCategory" [(ngModel)]="categoriaCuestionario">
-    <option>Negocios</option>
-      <option>Informática y Tecnología</option>
-      <option>Educación y Exámenes</option>
-      <option>Idioma Extranjero</option>
-      <option>Certificación IT</option>
-      <option>Educación K-12</option>
-      <option>Cuestionarios de Personalidad</option>
-      <option>Trivia</option>
+      <option *ngFor="let curso of cursos" [value]="curso[0]">{{ curso[1] }}</option>
     </select>
   </div>
 
   <hr/>
   <br/>
+  <section *ngIf="showNotification" class="notification">
+    <div class="alert alert-info">
+      <p>
+        NO SE PUDO CREAR USUARIO
+      </p>
+      <span class="close-btn" (click)="closeNotification()">✖</span>
+    </div>
+  </section>
 
   <!-- Aquí van los componentes para agregar preguntas -->
   <!-- Opción Múltiple/Unica -->
@@ -38,7 +39,6 @@
   <app-completar (questionAdded)="addQuestion($event)"></app-completar>
   <!-- Agregar Componente Verdadero/Falso -->
   <app-verdadero-falso (questionAdded)="addQuestion($event)"></app-verdadero-falso>
-
 
   <div class="endForm">
     <label for="save">Orden de las Preguntas: </label>
@@ -56,8 +56,8 @@
   <!-- Mostrar las preguntas agregadas -->
   <div class="actions">
     <button type="button" class="save" (click)="guardarExamen()">Guardar Examen</button>
-    <div *ngFor="let question of questions">
-      <div>{{ question.texto }}</div>
+    <div *ngFor="let question of questions; let i = index">
+      <div>{{ i+1 }}-) {{ question.texto | shortName }}</div>
       <!-- Botón para eliminar la pregunta -->
       <button type="button" class="erase" (click)="eliminarPregunta((''+question.id_pregunta))">✖</button>
     </div>

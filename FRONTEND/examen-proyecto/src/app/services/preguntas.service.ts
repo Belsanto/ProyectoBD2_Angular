@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,19 +10,30 @@ export class QuestionService {
 
   constructor(private http: HttpClient) {}
 
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('authToken');
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  }
+
   createQuestion(questionData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/crear`, questionData);
+    const headers = this.getHeaders();
+    return this.http.post(`${this.apiUrl}/crear`, questionData, { headers });
   }
 
   updateQuestion(questionId: number, questionData: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/actualizar/${questionId}`, questionData);
+    const headers = this.getHeaders();
+    return this.http.put(`${this.apiUrl}/actualizar/${questionId}`, questionData, { headers });
   }
 
   updateQuestionPrivacy(questionId: number, professorId: number, privacy: number): Observable<any> {
-    return this.http.put(`${this.apiUrl}/actualizar-privacidad/${questionId}`, { id_profesor: professorId, privacidad: privacy });
+    const headers = this.getHeaders();
+    return this.http.put(`${this.apiUrl}/actualizar-privacidad/${questionId}`, { id_profesor: professorId, privacidad: privacy }, { headers });
   }
 
   deleteQuestion(questionId: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/eliminar/${questionId}`);
+    const headers = this.getHeaders();
+    return this.http.delete(`${this.apiUrl}/eliminar/${questionId}`, { headers });
   }
 }

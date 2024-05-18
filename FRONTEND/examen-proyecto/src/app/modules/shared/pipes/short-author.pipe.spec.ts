@@ -1,8 +1,8 @@
-import { ShortAuthorPipe } from './short-author.pipe';
+import { ShortNamePipe } from './short-author.pipe';
 
-describe('ShortAuthorPipe', () => {
+describe('ShortNamePipe', () => {
   it('create an instance', () => {
-    const pipe = new ShortAuthorPipe();
+    const pipe = new ShortNamePipe();
     expect(pipe).toBeTruthy();
   });
 });

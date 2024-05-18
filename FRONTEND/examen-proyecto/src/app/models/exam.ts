@@ -8,7 +8,8 @@ export class Exam {
   tiempoLimite: number;
   idCurso: string;
   orden: string;
-  preguntas: Question[]; // Arreglo de preguntas
+  horario: string;
+  preguntas?: Question[]; // Arreglo de preguntas
 
   constructor(
     nombre: string,
@@ -16,8 +17,8 @@ export class Exam {
     cantidadDePreguntas: number,
     tiempoLimite: number,
     idCurso: string,
-    idProfesor: string,
     orden: string,
+    horario: string,
     preguntas: Question[] = [], // Inicializar preguntas como un arreglo vacío si no se proporciona
     idExamen?: string
   ) {
@@ -28,6 +29,7 @@ export class Exam {
     this.tiempoLimite = tiempoLimite;
     this.idCurso = idCurso;
     this.orden = orden;
+    this.horario = horario;
     this.preguntas = preguntas;
   }
 }

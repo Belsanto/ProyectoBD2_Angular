@@ -4,6 +4,8 @@ import { Question } from 'src/app/models/question';  // Importa el modelo de pre
 import { Exam } from 'src/app/models/exam';   // Importa el modelo de examen
 import { ExamenService } from 'src/app/services/examenes.service';
 import { QuestionService } from 'src/app/services/preguntas.service';
+import { CursosService } from 'src/app/services/cursos.service'; // Importa el servicio de cursos
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nuevo-examen',
@@ -18,20 +20,38 @@ export class NuevoExamenComponent implements OnInit {
   categoriaCuestionario: string = '';
   orden: string = ''; // En orden o Aleatorio
   exams: Exam[] = []; // Arreglo para almacenar los exámenes creados
-  horarioId: string | null = null;
+  horarioId: string = '0';
+  cursos: any[] = []; // Arreglo para almacenar los cursos
+  showNotification: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private examenService: ExamenService,
-    private questionService: QuestionService
+    private questionService: QuestionService,
+    private cursosService: CursosService, // Inyecta el servicio de cursos
+    private router: Router // Importa el servicio Router
   ) { }
-
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      this.horarioId = params.get('id');
+      this.horarioId = "" + params.get('id');
       console.log('ID del horario recibido:', this.horarioId);
     });
+
+    // Cargar los cursos desde el servicio
+    this.cargarCursos();
+  }
+
+  cargarCursos(): void {
+    this.cursosService.getCursos().subscribe(
+      (data) => {
+        this.cursos = data;
+        console.log('Cursos cargados:', this.cursos);
+      },
+      (error) => {
+        console.error('Error al cargar los cursos:', error);
+      }
+    );
   }
 
   addQuestion(questionData: Question) {
@@ -47,39 +67,34 @@ export class NuevoExamenComponent implements OnInit {
     return '_' + Math.random().toString(36).substr(2, 9);
   }
 
-  printExams() {
-    console.log('Exámenes almacenados:');
-    this.exams.forEach((exam, index) => {
-      console.log(`Examen ${index + 1}:`);
-      console.log('Nombre:', exam.nombre);
-      console.log('Descripción:', exam.descripcion);
-      console.log('Categoría:', exam.idCurso);
-      console.log('Orden:', exam.orden);
-      console.log('Cantidad de Preguntas:', exam.cantidadDePreguntas);
-      console.log('Tiempo Límite:', exam.tiempoLimite);
-      console.log('Preguntas:', exam.preguntas);
-      console.log('Horario:', this.horarioId);
-    });
-  }
-
   guardarExamen() {
-    const newExam: Exam = {
+    const newExam = {
       nombre: this.tituloCuestionario,
       descripcion: this.descripcionCuestionario,
-      idCurso: this.categoriaCuestionario,
+      cantidad_preguntas: this.questions.length,
+      tiempo_limite: 60, // Puedes definir el tiempo límite aquí
+      id_curso: this.categoriaCuestionario,
       orden: this.orden,
-      cantidadDePreguntas: this.questions.length,
-      tiempoLimite: 60, // Puedes definir el tiempo límite aquí
-      preguntas: this.questions
+      horario: this.horarioId
     };
+
     // Enviar el examen a la API
     this.examenService.crearExamen(newExam).subscribe(
       (response) => {
         const examId = response.id; // Asume que la respuesta contiene el ID del examen creado
         this.guardarPreguntas(examId);
+        this.showNotification = false;
+        // En caso de éxito
+        // Redirigir a /examenes
+        this.router.navigate(['/examenes']);
       },
       (error) => {
         console.error('Error al crear el examen:', error);
+        // En caso de error
+        this.showNotification = true;
+        setTimeout(() => {
+          this.showNotification = false;
+        }, 3500); // Oculta la notificación después de 5 segundos
       }
     );
   }
@@ -114,4 +129,22 @@ export class NuevoExamenComponent implements OnInit {
     this.questions = [];
   }
 
+  closeNotification() {
+    this.showNotification = false;
+  }
+
+  printExams() {
+    console.log('Exámenes almacenados:');
+    this.exams.forEach((exam, index) => {
+      console.log(`Examen ${index + 1}:`);
+      console.log('Nombre:', exam.nombre);
+      console.log('Descripción:', exam.descripcion);
+      console.log('Categoría:', exam.idCurso);
+      console.log('Orden:', exam.orden);
+      console.log('Cantidad de Preguntas:', exam.cantidadDePreguntas);
+      console.log('Tiempo Límite:', exam.tiempoLimite);
+      console.log('Preguntas:', exam.preguntas);
+      console.log('Horario:', this.horarioId);
+    });
+  }
 }

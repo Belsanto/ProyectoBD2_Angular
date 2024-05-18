@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,15 +10,25 @@ export class ExamenService {
 
   constructor(private http: HttpClient) {}
 
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('authToken');
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  }
+
   crearExamen(examenData: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/examen/crear`, examenData);
+    const headers = this.getHeaders();
+    return this.http.post<any>(`${this.apiUrl}/examen/crear`, examenData, { headers });
   }
 
   actualizarExamen(examenData: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/examen/actualizar`, examenData);
+    const headers = this.getHeaders();
+    return this.http.put<any>(`${this.apiUrl}/examen/actualizar`, examenData, { headers });
   }
 
   eliminarExamen(idExamen: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/examen/eliminar`, { body: { id: idExamen } });
+    const headers = this.getHeaders();
+    return this.http.delete<any>(`${this.apiUrl}/examen/eliminar`, { headers, body: { id: idExamen } });
   }
 }

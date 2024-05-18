@@ -120,8 +120,230 @@ def get_preguntas(id_examen: int, user_id: int = Depends(verificar_token)):
         result = cursor.fetchall()
         return result
 
+# Endpoint de Reporte de los exámenes presentados por cada estudiante con su puntaje promedio y el número total de exámenes presentados
+@app.get("/consultas/estudiantes", tags=['Consultas para Profesores'])
+def consultar_estudiantes(user_info: Tuple[int, bool] = Depends(verificar_token)):
+    user_id, is_professor = user_info
+    if not is_professor:
+        raise HTTPException(status_code=403, detail="Solo los profesores pueden acceder a esta consulta.")
+    with get_cursor() as cursor:
+        cursor.execute("""
+            SELECT e.Nombre AS Estudiante,
+                AVG(pe.Puntaje) AS Puntaje_Promedio,
+                COUNT(pe.ID_Presentacion_Examen) AS Total_Examenes_Presentados
+            FROM Estudiante e
+            JOIN Presentacion_Examen pe ON e.ID_Estudiante = pe.ID_Estudiante
+            GROUP BY e.ID_Estudiante, e.Nombre;
+        """)
+        result = cursor.fetchall()
+        return result
+
+# Endpoint de Reporte de los cursos con sus profesores asignados y el número total de exámenes disponibles para cada curso
+@app.get("/consultas/cursos", tags=['Consultas para Profesores'])
+def consultar_cursos(user_info: Tuple[int, bool] = Depends(verificar_token)):
+    user_id, is_professor = user_info
+    if not is_professor:
+        raise HTTPException(status_code=403, detail="Solo los profesores pueden acceder a esta consulta.")
+    with get_cursor() as cursor:
+        cursor.execute("""
+            SELECT c.Nombre AS Curso,
+                p.Nombre AS Profesor,
+                COUNT(e.ID_Examen) AS Total_Examenes
+            FROM Curso c
+            JOIN Profesor p ON c.ID_Curso = p.ID_Profesor
+            LEFT JOIN Examen e ON c.ID_Curso = e.ID_Curso
+            GROUP BY c.ID_Curso, c.Nombre, p.Nombre;
+        """)
+        result = cursor.fetchall()
+        return result
+
+# Endpoint para Reporte de los estudiantes por grupo con el número total de exámenes presentados y el promedio de puntaje en los exámenes
+@app.get("/reporte/examenes-grupo", tags=['Reportes'])
+def reporte_examenes_grupo(user_info: Tuple[int, bool] = Depends(verificar_token)):
+    user_id, is_professor = user_info
+    if not is_professor:
+        raise HTTPException(status_code=403, detail="No tienes permiso para acceder a esta consulta")
+    with get_cursor() as cursor:
+        cursor.execute("""
+            SELECT g.Nombre AS Grupo,
+                e.Nombre AS Estudiante,
+                COUNT(pe.ID_Presentacion_Examen) AS Total_Examenes_Presentados,
+                AVG(pe.Puntaje) AS Puntaje_Promedio
+            FROM Estudiante_Grupo eg
+            JOIN Estudiante e ON eg.ID_Estudiante = e.ID_Estudiante
+            JOIN Grupo g ON eg.ID_Grupo = g.ID_Grupo
+            LEFT JOIN Presentacion_Examen pe ON e.ID_Estudiante = pe.ID_Estudiante
+            GROUP BY g.ID_Grupo, g.Nombre, e.ID_Estudiante, e.Nombre
+            ORDER BY g.Nombre, e.Nombre;
+        """)
+        result = cursor.fetchall()
+        return result
+
+# Endpoint para Reporte de los grupos asignados a cada estudiante, indicando el nombre del estudiante y del grupo al que pertenece
+@app.get("/reporte/estudiantes-grupo", tags=['Reportes'])
+def reporte_estudiantes_grupo(user_info: Tuple[int, bool] = Depends(verificar_token)):
+    user_id, is_professor = user_info
+    if not is_professor:
+        raise HTTPException(status_code=403, detail="No tienes permiso para acceder a esta consulta")
+    with get_cursor() as cursor:
+        cursor.execute("""
+            SELECT e.Nombre AS Estudiante,
+                g.Nombre AS Grupo
+            FROM Estudiante_Grupo eg
+            JOIN Estudiante e ON eg.ID_Estudiante = e.ID_Estudiante
+            JOIN Grupo g ON eg.ID_Grupo = g.ID_Grupo
+            ORDER BY e.Nombre, g.Nombre;
+        """)
+        result = cursor.fetchall()
+        return result
+
+# Endpoint para Reporte de los estudiantes que obtuvieron el mayor puntaje en los exámenes
+@app.get("/reporte/estudiantes-mejor-puntaje", tags=['Reportes'])
+def reporte_estudiantes_mejor_puntaje(user_info: Tuple[int, bool] = Depends(verificar_token)):
+    user_id, is_professor = user_info
+    if not is_professor:
+        raise HTTPException(status_code=403, detail="No tienes permiso para acceder a esta consulta")
+    with get_cursor() as cursor:
+        cursor.execute("""
+            SELECT pe.ID_Estudiante AS Estudiante,
+                e.Nombre AS Estudiante_Nombre,
+                pe.ID_Examen AS Examen,
+                pe.Puntaje
+            FROM Presentacion_Examen pe
+            JOIN Estudiante e ON pe.ID_Estudiante = e.ID_Estudiante
+            WHERE pe.Puntaje = (
+                SELECT MAX(Puntaje)
+                FROM Presentacion_Examen
+                WHERE ID_Examen = pe.ID_Examen
+            )
+            ORDER BY pe.ID_Examen, pe.Puntaje DESC;
+        """)
+        result = cursor.fetchall()
+        return result
+
+# Endpoint para Reporte de los exámenes presentados por los estudiantes en un grupo específico
+@app.get("/reporte/examenes-grupo-especifico", tags=['Reportes'])
+def reporte_examenes_grupo_especifico(grupo: str, user_info: Tuple[int, bool] = Depends(verificar_token)):
+    user_id, is_professor = user_info
+    if not is_professor:
+        raise HTTPException(status_code=403, detail="No tienes permiso para acceder a esta consulta")
+    with get_cursor() as cursor:
+        cursor.execute("""
+            SELECT g.Nombre AS Grupo,
+                e.Nombre AS Estudiante,
+                pe.Fecha_Presentacion,
+                pe.Puntaje,
+                ex.Nombre AS Examen
+            FROM Estudiante_Grupo eg
+            JOIN Estudiante e ON eg.ID_Estudiante = e.ID_Estudiante
+            JOIN Grupo g ON eg.ID_Grupo = g.ID_Grupo
+            JOIN Presentacion_Examen pe ON e.ID_Estudiante = pe.ID_Estudiante
+            JOIN Examen ex ON pe.ID_Examen = ex.ID_Examen
+            WHERE g.Nombre = :grupo
+            ORDER BY e.Nombre, pe.Fecha_Presentacion;
+        """, {"grupo": grupo})
+        result = cursor.fetchall()
+        return result
+
+# Endpoint para Reporte de los cursos y los exámenes programados para ellos
+@app.get("/reporte/cursos-examenes-programados", tags=['Reportes'])
+def reporte_cursos_examenes_programados(user_info: Tuple[int, bool] = Depends(verificar_token)):
+    user_id, is_professor = user_info
+    if not is_professor:
+        raise HTTPException(status_code=403, detail="No tienes permiso para acceder a esta consulta")
+    with get_cursor() as cursor:
+        cursor.execute("""
+            SELECT c.Nombre AS Curso,
+                ex.Nombre AS Examen,
+                COUNT(ep.ID_Examen) AS Total_Preguntas
+            FROM Curso c
+            JOIN Examen ex ON c.ID_Curso = ex.ID_Curso
+            JOIN Examen_Pregunta ep ON ex.ID_Examen = ep.ID_Examen
+            GROUP BY c.ID_Curso, c.Nombre, ex.ID_Examen, ex.Nombre;
+        """)
+        result = cursor.fetchall()
+        return result
+
+# Endpoint para Reporte de los estudiantes y su puntaje más alto obtenido en los exámenes
+@app.get("/reporte/estudiantes-puntaje-maximo", tags=['Reportes'])
+def reporte_estudiantes_puntaje_maximo(user_info: Tuple[int, bool] = Depends(verificar_token)):
+    user_id, is_professor = user_info
+    if not is_professor:
+        raise HTTPException(status_code=403, detail="No tienes permiso para acceder a esta consulta")
+    with get_cursor() as cursor:
+        cursor.execute("""
+            SELECT e.Nombre AS Estudiante,
+                MAX(pe.Puntaje) AS Puntaje_Maximo
+            FROM Estudiante e
+            JOIN Presentacion_Examen pe ON e.ID_Estudiante = pe.ID_Estudiante
+            GROUP BY e.ID_Estudiante, e.Nombre;
+        """)
+        result = cursor.fetchall()
+        return result
+
+# Endpoint para Reporte de los grupos con el número total de estudiantes asignados
+@app.get("/reporte/grupos-estudiantes", tags=['Reportes'])
+def reporte_grupos_estudiantes(user_info: Tuple[int, bool] = Depends(verificar_token)):
+    user_id, is_professor = user_info
+    if not is_professor:
+        raise HTTPException(status_code=403, detail="No tienes permiso para acceder a esta consulta")
+    with get_cursor() as cursor:
+        cursor.execute("""
+            SELECT g.Nombre AS Grupo,
+                COUNT(eg.ID_Estudiante) AS Total_Estudiantes
+            FROM Grupo g
+            JOIN Estudiante_Grupo eg ON g.ID_Grupo = eg.ID_Grupo
+            GROUP BY g.ID_Grupo, g.Nombre;
+        """)
+        result = cursor.fetchall()
+        return result
+
+# Endpoint para Reporte de las preguntas asignadas a cada examen con la cantidad de veces que se ha presentado cada pregunta
+@app.get("/reporte/preguntas-examen", tags=['Reportes'])
+def reporte_preguntas_examen(user_info: Tuple[int, bool] = Depends(verificar_token)):
+    user_id, is_professor = user_info
+    if not is_professor:
+        raise HTTPException(status_code=403, detail="No tienes permiso para acceder a esta consulta")
+    with get_cursor() as cursor:
+        cursor.execute("""
+            SELECT e.Nombre AS Examen,
+                p.texto,
+                COUNT(pe.ID_Presentacion_Examen) AS Veces_Presentada
+            FROM Examen e
+            JOIN Examen_Pregunta ep ON e.ID_Examen = ep.ID_Examen
+            JOIN Pregunta p ON ep.ID_Pregunta = p.ID_Pregunta
+            LEFT JOIN Presentacion_Examen pe ON e.ID_Examen = pe.ID_Examen
+            GROUP BY e.ID_Examen, e.Nombre, p.texto;
+        """)
+        result = cursor.fetchall()
+        return result
+
+# Endpoint para obtener exámenes de un profesor específico
+@app.get("/examenes/{profesor_id}", tags=['Exámenes del Profesor'])
+def obtener_examenes_profesor(profesor_id: int, user_info: Tuple[int, bool] = Depends(verificar_token)):
+    user_id, is_professor = user_info
+    if not is_professor:
+        raise HTTPException(status_code=403, detail="No tienes permiso para acceder a esta consulta")
+    with get_cursor() as cursor:
+        cursor.execute("""
+            SELECT 
+                ID_EXAMEN,
+                NOMBRE,
+                DESCRIPCION,
+                CANTIDAD_DE_PREGUNTAS,
+                TIEMPO_LIMITE,
+                ID_CURSO,
+                ORDEN
+            FROM
+                EXAMEN E
+            WHERE
+                ID_PROFESOR = :p_id;
+        """, {"p_id": profesor_id})
+        result = cursor.fetchall()
+        return result
+
 # Cursos:
-@app.get("/horarios", tags=['Cursos disponibles'],)
+@app.get("/cursos", tags=['Cursos'],)
 def get_horarios(user_id: int = Depends(verificar_token)):
     with get_cursor() as cursor:
         cursor.execute("""
@@ -139,13 +361,18 @@ def get_horarios(user_id: int = Depends(verificar_token), semana: int = None, se
     with get_cursor() as cursor:
         cursor.execute("""
             SELECT
-                H.*,
+                H."ID_HORARIO",
+                H."DIA",
+                H."HORA",
+                H."SEMANA",
+                H."SEMESTRE",
+                H."INDICE_DIA",
                 CASE
-                    WHEN GH."ID_GRUPO" IS NOT NULL THEN 'SI'
+                    WHEN MAX(CASE WHEN GH."ID_GRUPO" IS NOT NULL THEN 1 ELSE 0 END) = 1 THEN 'SI'
                     ELSE 'NO'
                 END AS "GRUPO_ASOCIADO",
                 CASE
-                    WHEN EH."ID_EXAMEN" IS NOT NULL THEN 'SI'
+                    WHEN MAX(CASE WHEN EH."ID_EXAMEN" IS NOT NULL THEN 1 ELSE 0 END) = 1 THEN 'SI'
                     ELSE 'NO'
                 END AS "EXAMEN_ASOCIADO"
             FROM
@@ -155,11 +382,13 @@ def get_horarios(user_id: int = Depends(verificar_token), semana: int = None, se
             LEFT JOIN
                 "EXAMEN_HORARIO" EH ON H."ID_HORARIO" = EH."ID_HORARIO"
             WHERE
-                SEMANA = :semana
+                H."SEMANA" = :semana
             AND
-                SEMESTRE = :semestre
+                H."SEMESTRE" = :semestre
+            GROUP BY
+                H."ID_HORARIO", H."DIA", H."HORA", H."SEMANA", H."SEMESTRE", H."INDICE_DIA"
             ORDER BY
-                INDICE_DIA, HORA, SEMESTRE  ASC
+                H."INDICE_DIA", H."HORA", H."SEMESTRE" ASC
         """, {"semana": semana, "semestre": semestre})
         result = cursor.fetchall()
         return result

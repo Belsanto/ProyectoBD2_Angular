@@ -17,6 +17,7 @@ import { OpcionMultipleComponent } from './pages/preguntas/opcion-multiple/opcio
 import { EmparejamientoComponent } from './pages/preguntas/emparejamiento/emparejamiento.component';
 import { VerdaderoFalsoComponent } from './pages/preguntas/verdadero-falso/verdadero-falso.component';
 import { OrdenarConceptosComponent } from './pages/preguntas/ordenar-conceptos/ordenar-conceptos.component';
+import { ExamenesComponent } from './pages/examenes/examenes.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { OrdenarConceptosComponent } from './pages/preguntas/ordenar-conceptos/o
     OpcionMultipleComponent,
     EmparejamientoComponent,
     VerdaderoFalsoComponent,
-    OrdenarConceptosComponent
+    OrdenarConceptosComponent,
+    ExamenesComponent
   ],
   imports: [
     CommonModule,
