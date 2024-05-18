@@ -1,6 +1,17 @@
 --------------------------------------------------------
 -- Archivo creado  - lunes-mayo-13-2024   
 --------------------------------------------------------
+
+--------------------------------------------------------
+--  DDL for Table CONTENIDO_DE_UNIDAD
+--------------------------------------------------------
+
+CREATE TABLE REGISTRO (
+    TABLA_ACTUALIZADA VARCHAR2(255),
+    ACCION_REALIZADA VARCHAR2(255),
+    FECHA_ACTUALIZACION TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 --------------------------------------------------------
 --  DDL for Table CONTENIDO_DE_UNIDAD
 --------------------------------------------------------
