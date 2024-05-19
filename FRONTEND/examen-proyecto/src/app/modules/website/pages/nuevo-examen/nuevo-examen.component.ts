@@ -71,7 +71,7 @@ export class NuevoExamenComponent implements OnInit {
     const newExam = {
       nombre: this.tituloCuestionario,
       descripcion: this.descripcionCuestionario,
-      cantidad_preguntas: this.questions.length,
+      cantidad_preguntas: this.cantidadDePreguntas,
       tiempo_limite: 60, // Puedes definir el tiempo límite aquí
       id_curso: this.categoriaCuestionario,
       orden: this.orden,

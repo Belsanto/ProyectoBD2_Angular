@@ -107,19 +107,6 @@ def protected_route(user_info: Tuple[int, bool] = Depends(verificar_token)):
 def protected_route(user_id: int = Depends(verificar_token)):
     return {"message": f"¡Bienvenido, usuario {user_id}!"}
 
-# Endpoint to fetch questions for an exam
-@app.get("/preguntas/{id_examen}", tags=['Preguntas del Examen'])
-def get_preguntas(id_examen: int, user_id: int = Depends(verificar_token)):
-    with get_cursor() as cursor:
-        cursor.execute("""
-            SELECT P.*
-            FROM "PREGUNTA" P
-            JOIN "EXAMEN_PREGUNTA" EP ON P."ID_PREGUNTA" = EP."ID_PREGUNTA"
-            WHERE EP."ID_EXAMEN" = :id_examen
-        """, id_examen=id_examen)
-        result = cursor.fetchall()
-        return result
-
 # Endpoint de Reporte de los exámenes presentados por cada estudiante con su puntaje promedio y el número total de exámenes presentados
 @app.get("/consultas/estudiantes", tags=['Consultas para Profesores'])
 def consultar_estudiantes(user_info: Tuple[int, bool] = Depends(verificar_token)):
@@ -342,8 +329,26 @@ def obtener_examenes_profesor( user_info: Tuple[int, bool] = Depends(verificar_t
         result = cursor.fetchall()
         return result
 
+# Endpoint para obtener preguntas de un examen  específico
+@app.get("/preguntas-examen/{id_examen}", tags=['Preguntas del Examen'])
+def obtener_examenes_profesor(id_examen: int, user_info: Tuple[int, bool] = Depends(verificar_token)):
+    user_id, is_professor = user_info
+    if not is_professor:
+        raise HTTPException(status_code=403, detail="No tienes permiso para acceder a esta consulta")
+    with get_cursor() as cursor:
+        cursor.execute("""
+            SELECT
+                P.*
+            FROM
+                PREGUNTA P
+            INNER JOIN
+                EXAMEN_PREGUNTA EP ON EP.ID_PREGUNTA = P.ID_PREGUNTA AND ID_EXAMEN = :p_id
+        """, {"p_id": id_examen})
+        result = cursor.fetchall()
+        return result
+
 # Endpoint para obtener exámenes de un profesor específico
-@app.get("/examen/{id_examen}", tags=['Exámen del Profesor'])
+@app.get("/examen/{id_examen}", tags=['Exámen'])
 def obtener_examenes_profesor(id_examen: int, user_info: Tuple[int, bool] = Depends(verificar_token)):
     user_id, is_professor = user_info
     if not is_professor:
@@ -626,7 +631,7 @@ def eliminar_examen(
     try:
         result = cursor.callfunc("eliminar_examen", int, [id_examen])
         if result == 0:
-            raise HTTPException(status_code=400, detail="El examen no se puede eliminar porque está asignado a un horario")
+            raise HTTPException(status_code=400, detail="El examen no se puede eliminar porque ha sido presentado por un estudiante")
         else:
             return {"mensaje": "Examen eliminado exitosamente"}
     finally:
@@ -661,12 +666,25 @@ def actualizar_pregunta(
     respuestas_correctas: str = Body(...),
     id_tipo: int = Body(...),
     tema: str = Body(None),
-    privacidad: int = Body(0), user_id: int = Depends(verificar_token)
+    privacidad: int = Body(0),
+    id_examen: int = Body(...),
+    user_id: int = Depends(verificar_token)
 ):
     cursor = get_cursor()
     try:
+        # Actualizar la pregunta
         cursor.callfunc("actualizar_pregunta", int, [id_pregunta, texto, opciones, respuestas_correctas, id_tipo, tema, privacidad])
         connection.commit()
+
+        # Verificar si la relación examen-pregunta ya existe
+        cursor.execute("SELECT COUNT(*) FROM EXAMEN_PREGUNTA WHERE ID_EXAMEN = :id_examen AND ID_PREGUNTA = :id_pregunta", id_examen=id_examen, id_pregunta=id_pregunta)
+        relacion_existente = cursor.fetchone()[0]
+
+        # Si la relación no existe, insertarla
+        if relacion_existente == 0:
+            cursor.execute("INSERT INTO EXAMEN_PREGUNTA (ID_EXAMEN, ID_PREGUNTA) VALUES (:id_examen, :id_pregunta)", id_examen=id_examen, id_pregunta=id_pregunta)
+            connection.commit()
+
         return {"message": "Pregunta actualizada exitosamente"}
     finally:
         cursor.close()

@@ -8,8 +8,8 @@ export class ShortNamePipe implements PipeTransform {
   private shortSummary:string='';
   transform(summary: string): string {
     this.shortSummary='';
-    if(summary.length>12){
-      for (let i = 0; i < 12; i++) {
+    if(summary.length>17){
+      for (let i = 0; i < 17; i++) {
         this.shortSummary=this.shortSummary+summary.charAt(i);
       }
       this.shortSummary = `${this.shortSummary}...`
