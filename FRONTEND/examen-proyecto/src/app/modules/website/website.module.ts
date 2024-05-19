@@ -18,6 +18,8 @@ import { EmparejamientoComponent } from './pages/preguntas/emparejamiento/empare
 import { VerdaderoFalsoComponent } from './pages/preguntas/verdadero-falso/verdadero-falso.component';
 import { OrdenarConceptosComponent } from './pages/preguntas/ordenar-conceptos/ordenar-conceptos.component';
 import { ExamenesComponent } from './pages/examenes/examenes.component';
+import { EditarExamenComponent } from './pages/editar-examen/editar-examen.component';
+import { BancoPreguntasComponent } from './pages/banco-preguntas/banco-preguntas.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { ExamenesComponent } from './pages/examenes/examenes.component';
     EmparejamientoComponent,
     VerdaderoFalsoComponent,
     OrdenarConceptosComponent,
-    ExamenesComponent
+    ExamenesComponent,
+    EditarExamenComponent,
+    BancoPreguntasComponent
   ],
   imports: [
     CommonModule,

@@ -11,6 +11,9 @@ import { StudentGuard } from 'src/app/guards/student.guard';
 import { LoginGuard } from 'src/app/guards/login-guard.guard';
 import { NuevoExamenComponent } from './pages/nuevo-examen/nuevo-examen.component';
 import { ActivatedRoute } from '@angular/router';
+import { ExamenesComponent } from './pages/examenes/examenes.component';
+import { EditarExamenComponent } from './pages/editar-examen/editar-examen.component';
+import { BancoPreguntasComponent } from './pages/banco-preguntas/banco-preguntas.component';
 
 const routes: Routes = [
   {
@@ -38,8 +41,23 @@ const routes: Routes = [
         canActivate: [ProfessorGuard]
       },
       {
+        path: 'editar-examen/:id',
+        component: EditarExamenComponent,
+        canActivate: [ProfessorGuard]
+      },
+      {
         path: 'horarios',
         component: HorariosComponent,
+        canActivate: [ProfessorGuard]
+      },
+      {
+        path: 'examenes',
+        component: ExamenesComponent,
+        canActivate: [ProfessorGuard]
+      },
+      {
+        path: 'banco-preguntas',
+        component: BancoPreguntasComponent,
         canActivate: [ProfessorGuard]
       },
       {

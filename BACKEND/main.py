@@ -319,14 +319,14 @@ def reporte_preguntas_examen(user_info: Tuple[int, bool] = Depends(verificar_tok
         return result
 
 # Endpoint para obtener exámenes de un profesor específico
-@app.get("/examenes/{profesor_id}", tags=['Exámenes del Profesor'])
-def obtener_examenes_profesor(profesor_id: int, user_info: Tuple[int, bool] = Depends(verificar_token)):
+@app.get("/examenes", tags=['Exámenes del Profesor'])
+def obtener_examenes_profesor( user_info: Tuple[int, bool] = Depends(verificar_token)):
     user_id, is_professor = user_info
     if not is_professor:
         raise HTTPException(status_code=403, detail="No tienes permiso para acceder a esta consulta")
     with get_cursor() as cursor:
         cursor.execute("""
-            SELECT 
+            SELECT
                 ID_EXAMEN,
                 NOMBRE,
                 DESCRIPCION,
@@ -337,8 +337,32 @@ def obtener_examenes_profesor(profesor_id: int, user_info: Tuple[int, bool] = De
             FROM
                 EXAMEN E
             WHERE
-                ID_PROFESOR = :p_id;
-        """, {"p_id": profesor_id})
+                ID_PROFESOR = :p_id
+        """, {"p_id": user_id})
+        result = cursor.fetchall()
+        return result
+
+# Endpoint para obtener exámenes de un profesor específico
+@app.get("/examen/{id_examen}", tags=['Exámen del Profesor'])
+def obtener_examenes_profesor(id_examen: int, user_info: Tuple[int, bool] = Depends(verificar_token)):
+    user_id, is_professor = user_info
+    if not is_professor:
+        raise HTTPException(status_code=403, detail="No tienes permiso para acceder a esta consulta")
+    with get_cursor() as cursor:
+        cursor.execute("""
+            SELECT
+                ID_EXAMEN,
+                NOMBRE,
+                DESCRIPCION,
+                CANTIDAD_DE_PREGUNTAS,
+                TIEMPO_LIMITE,
+                ID_CURSO,
+                ORDEN
+            FROM
+                EXAMEN E
+            WHERE
+                ID_EXAMEN = :p_id
+        """, {"p_id": id_examen})
         result = cursor.fetchall()
         return result
 
@@ -595,7 +619,7 @@ def actualizar_examen(
 # Endpoint para eliminar un examen
 @app.delete("/examen/eliminar", tags=['Exámenes'])
 def eliminar_examen(
-    id_examen: int = Body(...),
+    id_examen: str = Body(...),
     user_id: int = Depends(verificar_token)
 ):
     cursor = get_cursor()

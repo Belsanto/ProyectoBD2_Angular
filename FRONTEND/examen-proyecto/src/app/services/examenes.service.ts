@@ -27,8 +27,21 @@ export class ExamenService {
     return this.http.put<any>(`${this.apiUrl}/examen/actualizar`, examenData, { headers });
   }
 
-  eliminarExamen(idExamen: number): Observable<any> {
+  eliminarExamen(idExamen: string): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.delete<any>(`${this.apiUrl}/examen/eliminar`, { headers, body: { id: idExamen } });
+    return this.http.request<any>('delete', `${this.apiUrl}/examen/eliminar`, {
+      headers,
+      body: ""+idExamen
+    });
+  }
+
+  obtenerExamenesProfesor(): Observable<any[]> {
+    const headers = this.getHeaders();
+    return this.http.get<any[]>(`${this.apiUrl}/examenes`, { headers });
+  }
+
+  obtenerExamenPorId(idExamen: number): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(`${this.apiUrl}/examen/${idExamen}`, { headers });
   }
 }
