@@ -25,7 +25,6 @@
 #### ng generate pipe nombre-del-pipe
 
 # Para ejecutar el proyecto backend -> uvicorn main:app --reload
-### npm install -g @angular/cli
 ### pip install fastapi
 ### pip install pyjwt
 ### pip install cx_Oracle
