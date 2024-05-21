@@ -9,6 +9,14 @@ import { ProfessorGuard } from 'src/app/guards/professor.guard'; // Importa el n
 import { EstudianteComponent } from './pages/estudiante/estudiante.component';
 import { StudentGuard } from 'src/app/guards/student.guard';
 import { LoginGuard } from 'src/app/guards/login-guard.guard';
+import { NuevoExamenComponent } from './pages/nuevo-examen/nuevo-examen.component';
+import { ActivatedRoute } from '@angular/router';
+import { ExamenesComponent } from './pages/examenes/examenes.component';
+import { EditarExamenComponent } from './pages/editar-examen/editar-examen.component';
+import { BancoPreguntasComponent } from './pages/banco-preguntas/banco-preguntas.component';
+import { ReportesComponent } from './pages/reportes/reportes.component';
+import { PresentarExamenComponent } from './pages/presentar-examen/presentar-examen.component';
+import { AsignadosComponent } from './pages/asignados/asignados.component';
 
 const routes: Routes = [
   {
@@ -21,14 +29,24 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
+        path: 'login',
+        component: LoginComponent,
+        canActivate: [LoginGuard]
+      },
+      {
         path: 'home',
         component: HomeComponent,
         canActivate: [ProfessorGuard]
       },
       {
-        path: 'login',
-        component: LoginComponent,
-        canActivate: [LoginGuard]
+        path: 'new-exam/:id',
+        component: NuevoExamenComponent,
+        canActivate: [ProfessorGuard]
+      },
+      {
+        path: 'editar-examen/:id',
+        component: EditarExamenComponent,
+        canActivate: [ProfessorGuard]
       },
       {
         path: 'horarios',
@@ -36,14 +54,41 @@ const routes: Routes = [
         canActivate: [ProfessorGuard]
       },
       {
+        path: 'examenes',
+        component: ExamenesComponent,
+        canActivate: [ProfessorGuard]
+      },
+      {
+        path: 'banco-preguntas',
+        component: BancoPreguntasComponent,
+        canActivate: [ProfessorGuard]
+      },
+      {
+        path: 'reportes',
+        component: ReportesComponent,
+        canActivate: [ProfessorGuard]
+      },
+      {
         path: 'estudiante',
         component: EstudianteComponent,
         canActivate: [StudentGuard]
       },
+      {
+        path: 'asignados',
+        component: AsignadosComponent,
+        canActivate: [StudentGuard]
+      },
+
+      {
+        path: 'presentar-examen/:id',
+        component: PresentarExamenComponent,
+        canActivate: [StudentGuard]
+      }
       // Agregar más rutas según sea necesario
     ]
   }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

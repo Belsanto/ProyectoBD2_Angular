@@ -1,24 +1,57 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ExamService {
-  private apiUrl = 'http://127.0.0.1:8000/examen'; // Reemplaza con la URL de tu API
+export class ExamenService {
+  private apiUrl = 'http://localhost:8000';  // la URL de tu API
 
   constructor(private http: HttpClient) {}
 
-  createExam(examData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/crear`, examData);
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('authToken');
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
   }
 
-  updateExam(examData: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/actualizar`, examData);
+  crearExamen(examenData: any): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.post<any>(`${this.apiUrl}/examen/crear`, examenData, { headers });
   }
 
-  deleteExam(examId: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/eliminar`, { body: { id: examId } });
+  actualizarExamen(examenData: any): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.put<any>(`${this.apiUrl}/examen/actualizar`, examenData, { headers });
+  }
+
+  eliminarExamen(idExamen: string): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.request<any>('delete', `${this.apiUrl}/examen/eliminar`, {
+      headers,
+      body: ""+idExamen
+    });
+  }
+
+  obtenerExamenesProfesor(): Observable<any[]> {
+    const headers = this.getHeaders();
+    return this.http.get<any[]>(`${this.apiUrl}/examenes`, { headers });
+  }
+
+  obtenerExamenPorId(idExamen: string | number): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(`${this.apiUrl}/examen/${idExamen}`, { headers });
+  }
+
+  obtenerPreguntasPorExamen(idPregunta: string | number): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(`${this.apiUrl}/preguntas-examen/${idPregunta}`, { headers });
+  }
+
+  almacenarPresentacionExamen(presentacionData: any): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.post(`${this.apiUrl}/almacenar_presentacion_examen`, presentacionData, { headers });
   }
 }

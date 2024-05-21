@@ -11,7 +11,19 @@ import { SharedModule } from '../shared/shared.module';
 import { QuicklinkModule } from 'ngx-quicklink';
 import { FormsModule } from '@angular/forms';
 import { EstudianteComponent } from './pages/estudiante/estudiante.component';
-
+import { NuevoExamenComponent } from './pages/nuevo-examen/nuevo-examen.component';
+import { CompletarComponent } from './pages/preguntas/completar/completar.component';
+import { OpcionMultipleComponent } from './pages/preguntas/opcion-multiple/opcion-multiple.component';
+import { EmparejamientoComponent } from './pages/preguntas/emparejamiento/emparejamiento.component';
+import { VerdaderoFalsoComponent } from './pages/preguntas/verdadero-falso/verdadero-falso.component';
+import { OrdenarConceptosComponent } from './pages/preguntas/ordenar-conceptos/ordenar-conceptos.component';
+import { ExamenesComponent } from './pages/examenes/examenes.component';
+import { EditarExamenComponent } from './pages/editar-examen/editar-examen.component';
+import { BancoPreguntasComponent } from './pages/banco-preguntas/banco-preguntas.component';
+import { ReportesComponent } from './pages/reportes/reportes.component';
+import { AsignadosComponent } from './pages/asignados/asignados.component';
+import { PresentarExamenComponent } from './pages/presentar-examen/presentar-examen.component';
+import { ResolverExamenComponent } from './pages/resolver-examen/resolver-examen.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +32,20 @@ import { EstudianteComponent } from './pages/estudiante/estudiante.component';
     LoginComponent,
     HorariosComponent,
     HomeComponent,
-    EstudianteComponent
+    EstudianteComponent,
+    NuevoExamenComponent,
+    CompletarComponent,
+    OpcionMultipleComponent,
+    EmparejamientoComponent,
+    VerdaderoFalsoComponent,
+    OrdenarConceptosComponent,
+    ExamenesComponent,
+    EditarExamenComponent,
+    BancoPreguntasComponent,
+    ReportesComponent,
+    AsignadosComponent,
+    PresentarExamenComponent,
+    ResolverExamenComponent
   ],
   imports: [
     CommonModule,

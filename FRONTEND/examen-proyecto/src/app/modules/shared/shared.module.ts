@@ -4,7 +4,7 @@ import { TimeAgoPipe } from './pipes/time-ago.pipe';
 import { ImgComponent } from './components/img/img.component';
 import { RouterModule } from '@angular/router';
 import { ShortDescriptionPipe } from './pipes/short-description.pipe';
-import { ShortAuthorPipe } from './pipes/short-author.pipe';
+import { ShortNamePipe } from './pipes/short-author.pipe';
 
 
 
@@ -13,7 +13,7 @@ import { ShortAuthorPipe } from './pipes/short-author.pipe';
     ImgComponent,
     TimeAgoPipe,
     ShortDescriptionPipe,
-    ShortAuthorPipe
+    ShortNamePipe
   ],
   imports: [
     CommonModule,
@@ -23,7 +23,7 @@ import { ShortAuthorPipe } from './pipes/short-author.pipe';
     ImgComponent,
     TimeAgoPipe,
     ShortDescriptionPipe,
-    ShortAuthorPipe
+    ShortNamePipe
   ]
 })
 export class SharedModule { }
