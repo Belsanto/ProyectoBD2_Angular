@@ -2,6 +2,9 @@
 ## npm install -g @angular/cli
 ## npm install
 ## npm install date-fns
+## npm config set legacy-peer-deps true
+## npm install ngx-quicklink
+
 ### node v16.15.1
 ### angular v14.1.3
 ### rxjs v7.5.6
@@ -20,10 +23,6 @@
 #### ng generate guard nombre-del-guard
 
 #### ng generate pipe nombre-del-pipe
-
-
-### npm config set legacy-peer-deps true
-### npm install ngx-quicklink
 
 # Para ejecutar el proyecto backend -> uvicorn main:app --reload
 ### npm install -g @angular/cli
