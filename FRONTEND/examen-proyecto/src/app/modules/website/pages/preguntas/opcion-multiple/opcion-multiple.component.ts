@@ -11,6 +11,7 @@ export class OpcionMultipleComponent implements OnChanges {
   questionText: string = '';
   options: { element: string }[] = [{ element: '' }];
   correctAnswers: boolean[] = [false];
+  userAnswers: boolean[] = [false];
   privacy: boolean = false;
   @Input() pregunta: any;
 
@@ -29,10 +30,11 @@ export class OpcionMultipleComponent implements OnChanges {
   }
 
   loadQuestion(pregunta: any) {
-    this.questionText = pregunta[1];
+    this.questionText = pregunta[1] ;
     this.options = pregunta[2].split(',').map((opcion: string) => ({ element: opcion.trim() }));
     const correctAnswersArray = pregunta[3].split(',').map((answer: string) => answer.trim());
     this.correctAnswers = this.options.map((option, index) => correctAnswersArray.includes(option.element));
+    this.userAnswers = this.options.map((option, index) => false);
     this.privacy = pregunta[6] === 'PRIVADA';
   }
 
@@ -94,6 +96,10 @@ export class OpcionMultipleComponent implements OnChanges {
 
   validarRutaBanco(){
     return this.router.url.includes('/banco-preguntas');
+  }
+
+  validarRutaPresentacion() {
+    return this.router.url.includes('/presentar-examen');
   }
 
   resetForm() {

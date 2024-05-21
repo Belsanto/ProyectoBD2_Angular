@@ -82,6 +82,18 @@ export class EditarExamenComponent implements OnInit {
         console.error('Error al cargar las preguntas del examen:', error);
       }
     );
+    for (let index = 0; index < this.questionsData.length; index++) {
+      this.questions.push(
+        {
+        id_pregunta: this.questionsData[index][0],
+        texto: this.questionsData[index][1],
+        opciones : this.questionsData[index][2].split(','),
+        respuestas_correctas : this.questionsData[index][3].split(','),
+        id_tipo: this.questionsData[index][4],
+        tema: this.questionsData[index][5],
+        privacidad: this.questionsData[index][6],
+      })
+    }
   }
 
   addQuestion(questionData: Question) {

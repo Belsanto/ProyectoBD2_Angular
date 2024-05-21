@@ -76,6 +76,10 @@ export class CompletarComponent implements OnChanges {
     return this.router.url.includes('/banco-preguntas');
   }
 
+  validarRutaPresentacion() {
+    return this.router.url.includes('/presentar-examen');
+  }
+
   resetForm() {
     this.questionText = '';
     this.answerText = '';

@@ -37,7 +37,6 @@ export class PresentarExamenComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.examId = "" + params.get('id');
       this.cargarExamen();
-      this.cargarPreguntas();
     });
 
     this.cargarCursos();
@@ -71,19 +70,6 @@ export class PresentarExamenComponent implements OnInit {
     );
   }
 
-  cargarPreguntas(): void {
-    this.examenService.obtenerPreguntasPorExamen(this.examId).subscribe(
-      (data) => {
-        this.questionsData = data;
-        console.log(this.questionsData[0][1]);
-        console.log(data);
-      },
-      (error) => {
-        console.error('Error al cargar las preguntas del examen:', error);
-      }
-    );
-  }
-
   addQuestion(questionData: Question) {
     questionData.id_pregunta = this.generateUniqueId();
     this.questions.push(questionData);
@@ -106,32 +92,8 @@ export class PresentarExamenComponent implements OnInit {
     return '_' + Math.random().toString(36).substr(2, 9);
   }
 
-  guardarExamen() {
-    const updatedExam = {
-      id: this.examId,
-      nombre: this.tituloCuestionario,
-      descripcion: this.descripcionCuestionario,
-      cantidad_preguntas: this.cantidadDePreguntas,
-      tiempo_limite: 60, // Puedes definir el tiempo límite aquí
-      id_curso: this.categoriaCuestionario,
-      orden: this.orden,
-      horario: this.horarioId
-    };
+  TerminarExamen() {
 
-    this.examenService.actualizarExamen(updatedExam).subscribe(
-      () => {
-        this.guardarPreguntas();
-        this.showNotification = false;
-        this.router.navigate(['/examenes']);
-      },
-      (error) => {
-        console.error('Error al actualizar el examen:', error);
-        this.showNotification = true;
-        setTimeout(() => {
-          this.showNotification = false;
-        }, 3500);
-      }
-    );
   }
 
   guardarPreguntas() {

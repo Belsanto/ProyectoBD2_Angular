@@ -31,8 +31,8 @@ export class EmparejamientoComponent implements OnChanges {
     this.questionText = pregunta[1];
     this.privacy = pregunta[6] === 'PRIVADA';
 
-    const opciones = pregunta[2].split('.');
-    const respuestasCorrectas = pregunta[3].split('.');
+    const opciones = pregunta[2].split(',');
+    const respuestasCorrectas = pregunta[3].split(',');
 
     this.pairs = opciones.map((option: string, index: number) => ({
       element1: option,
@@ -60,8 +60,8 @@ export class EmparejamientoComponent implements OnChanges {
     const questionData = {
       id_pregunta: this.pregunta ? this.pregunta[0] : undefined, // Mantener el ID si se está editando
       texto: this.questionText,
-      opciones: options.join('.'),
-      respuestas_correctas: correctAnswers.join('.'),
+      opciones: options.join(','),
+      respuestas_correctas: correctAnswers.join(','),
       id_tipo: 2, // ID correspondiente al tipo de pregunta de emparejamiento
       tema: this.pregunta ? this.pregunta[4] : '', // Mantener el tema si se está editando
       privacidad: this.privacy ? 1 : 0 // Convertir la privacidad booleana a un número

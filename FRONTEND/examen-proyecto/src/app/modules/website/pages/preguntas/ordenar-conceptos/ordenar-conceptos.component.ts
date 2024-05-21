@@ -29,7 +29,7 @@ export class OrdenarConceptosComponent implements OnChanges {
 
   loadQuestion(pregunta: any) {
     this.questionText = pregunta[1];
-    this.pairs = pregunta[2].split('.').map((element: string) => ({ element: element.trim() }));
+    this.pairs = pregunta[2].split(',').map((element: string) => ({ element: element.trim() }));
     this.privacy = pregunta[6] === 'PRIVADA';
   }
 
@@ -53,8 +53,8 @@ export class OrdenarConceptosComponent implements OnChanges {
     const questionData = {
       id_pregunta: this.pregunta ? this.pregunta[0] : undefined, // Mantener el ID si se está editando
       texto: this.questionText,
-      opciones: options.join('.'), // Convertir opciones a cadena separada por puntos
-      respuestas_correctas: correctAnswers.join('.'), // Convertir respuestas correctas a cadena separada por puntos
+      opciones: options.join(','), // Convertir opciones a cadena separada por puntos
+      respuestas_correctas: correctAnswers.join(','), // Convertir respuestas correctas a cadena separada por puntos
       id_tipo: 2, // ID correspondiente al tipo de pregunta de emparejamiento
       tema: '', // Añade el tema correspondiente
       privacidad: this.privacy ? 1 : 0 // Convertir la privacidad booleana a un número

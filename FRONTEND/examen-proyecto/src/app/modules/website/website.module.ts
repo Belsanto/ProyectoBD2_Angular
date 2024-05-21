@@ -23,6 +23,7 @@ import { BancoPreguntasComponent } from './pages/banco-preguntas/banco-preguntas
 import { ReportesComponent } from './pages/reportes/reportes.component';
 import { AsignadosComponent } from './pages/asignados/asignados.component';
 import { PresentarExamenComponent } from './pages/presentar-examen/presentar-examen.component';
+import { ResolverExamenComponent } from './pages/resolver-examen/resolver-examen.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { PresentarExamenComponent } from './pages/presentar-examen/presentar-exa
     BancoPreguntasComponent,
     ReportesComponent,
     AsignadosComponent,
-    PresentarExamenComponent
+    PresentarExamenComponent,
+    ResolverExamenComponent
   ],
   imports: [
     CommonModule,

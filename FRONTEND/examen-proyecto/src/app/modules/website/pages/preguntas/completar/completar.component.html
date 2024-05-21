@@ -8,7 +8,7 @@
   </label>
 
   <label class="questionText" for="questionText">Texto de la Pregunta</label>
-  <textarea id="questionText" [(ngModel)]="questionText" placeholder="Ejemplo del _________ de la pregunta"></textarea>
+  <textarea *ngIf="!validarRutaPresentacion()" id="questionText" [(ngModel)]="questionText" placeholder="Ejemplo del _________ de la pregunta"></textarea>
   <label class="questionText" for="explanation">Texto de la Respuesta</label>
   <textarea id="explanation" [(ngModel)]="answerText" placeholder="Escribe la respuesta correcta aquí, ejemplo: texto"></textarea>
 </div>
