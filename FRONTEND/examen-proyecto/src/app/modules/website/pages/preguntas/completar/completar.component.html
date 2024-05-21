@@ -12,5 +12,8 @@
   <label class="questionText" for="explanation">Texto de la Respuesta</label>
   <textarea id="explanation" [(ngModel)]="answerText" placeholder="Escribe la respuesta correcta aquí, ejemplo: texto"></textarea>
 </div>
-<button type="button" class="add-question" (click)="addQuestion()">Añadir Pregunta</button>
+<button type="button" class="add-question" (click)="addQuestion()">
+  <em *ngIf="validarRutaBanco()">Actualizar</em>
+  <em *ngIf="!validarRutaBanco()">Añadir Pregunta</em>
+</button>
 <hr/>

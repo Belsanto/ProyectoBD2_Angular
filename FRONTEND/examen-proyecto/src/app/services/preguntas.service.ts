@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class QuestionService {
-  private apiUrl = 'http://127.0.0.1:8000/preguntas';  // Reemplaza con la URL de tu API
+  private apiUrl = 'http://127.0.0.1:8000/preguntas';  // la URL de tu API
 
   constructor(private http: HttpClient) {}
 
@@ -35,5 +35,14 @@ export class QuestionService {
   obtenerPreguntasPorExamen(idExamen: number): Observable<any> {
     const headers = this.getHeaders();
     return this.http.get(`${this.apiUrl}/examen/${idExamen}`, { headers });
+  }
+
+  getBancoPreguntas(idProfe: number, tema: string | null = null): Observable<any[]> {
+    const headers = this.getHeaders();
+    let url = `http://127.0.0.1:8000/banco_preguntas/${idProfe}`;
+    if (tema) {
+      url += `?tema=${tema}`;
+    }
+    return this.http.get<any[]>(url, { headers });
   }
 }

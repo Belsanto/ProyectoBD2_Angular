@@ -120,7 +120,7 @@ def consultar_estudiantes(user_info: Tuple[int, bool] = Depends(verificar_token)
                 COUNT(pe.ID_Presentacion_Examen) AS Total_Examenes_Presentados
             FROM Estudiante e
             JOIN Presentacion_Examen pe ON e.ID_Estudiante = pe.ID_Estudiante
-            GROUP BY e.ID_Estudiante, e.Nombre;
+            GROUP BY e.ID_Estudiante, e.Nombre
         """)
         result = cursor.fetchall()
         return result
@@ -139,7 +139,7 @@ def consultar_cursos(user_info: Tuple[int, bool] = Depends(verificar_token)):
             FROM Curso c
             JOIN Profesor p ON c.ID_Curso = p.ID_Profesor
             LEFT JOIN Examen e ON c.ID_Curso = e.ID_Curso
-            GROUP BY c.ID_Curso, c.Nombre, p.Nombre;
+            GROUP BY c.ID_Curso, c.Nombre, p.Nombre
         """)
         result = cursor.fetchall()
         return result
@@ -161,7 +161,7 @@ def reporte_examenes_grupo(user_info: Tuple[int, bool] = Depends(verificar_token
             JOIN Grupo g ON eg.ID_Grupo = g.ID_Grupo
             LEFT JOIN Presentacion_Examen pe ON e.ID_Estudiante = pe.ID_Estudiante
             GROUP BY g.ID_Grupo, g.Nombre, e.ID_Estudiante, e.Nombre
-            ORDER BY g.Nombre, e.Nombre;
+            ORDER BY g.Nombre, e.Nombre
         """)
         result = cursor.fetchall()
         return result
@@ -179,7 +179,7 @@ def reporte_estudiantes_grupo(user_info: Tuple[int, bool] = Depends(verificar_to
             FROM Estudiante_Grupo eg
             JOIN Estudiante e ON eg.ID_Estudiante = e.ID_Estudiante
             JOIN Grupo g ON eg.ID_Grupo = g.ID_Grupo
-            ORDER BY e.Nombre, g.Nombre;
+            ORDER BY e.Nombre, g.Nombre
         """)
         result = cursor.fetchall()
         return result
@@ -203,7 +203,7 @@ def reporte_estudiantes_mejor_puntaje(user_info: Tuple[int, bool] = Depends(veri
                 FROM Presentacion_Examen
                 WHERE ID_Examen = pe.ID_Examen
             )
-            ORDER BY pe.ID_Examen, pe.Puntaje DESC;
+            ORDER BY pe.ID_Examen, pe.Puntaje DESC
         """)
         result = cursor.fetchall()
         return result
@@ -227,7 +227,7 @@ def reporte_examenes_grupo_especifico(grupo: str, user_info: Tuple[int, bool] = 
             JOIN Presentacion_Examen pe ON e.ID_Estudiante = pe.ID_Estudiante
             JOIN Examen ex ON pe.ID_Examen = ex.ID_Examen
             WHERE g.Nombre = :grupo
-            ORDER BY e.Nombre, pe.Fecha_Presentacion;
+            ORDER BY e.Nombre, pe.Fecha_Presentacion
         """, {"grupo": grupo})
         result = cursor.fetchall()
         return result
@@ -246,7 +246,7 @@ def reporte_cursos_examenes_programados(user_info: Tuple[int, bool] = Depends(ve
             FROM Curso c
             JOIN Examen ex ON c.ID_Curso = ex.ID_Curso
             JOIN Examen_Pregunta ep ON ex.ID_Examen = ep.ID_Examen
-            GROUP BY c.ID_Curso, c.Nombre, ex.ID_Examen, ex.Nombre;
+            GROUP BY c.ID_Curso, c.Nombre, ex.ID_Examen, ex.Nombre
         """)
         result = cursor.fetchall()
         return result
@@ -263,7 +263,7 @@ def reporte_estudiantes_puntaje_maximo(user_info: Tuple[int, bool] = Depends(ver
                 MAX(pe.Puntaje) AS Puntaje_Maximo
             FROM Estudiante e
             JOIN Presentacion_Examen pe ON e.ID_Estudiante = pe.ID_Estudiante
-            GROUP BY e.ID_Estudiante, e.Nombre;
+            GROUP BY e.ID_Estudiante, e.Nombre
         """)
         result = cursor.fetchall()
         return result
@@ -280,7 +280,7 @@ def reporte_grupos_estudiantes(user_info: Tuple[int, bool] = Depends(verificar_t
                 COUNT(eg.ID_Estudiante) AS Total_Estudiantes
             FROM Grupo g
             JOIN Estudiante_Grupo eg ON g.ID_Grupo = eg.ID_Grupo
-            GROUP BY g.ID_Grupo, g.Nombre;
+            GROUP BY g.ID_Grupo, g.Nombre
         """)
         result = cursor.fetchall()
         return result
@@ -290,7 +290,7 @@ def reporte_grupos_estudiantes(user_info: Tuple[int, bool] = Depends(verificar_t
 def reporte_preguntas_examen(user_info: Tuple[int, bool] = Depends(verificar_token)):
     user_id, is_professor = user_info
     if not is_professor:
-        raise HTTPException(status_code=403, detail="No tienes permiso para acceder a esta consulta")
+        raise HTTPException(status_code=403, detail="Solo los profesores pueden acceder a esta consulta.")
     with get_cursor() as cursor:
         cursor.execute("""
             SELECT e.Nombre AS Examen,
@@ -300,7 +300,7 @@ def reporte_preguntas_examen(user_info: Tuple[int, bool] = Depends(verificar_tok
             JOIN Examen_Pregunta ep ON e.ID_Examen = ep.ID_Examen
             JOIN Pregunta p ON ep.ID_Pregunta = p.ID_Pregunta
             LEFT JOIN Presentacion_Examen pe ON e.ID_Examen = pe.ID_Examen
-            GROUP BY e.ID_Examen, e.Nombre, p.texto;
+            GROUP BY e.ID_Examen, e.Nombre, p.texto
         """)
         result = cursor.fetchall()
         return result
@@ -331,10 +331,7 @@ def obtener_examenes_profesor( user_info: Tuple[int, bool] = Depends(verificar_t
 
 # Endpoint para obtener preguntas de un examen  específico
 @app.get("/preguntas-examen/{id_examen}", tags=['Preguntas del Examen'])
-def obtener_examenes_profesor(id_examen: int, user_info: Tuple[int, bool] = Depends(verificar_token)):
-    user_id, is_professor = user_info
-    if not is_professor:
-        raise HTTPException(status_code=403, detail="No tienes permiso para acceder a esta consulta")
+def obtener_preguntas_examen(id_examen: int, user_info: Tuple[int, bool] = Depends(verificar_token)):
     with get_cursor() as cursor:
         cursor.execute("""
             SELECT
@@ -347,12 +344,9 @@ def obtener_examenes_profesor(id_examen: int, user_info: Tuple[int, bool] = Depe
         result = cursor.fetchall()
         return result
 
-# Endpoint para obtener exámenes de un profesor específico
+# Endpoint para obtener exámenes con id específico
 @app.get("/examen/{id_examen}", tags=['Exámen'])
-def obtener_examenes_profesor(id_examen: int, user_info: Tuple[int, bool] = Depends(verificar_token)):
-    user_id, is_professor = user_info
-    if not is_professor:
-        raise HTTPException(status_code=403, detail="No tienes permiso para acceder a esta consulta")
+def obtener_examen(id_examen: int, user_info: Tuple[int, bool] = Depends(verificar_token)):
     with get_cursor() as cursor:
         cursor.execute("""
             SELECT
@@ -368,6 +362,41 @@ def obtener_examenes_profesor(id_examen: int, user_info: Tuple[int, bool] = Depe
             WHERE
                 ID_EXAMEN = :p_id
         """, {"p_id": id_examen})
+        result = cursor.fetchall()
+        return result
+
+# Endpoint para obtener exámenes no presentados de un estudiante en específico
+@app.get("/examenes-asignados", tags=['Exámenes Asignados no Presentados'])
+def obtener_examenes_asignados(user_info: Tuple[int, bool] = Depends(verificar_token)):
+    user_id, is_professor = user_info
+    if is_professor:
+        raise HTTPException(status_code=403, detail="No tienes permiso para acceder a esta consulta")
+    with get_cursor() as cursor:
+        cursor.execute("""
+            SELECT
+                E.ID_EXAMEN,
+                E.NOMBRE,
+                E.DESCRIPCION,
+                E.CANTIDAD_DE_PREGUNTAS,
+                E.TIEMPO_LIMITE,
+                E.ID_CURSO,
+                E.ORDEN
+            FROM
+                EXAMEN E
+            INNER JOIN
+                EXAMEN_HORARIO EH ON E.ID_EXAMEN = EH.ID_EXAMEN
+            INNER JOIN
+                GRUPO_HORARIO GH ON GH.ID_HORARIO = EH.ID_HORARIO
+            INNER JOIN
+                GRUPO G ON G.ID_GRUPO = GH.ID_GRUPO
+            INNER JOIN
+                ESTUDIANTE_GRUPO EG ON EG.ID_GRUPO = G.ID_GRUPO
+            LEFT JOIN
+                PRESENTACION_EXAMEN PE ON E.ID_EXAMEN = PE.ID_EXAMEN AND PE.ID_ESTUDIANTE = EG.ID_ESTUDIANTE
+            WHERE
+                EG.ID_ESTUDIANTE = :p_id
+                AND PE.ID_EXAMEN IS NULL
+        """, {"p_id": user_id})
         result = cursor.fetchall()
         return result
 
@@ -482,7 +511,13 @@ def get_banco_preguntas(id_profe: int, tema: str = None, user_id: int = Depends(
 
     with get_cursor() as cursor:
         cursor.execute("""
-            SELECT P.ID_PREGUNTA, P.TEXTO, P.OPCIONES, P.RESPUESTAS_CORRECTAS, P.ID_TIPO, P.TEMA,
+            SELECT
+                P.ID_PREGUNTA,
+                P.TEXTO,
+                P.OPCIONES,
+                P.RESPUESTAS_CORRECTAS,
+                P.ID_TIPO,
+                P.TEMA,
                 CASE
                     WHEN P.PRIVACIDAD = 0 THEN 'PUBLICA'
                     WHEN P.PRIVACIDAD = 1 THEN 'PRIVADA'
@@ -550,16 +585,14 @@ def almacenar_presentacion_examen(
     p_id_examen: int,
     p_fecha_presentacion: str,
     p_tiempo_tomado: str,
-    p_respuestas: str,  # Movido antes de p_direccion_ip
+    p_respuestas: str,
     p_direccion_ip: str = None,
-    user_id: int = Depends(verificar_token)  # Verificar token y obtener user_id
+    user_info: Tuple[int, bool] = Depends(verificar_token)
 ):
-    # Verificar que el usuario es un estudiante
-    if user_id is None:
-        raise HTTPException(status_code=401, detail="Solo los estudiantes pueden presentar un examen")
-
+    user_id, is_professor = user_info
+    if is_professor:
+        raise HTTPException(status_code=403, detail="Solo los estudiantes pueden presentar un examen")
     try:
-        # Llamar a la función PL/SQL para almacenar la presentación del examen
         cursor = get_cursor()
         v_id_presentacion_examen = cursor.callfunc('almacenar_presentacion_examen', int, [
             p_id_estudiante,
@@ -576,6 +609,7 @@ def almacenar_presentacion_examen(
     finally:
         cursor.close()
 
+
 # Endpoint para crear un examen
 @app.post("/examen/crear", tags=['Exámenes'])
 def crear_examen(
@@ -589,6 +623,8 @@ def crear_examen(
     user_info: Tuple[int, bool] = Depends(verificar_token)
 ):
     user_id, is_professor = user_info
+    if not is_professor:
+        raise HTTPException(status_code=403, detail="Solo los profesores pueden acceder a esta consulta.")
     cursor = get_cursor()
     try:
         if is_professor:

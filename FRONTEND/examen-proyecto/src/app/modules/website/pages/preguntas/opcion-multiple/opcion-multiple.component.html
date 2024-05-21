@@ -19,5 +19,5 @@
   </div>
   <button type="button" class="add-option" (click)="addOption()">Añadir Otra Opción</button>
 </div>
-<button type="button" class="add-question" (click)="addQuestion()">Añadir Pregunta</button>
+<button type="button" class="add-question" (click)="addQuestion()"> <em *ngIf="validarRutaBanco()">Actualizar</em><em *ngIf="!validarRutaBanco()">Añadir Pregunta</em></button>
 <hr/>

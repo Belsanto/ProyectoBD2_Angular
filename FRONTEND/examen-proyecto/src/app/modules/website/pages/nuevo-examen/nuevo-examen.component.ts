@@ -103,8 +103,8 @@ export class NuevoExamenComponent implements OnInit {
     this.questions.forEach((question, index) => {
       const questionData = {
         texto: question.texto,
-        opciones: question.opciones.join('§EPARA'),
-        respuestas_correctas: question.respuestas_correctas.join('§EPARA'),
+        opciones: question.opciones.join(','),
+        respuestas_correctas: question.respuestas_correctas.join(','),
         id_tipo: question.id_tipo,
         tema: question.tema,
         privacidad: question.privacidad,

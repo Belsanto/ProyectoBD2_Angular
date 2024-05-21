@@ -20,6 +20,9 @@ import { OrdenarConceptosComponent } from './pages/preguntas/ordenar-conceptos/o
 import { ExamenesComponent } from './pages/examenes/examenes.component';
 import { EditarExamenComponent } from './pages/editar-examen/editar-examen.component';
 import { BancoPreguntasComponent } from './pages/banco-preguntas/banco-preguntas.component';
+import { ReportesComponent } from './pages/reportes/reportes.component';
+import { AsignadosComponent } from './pages/asignados/asignados.component';
+import { PresentarExamenComponent } from './pages/presentar-examen/presentar-examen.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,10 @@ import { BancoPreguntasComponent } from './pages/banco-preguntas/banco-preguntas
     OrdenarConceptosComponent,
     ExamenesComponent,
     EditarExamenComponent,
-    BancoPreguntasComponent
+    BancoPreguntasComponent,
+    ReportesComponent,
+    AsignadosComponent,
+    PresentarExamenComponent
   ],
   imports: [
     CommonModule,

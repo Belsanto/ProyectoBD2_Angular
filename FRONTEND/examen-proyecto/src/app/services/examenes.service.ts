@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ExamenService {
-  private apiUrl = 'http://localhost:8000';  // Reemplaza con la URL de tu API
+  private apiUrl = 'http://localhost:8000';  // la URL de tu API
 
   constructor(private http: HttpClient) {}
 
@@ -48,5 +48,10 @@ export class ExamenService {
   obtenerPreguntasPorExamen(idPregunta: string | number): Observable<any> {
     const headers = this.getHeaders();
     return this.http.get<any>(`${this.apiUrl}/preguntas-examen/${idPregunta}`, { headers });
+  }
+
+  almacenarPresentacionExamen(presentacionData: any): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.post(`${this.apiUrl}/almacenar_presentacion_examen`, presentacionData, { headers });
   }
 }

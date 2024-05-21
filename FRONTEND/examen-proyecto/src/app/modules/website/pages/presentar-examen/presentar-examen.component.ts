@@ -6,11 +6,11 @@ import { CursosService } from 'src/app/services/cursos.service';
 import { Question } from 'src/app/models/question';
 
 @Component({
-  selector: 'app-editar-examen',
-  templateUrl: './editar-examen.component.html',
-  styleUrls: ['./editar-examen.component.css']
+  selector: 'app-presentar-examen',
+  templateUrl: './presentar-examen.component.html',
+  styleUrls: ['./presentar-examen.component.css']
 })
-export class EditarExamenComponent implements OnInit {
+export class PresentarExamenComponent implements OnInit {
   questions: Question[] = [];
   questionsData: any[][] = [];
   tituloCuestionario: string = '';
