@@ -1,26 +1,27 @@
 # Para ejecutar el proyecto front end ->  ng serve -o
-### npm install -g @angular/cli
+## npm install -g @angular/cli
+### node v16.15.1
+### angular v14.1.3
+### rxjs v7.5.6
+### typescript v4.7.4
+#### ng new nombre-del-proyecto
 
-### ng new nombre-del-proyecto
+#### algunos comandos para trabajar en angular:
 
-### npm install
+#### npm install
 
-### npm install date-fns
+#### npm install date-fns
 
-### ng generate service nombre-del-servicio
+#### ng generate service nombre-del-servicio
 
-### ng generate component nombre-del-componente
+#### ng generate component nombre-del-componente
 
-### ng generate module nombre-del-modulo
+#### ng generate module nombre-del-modulo
 
-### ng generate guard nombre-del-guard
+#### ng generate guard nombre-del-guard
 
-### ng generate pipe nombre-del-pipe
+#### ng generate pipe nombre-del-pipe
 
-#### node v16.15.1
-#### angular v14.1.3
-#### rxjs v7.5.6
-#### typescript v4.7.4
 
 ### npm config set legacy-peer-deps true
 ### npm install ngx-quicklink
