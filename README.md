@@ -6,9 +6,10 @@
 ### angular v14.1.3
 ### rxjs v7.5.6
 ### typescript v4.7.4
-#### ng new nombre-del-proyecto
 
-#### algunos comandos para trabajar en angular:
+## algunos comandos para trabajar en angular:
+
+#### ng new nombre-del-proyecto
 
 #### ng generate service nombre-del-servicio
 
