@@ -1,5 +1,7 @@
 # Para ejecutar el proyecto front end ->  ng serve -o
 ## npm install -g @angular/cli
+## npm install
+## npm install date-fns
 ### node v16.15.1
 ### angular v14.1.3
 ### rxjs v7.5.6
@@ -7,10 +9,6 @@
 #### ng new nombre-del-proyecto
 
 #### algunos comandos para trabajar en angular:
-
-#### npm install
-
-#### npm install date-fns
 
 #### ng generate service nombre-del-servicio
 
