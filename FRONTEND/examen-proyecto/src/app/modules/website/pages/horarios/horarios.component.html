@@ -94,6 +94,7 @@
         <div *ngFor="let horario of miercoles" class="event start-{{ getStartClass(horario[2]) }} end-{{ getEndClass(horario[2]) }} {{ getNextColor() }}">
           <p *ngIf="horario[6]!='SI'" class="title">Sin grupos asignados</p>
           <p *ngIf="horario[6]!='SI'" class="title">Sin examenes asignados </p>
+          <p *ngIf="horario[7]!='SI'" class="title">Sin examenes asignados </p>
 <p class="titulo"><a [routerLink]="['/new-exam', horario[0]]">Crear examen</a>
 </p>
 

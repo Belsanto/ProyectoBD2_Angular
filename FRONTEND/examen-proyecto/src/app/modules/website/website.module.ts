@@ -24,6 +24,9 @@ import { ReportesComponent } from './pages/reportes/reportes.component';
 import { AsignadosComponent } from './pages/asignados/asignados.component';
 import { PresentarExamenComponent } from './pages/presentar-examen/presentar-examen.component';
 import { ResolverExamenComponent } from './pages/resolver-examen/resolver-examen.component';
+import { NotasComponent } from './pages/notas/notas.component';
+import { HorarioEstudianteComponent } from './pages/horario-estudiante/horario-estudiante.component';
+import { ContenidosComponent } from './pages/contenidos/contenidos.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +49,10 @@ import { ResolverExamenComponent } from './pages/resolver-examen/resolver-examen
     AsignadosComponent,
     PresentarExamenComponent,
     ResolverExamenComponent
+    ResolverExamenComponent,
+    NotasComponent,
+    HorarioEstudianteComponent,
+    ContenidosComponent
   ],
   imports: [
     CommonModule,

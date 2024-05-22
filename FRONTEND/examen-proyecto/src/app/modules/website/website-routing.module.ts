@@ -17,6 +17,9 @@ import { BancoPreguntasComponent } from './pages/banco-preguntas/banco-preguntas
 import { ReportesComponent } from './pages/reportes/reportes.component';
 import { PresentarExamenComponent } from './pages/presentar-examen/presentar-examen.component';
 import { AsignadosComponent } from './pages/asignados/asignados.component';
+import { NotasComponent } from './pages/notas/notas.component';
+import { HorarioEstudianteComponent } from './pages/horario-estudiante/horario-estudiante.component';
+import { ContenidosComponent } from './pages/contenidos/contenidos.component';
 
 const routes: Routes = [
   {
@@ -82,6 +85,21 @@ const routes: Routes = [
       {
         path: 'presentar-examen/:id',
         component: PresentarExamenComponent,
+        canActivate: [StudentGuard]
+      },
+      {
+        path: 'notas',
+        component: NotasComponent,
+        canActivate: [StudentGuard]
+      },
+      {
+        path: 'mi-horario',
+        component: HorarioEstudianteComponent,
+        canActivate: [StudentGuard]
+      },
+      {
+        path: 'contenidos',
+        component: ContenidosComponent,
         canActivate: [StudentGuard]
       }
       // Agregar más rutas según sea necesario

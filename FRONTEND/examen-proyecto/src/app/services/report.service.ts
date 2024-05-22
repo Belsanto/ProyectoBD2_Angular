@@ -45,4 +45,8 @@ export class ReportService {
   getGruposEstudiantes(): Observable<any> {
     return this.http.get(`${this.baseUrl}/grupos-estudiantes`, { headers: this.getHeaders() });
   }
+
+  getNotasEstudiantes(): Observable<any> {
+    return this.http.get(`http://localhost:8000/obtener-notas`, { headers: this.getHeaders() });
+  }
 }

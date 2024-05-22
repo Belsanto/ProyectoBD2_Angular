@@ -5,6 +5,7 @@ import { ImgComponent } from './components/img/img.component';
 import { RouterModule } from '@angular/router';
 import { ShortDescriptionPipe } from './pipes/short-description.pipe';
 import { ShortNamePipe } from './pipes/short-author.pipe';
+import { KeysPipe } from './pipes/keys.pipe';
 
 
 
@@ -14,6 +15,8 @@ import { ShortNamePipe } from './pipes/short-author.pipe';
     TimeAgoPipe,
     ShortDescriptionPipe,
     ShortNamePipe
+    ShortNamePipe,
+    KeysPipe
   ],
   imports: [
     CommonModule,
@@ -24,6 +27,8 @@ import { ShortNamePipe } from './pipes/short-author.pipe';
     TimeAgoPipe,
     ShortDescriptionPipe,
     ShortNamePipe
+    ShortNamePipe,
+    KeysPipe
   ]
 })
 export class SharedModule { }
