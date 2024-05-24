@@ -48,7 +48,6 @@ import { ContenidosComponent } from './pages/contenidos/contenidos.component';
     ReportesComponent,
     AsignadosComponent,
     PresentarExamenComponent,
-    ResolverExamenComponent
     ResolverExamenComponent,
     NotasComponent,
     HorarioEstudianteComponent,

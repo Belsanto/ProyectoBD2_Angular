@@ -14,7 +14,6 @@ import { KeysPipe } from './pipes/keys.pipe';
     ImgComponent,
     TimeAgoPipe,
     ShortDescriptionPipe,
-    ShortNamePipe
     ShortNamePipe,
     KeysPipe
   ],
@@ -26,7 +25,6 @@ import { KeysPipe } from './pipes/keys.pipe';
     ImgComponent,
     TimeAgoPipe,
     ShortDescriptionPipe,
-    ShortNamePipe
     ShortNamePipe,
     KeysPipe
   ]

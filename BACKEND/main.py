@@ -464,7 +464,6 @@ def get_contenidos_estudiante(user_info: Tuple[int, bool] = Depends(verificar_to
 
 # Cursos:
 @app.get("/cursos", tags=['Cursos'],)
-def get_horarios(user_id: int = Depends(verificar_token)):
 def get_cursos(user_id: int = Depends(verificar_token)):
     with get_cursor() as cursor:
         cursor.execute("""
@@ -516,7 +515,6 @@ def get_horarios(user_id: int = Depends(verificar_token), semana: int = None, se
 
 
 @app.get("/semestres", tags=['Semestres disponibles'],)
-def get_horarios(user_id: int = Depends(verificar_token)):
 def get_semestres(user_id: int = Depends(verificar_token)):
     with get_cursor() as cursor:
         cursor.execute("""
@@ -542,8 +540,6 @@ def get_estudiantes(id_grupo: int, user_id: int = Depends(verificar_token)):
         return result
 
 # Endpoint to fetch student schedules for a group
-@app.get("/estudiantes_horarios/{id_grupo}", tags=['Ver el horario de un grupo'])
-def get_estudiantes_horarios(id_grupo: int, user_id: int = Depends(verificar_token)):
 @app.get("/estudiante_horarios", tags=['Ver el horario de estudiante'])
 def get_estudiantes_horarios(user_info: Tuple[int, bool] = Depends(verificar_token), semana: int = None, semestre: str = None):
     user_id, is_professor = user_info
@@ -552,45 +548,26 @@ def get_estudiantes_horarios(user_info: Tuple[int, bool] = Depends(verificar_tok
     with get_cursor() as cursor:
         cursor.execute("""
             SELECT
-                H.*,
-                CASE
-                    WHEN GH."ID_GRUPO" IS NOT NULL THEN 'SI'
-                    ELSE 'NO'
-                END AS "GRUPO_ASOCIADO",
-                H."ID_HORARIO",
-                H."DIA",
-                H."HORA",
-                H."SEMANA",
-                H."SEMESTRE",
-                H."INDICE_DIA",
-                CASE
-                    WHEN EH."ID_EXAMEN" IS NOT NULL THEN 'SI'
-                    WHEN MAX(CASE WHEN EH."ID_EXAMEN" IS NOT NULL THEN 1 ELSE 0 END) = 1 THEN 'SI'
-                    ELSE 'NO'
-                END AS "EXAMEN_ASOCIADO"
+                C.NOMBRE,
+                CU.DESCRIPCIÓN,
+                UC.NOMBRE,
+                E.NOMBRE
             FROM
-                "BELSANTO"."HORARIO" H
-            LEFT JOIN
-                "HORARIO" H
+                CURSO C
             INNER JOIN
-                "BELSANTO"."GRUPO_HORARIO" GH ON H."ID_HORARIO" = GH."ID_HORARIO"
+                UNIDAD_DE_CURSO UC ON UC.ID_CURSO = C.ID_CURSO
             INNER JOIN
-                "BELSANTO"."ESTUDIANTE_GRUPO" EG ON EG."ID_GRUPO" = GH."ID_GRUPO"
-            LEFT JOIN
-                "BELSANTO"."EXAMEN_HORARIO" EH ON H."ID_HORARIO" = EH."ID_HORARIO"
-            WHERE GH."ID_GRUPO" = :id_grupo
-        """, id_grupo=id_grupo)
-                "EXAMEN_HORARIO" EH ON H."ID_HORARIO" = EH."ID_HORARIO"
-            WHERE
-                H."SEMANA" = :semana
-            AND
-                H."SEMESTRE" = :semestre
-            AND
-                EG."ID_ESTUDIANTE" = :p_id
-            GROUP BY
-                H."ID_HORARIO", H."DIA", H."HORA", H."SEMANA", H."SEMESTRE", H."INDICE_DIA"
-            ORDER BY
-                H."INDICE_DIA", H."HORA", H."SEMESTRE" ASC
+                CONTENIDO_DE_UNIDAD CU ON CU.ID_UNIDAD = UC.ID_UNIDAD
+            INNER JOIN
+                EXAMEN E ON E.ID_CURSO = C.ID_CURSO
+            INNER JOIN
+                EXAMEN_HORARIO EH ON EH.ID_EXAMEN = E.ID_EXAMEN
+            INNER JOIN
+                GRUPO_HORARIO GH ON GH.ID_HORARIO = EH.ID_HORARIO
+            INNER JOIN
+                GRUPO G ON G.ID_GRUPO = GH.ID_GRUPO
+            INNER JOIN
+                ESTUDIANTE_GRUPO EG ON EG.ID_GRUPO = GH.ID_GRUPO AND EG.ID_ESTUDIANTE = :p_id
         """, {"p_id": user_id, "semana": semana, "semestre": semestre})
         result = cursor.fetchall()
         return result
