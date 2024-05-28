@@ -29,8 +29,8 @@ app.add_middleware(
 # Security
 security = HTTPBearer()
 # Database connection
-dsn = cx_Oracle.makedsn("localhost", "1521", service_name="ORCL")
-connection = cx_Oracle.connect(user="BELSANTO", password="12345")
+dsn = cx_Oracle.makedsn("localhost", "1521", service_name="XE")
+connection = cx_Oracle.connect(user="KIM", password="12345")
 
 clave_secreta = secrets.token_hex(16)
 
