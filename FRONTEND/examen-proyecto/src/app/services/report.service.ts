@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ReportService {
-  private baseUrl = 'http://localhost:8000/reporte'; // Asegúrate de que esta URL sea correcta
+  private baseUrl = 'http://0e49-181-53-99-60.ngrok-free.app/reporte'; // Asegúrate de que esta URL sea correcta
 
   constructor(private http: HttpClient) {}
 
@@ -47,6 +47,6 @@ export class ReportService {
   }
 
   getNotasEstudiantes(): Observable<any> {
-    return this.http.get(`http://localhost:8000/obtener-notas`, { headers: this.getHeaders() });
+    return this.http.get(`http://0e49-181-53-99-60.ngrok-free.app/obtener-notas`, { headers: this.getHeaders() });
   }
 }

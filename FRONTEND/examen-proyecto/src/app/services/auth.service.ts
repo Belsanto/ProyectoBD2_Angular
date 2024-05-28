@@ -7,7 +7,7 @@ import { catchError, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8000'; // la URL de tu API
+  private apiUrl = 'http://0e49-181-53-99-60.ngrok-free.app'; // la URL de tu API
 
   constructor(private http: HttpClient) {}
 
