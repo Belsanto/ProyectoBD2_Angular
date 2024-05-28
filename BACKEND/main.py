@@ -548,26 +548,32 @@ def get_estudiantes_horarios(user_info: Tuple[int, bool] = Depends(verificar_tok
     with get_cursor() as cursor:
         cursor.execute("""
             SELECT
-                C.NOMBRE,
-                CU.DESCRIPCIÓN,
-                UC.NOMBRE,
-                E.NOMBRE
+                H."ID_HORARIO",
+                H."DIA",
+                H."HORA",
+                H."SEMANA",
+                H."SEMESTRE",
+                H."INDICE_DIA",
+                CASE
+                    WHEN MAX(CASE WHEN GH."ID_GRUPO" IS NOT NULL THEN 1 ELSE 0 END) = 1 THEN 'SI'
+                    ELSE 'NO'
+                END AS "GRUPO_ASOCIADO"
             FROM
-                CURSO C
+                "HORARIO" H
             INNER JOIN
-                UNIDAD_DE_CURSO UC ON UC.ID_CURSO = C.ID_CURSO
+                "GRUPO_HORARIO" GH ON H."ID_HORARIO" = GH."ID_HORARIO"
             INNER JOIN
-                CONTENIDO_DE_UNIDAD CU ON CU.ID_UNIDAD = UC.ID_UNIDAD
-            INNER JOIN
-                EXAMEN E ON E.ID_CURSO = C.ID_CURSO
-            INNER JOIN
-                EXAMEN_HORARIO EH ON EH.ID_EXAMEN = E.ID_EXAMEN
-            INNER JOIN
-                GRUPO_HORARIO GH ON GH.ID_HORARIO = EH.ID_HORARIO
-            INNER JOIN
-                GRUPO G ON G.ID_GRUPO = GH.ID_GRUPO
-            INNER JOIN
-                ESTUDIANTE_GRUPO EG ON EG.ID_GRUPO = GH.ID_GRUPO AND EG.ID_ESTUDIANTE = :p_id
+                "ESTUDIANTE_GRUPO" EG ON GH."ID_GRUPO" = EG."ID_GRUPO"
+            WHERE
+                H."SEMANA" = :semana
+            AND
+                H."SEMESTRE" = :semestre
+            AND
+                EG.ID_ESTUDIANTE = :p_id
+            GROUP BY
+                H."ID_HORARIO", H."DIA", H."HORA", H."SEMANA", H."SEMESTRE", H."INDICE_DIA"
+            ORDER BY
+                H."INDICE_DIA", H."HORA", H."SEMESTRE" ASC
         """, {"p_id": user_id, "semana": semana, "semestre": semestre})
         result = cursor.fetchall()
         return result
