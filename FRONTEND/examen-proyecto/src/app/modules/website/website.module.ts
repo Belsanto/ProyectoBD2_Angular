@@ -8,7 +8,6 @@ import { HorariosComponent } from './pages/horarios/horarios.component';
 import { LoginComponent } from './pages/login/login.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { SharedModule } from '../shared/shared.module';
-import { QuicklinkModule } from 'ngx-quicklink';
 import { FormsModule } from '@angular/forms';
 import { EstudianteComponent } from './pages/estudiante/estudiante.component';
 import { NuevoExamenComponent } from './pages/nuevo-examen/nuevo-examen.component';
@@ -57,8 +56,7 @@ import { ContenidosComponent } from './pages/contenidos/contenidos.component';
     CommonModule,
     WebsiteRoutingModule,
     SharedModule,
-    FormsModule,
-    QuicklinkModule
+    FormsModule
   ]
 })
 export class WebsiteModule { }
