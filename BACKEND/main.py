@@ -15,7 +15,8 @@ app.version = "1.0.1"
 # Configuración de CORS
 origins = [
     "http://localhost",
-    "http://localhost:4200",  # URL de tu aplicación Angular
+    "http://localhost:4200",
+    "https://beltximsoft.netlify.app",  # URL de tu aplicación Angular
 ]
 
 app.add_middleware(
