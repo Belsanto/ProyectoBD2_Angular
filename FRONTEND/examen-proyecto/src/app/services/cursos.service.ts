@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CursosService {
-  private apiUrl = 'http://0e49-181-53-99-60.ngrok-free.app'; // la URL de tu API
+  private apiUrl = 'https://0e49-181-53-99-60.ngrok-free.app'; // la URL de tu API
 
   constructor(private http: HttpClient) { }
 
