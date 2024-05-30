@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class QuestionService {
-  private apiUrl = 'https://8f5d-181-53-99-60.ngrok-free.app/examenes-asignados/preguntas';  // la URL de tu API
+  private apiUrl = 'https://8f5d-181-53-99-60.ngrok-free.app/preguntas';  // la URL de tu API
 
   constructor(private http: HttpClient) {}
 
@@ -40,7 +40,7 @@ export class QuestionService {
 
   getBancoPreguntas(idProfe: number, tema: string | null = null): Observable<any[]> {
     const headers = this.getHeaders();
-    let url = `https://8f5d-181-53-99-60.ngrok-free.app/examenes-asignados/banco_preguntas/${idProfe}`;
+    let url = `https://8f5d-181-53-99-60.ngrok-free.app/banco_preguntas/${idProfe}`;
     if (tema) {
       url += `?tema=${tema}`;
     }
