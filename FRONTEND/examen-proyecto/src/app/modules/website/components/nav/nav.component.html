@@ -35,7 +35,6 @@
         <li><a *ngIf="!isStudentRoute()" routerLinkActive="activo" routerLink="/asignados">MIS EXAMENES</a></li>
         <li><a *ngIf="!isStudentRoute()" routerLinkActive="activo" routerLink="/notas">MIS NOTAS</a></li>
         <li><a *ngIf="!isStudentRoute()" routerLinkActive="activo" routerLink="/mi-horario">MI HORARIO</a></li>
-        <li><a *ngIf="!isStudentRoute()" routerLinkActive="activo" routerLink="/contenidos">CONTENIDOS DE ASIGNATURAS</a></li>
         <li><a *ngIf="!isStudentRoute()" routerLinkActive="activo" routerLink="/contenidos">ASIGNATURAS</a></li>
       </ul>
       <a *ngIf="!isLoginRoute()" class="logOut" (click)="borrarToken()" routerLink="/login">Cerrar Sesión</a>
