@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class EstudiantesServicioService {
 
-  private apiUrl = 'https://0e49-181-53-99-60.ngrok-free.app/examenes-asignados'; // Reemplaza con tu URL de API
+  private apiUrl = 'http://127.0.0.1:8000/examenes-asignados'; // Reemplaza con tu URL de API
 
   constructor(private http: HttpClient) {}
 
@@ -25,7 +25,7 @@ export class EstudiantesServicioService {
 
   getContenidosEstudiante(): Observable<any[]> {
     const headers = this.getHeaders();
-    return this.http.get<any[]>('https://0e49-181-53-99-60.ngrok-free.app/contenidos-estudiante-notas', { headers });
+    return this.http.get<any[]>('http://127.0.0.1:8000/contenidos-estudiante-notas', { headers });
   }
 
 }

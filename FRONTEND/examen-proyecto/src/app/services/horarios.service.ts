@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class HorariosService {
-  private apiUrl = 'https://0e49-181-53-99-60.ngrok-free.app'; // la URL de tu API
+  private apiUrl = 'http://127.0.0.1:8000'; // la URL de tu API
 
   constructor(private http: HttpClient) {}
 
