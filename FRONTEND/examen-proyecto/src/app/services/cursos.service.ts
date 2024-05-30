@@ -18,6 +18,7 @@ export class CursosService {
     if (token) {
       // Crear encabezados con el token de autenticación
       const headers = new HttpHeaders({
+        "ngrok-skip-browser-warning": "69420",
         'Authorization': `Bearer ${token}`
       });
 
