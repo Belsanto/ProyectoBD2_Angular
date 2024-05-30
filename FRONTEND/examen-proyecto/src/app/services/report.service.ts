@@ -13,6 +13,7 @@ export class ReportService {
   private getHeaders(): HttpHeaders {
     const token = localStorage.getItem('authToken');
     return new HttpHeaders({
+        "ngrok-skip-browser-warning": "69420",
       'Authorization': `Bearer ${token}`
     });
   }

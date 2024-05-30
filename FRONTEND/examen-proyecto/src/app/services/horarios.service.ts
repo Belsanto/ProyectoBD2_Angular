@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HorariosService {
-  private apiUrl = 'http://127.0.0.1:8000'; // la URL de tu API
+  private apiUrl = 'https://8f5d-181-53-99-60.ngrok-free.app'; // la URL de tu API
 
   constructor(private http: HttpClient) {}
 
@@ -18,6 +19,7 @@ export class HorariosService {
     if (token) {
       // Crear encabezados con el token de autenticación
       const headers = new HttpHeaders({
+        "ngrok-skip-browser-warning": "69420",
         'Authorization': `Bearer ${token}`
       });
 
@@ -39,6 +41,7 @@ export class HorariosService {
     if (token) {
       // Crear encabezados con el token de autenticación
       const headers = new HttpHeaders({
+        "ngrok-skip-browser-warning": "69420",
         'Authorization': `Bearer ${token}`
       });
 
@@ -60,10 +63,23 @@ export class HorariosService {
     if (token) {
       // Crear encabezados con el token de autenticación
       const headers = new HttpHeaders({
+        "ngrok-skip-browser-warning": "69420",
         'Authorization': `Bearer ${token}`
       });
 
       // Hacer la solicitud HTTP con los encabezados adecuados
+      this.http.post<any>(`${this.apiUrl}/semestres`, { headers })
+      .pipe(
+        map(response => {
+          // Almacenar el token de autenticación en el almacenamiento local
+          console.log(response);
+          return true;
+        }),
+        catchError(error => {
+          console.error('Error de autenticación:', error);
+          return of(false);
+        })
+      );
       return this.http.get<any[]>(`${this.apiUrl}/semestres`, { headers });
     } else {
       // Si no hay token, retorna un observable vacío o maneja el error según sea necesario
