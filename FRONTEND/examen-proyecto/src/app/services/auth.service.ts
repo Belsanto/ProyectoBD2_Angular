@@ -7,32 +7,40 @@ import { catchError, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://8f5d-181-53-99-60.ngrok-free.app'; // la URL de tu API
+  private apiUrl = 'https://8f5d-181-53-99-60.ngrok-free.app'; // backend URL
 
   constructor(private http: HttpClient) {}
 
   login(credentials: { id: number, password: string, is_professor: number }): Observable<boolean> {
-    return this.http.post<any>(`${this.apiUrl}/login`, credentials)
-      .pipe(
-        map(response => {
-          // Almacenar el token de autenticación en el almacenamiento local
-          localStorage.setItem('authToken', response.token);
-          return true;
-        }),
-        catchError(error => {
-          console.error('Error de autenticación:', error);
-          return of(false);
-        })
-      );
+    // 🔹 DEMO LOGIN: admin / admin
+    if (credentials.id.toString() === 'admin' && credentials.password === 'admin') {
+      const fakePayload = {
+        is_professor: credentials.is_professor, // keep same logic (0 = student, 1 = professor)
+        exp: Math.floor(Date.now() / 1000) + (60 * 60) // expires in 1 hour
+      };
+
+      const base64Payload = btoa(JSON.stringify(fakePayload));
+      const fakeToken = `fakeHeader.${base64Payload}.fakeSignature`;
+
+      localStorage.setItem('authToken', fakeToken);
+      return of(true);
+    }
+
+    // 🔹 fallback: call real backend
+    return this.http.post<any>(`${this.apiUrl}/login`, credentials).pipe(
+      map(response => {
+        localStorage.setItem('authToken', response.token);
+        return true;
+      }),
+      catchError(() => of(false))
+    );
   }
 
   logout(): void {
-    // Eliminar el token de autenticación del almacenamiento local
     localStorage.removeItem('authToken');
   }
 
   isAuthenticated(): boolean {
-    // Verificar si el usuario está autenticado comprobando si existe el token en el almacenamiento local
     return !!localStorage.getItem('authToken');
   }
 
@@ -40,9 +48,8 @@ export class AuthService {
     const token = localStorage.getItem('authToken');
     if (token) {
       const tokenPayload = JSON.parse(atob(token.split('.')[1]));
-      return tokenPayload.is_professor; // Devuelve 0 si es estudiante, 1 si es profesor
+      return tokenPayload.is_professor;
     }
-    return null; // Devuelve null si no hay token
+    return null;
   }
-
 }
